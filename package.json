@@ -1,0 +1,19 @@
+{
+  "name": "tenchikho-qg",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TENCHIKO QG e bot Discord com arquivos diretamente na raiz do repositório.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "deploy:commands": "node deploy-commands.js",
+    "check": "node --check index.js && node --check deploy-commands.js && node --check core__aiRouter.js && node --check core__permissions.js && node --check core__tasks.js && node --check commands__trabalho.js"
+  },
+  "engines": { "node": ">=20.0.0" },
+  "dependencies": {
+    "discord.js": "^14.22.1",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "openai": "^5.12.2"
+  }
+}
