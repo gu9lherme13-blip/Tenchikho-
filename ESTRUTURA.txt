@@ -1,0 +1,21 @@
+TENCHIKO-QG-PACOTE/
+├── README.md
+├── ESTRUTURA.txt
+├── QG-NVB/
+│   └── QG-NVB-SITE-ORIGINAL.zip  (preservado sem alterações)
+└── TENCHIKO/
+    ├── .env.example
+    ├── .gitignore
+    ├── package.json
+    ├── render.yaml
+    ├── README.md
+    └── src/
+        ├── index.js
+        ├── deploy-commands.js
+        ├── commands/trabalho.js
+        └── core/
+            ├── aiRouter.js
+            ├── config.js
+            ├── logger.js
+            ├── permissions.js
+            └── tasks.js
