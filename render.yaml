@@ -1,0 +1,31 @@
+# Blueprint OPCIONAL do Render (usar só em "New > Blueprint" para criar um serviço NOVO).
+# Se você já tem um serviço criado manualmente, NÃO precisa deste arquivo: ajuste o serviço no painel (veja docs/DEPLOY-RENDER.md).
+# Atenção: se o nome abaixo for igual ao de um serviço existente, o Render tenta aplicar esta configuração a ele.
+services:
+  - type: web
+    name: tenchiko-bloodline
+    runtime: node
+    plan: starter            # disco persistente exige plano pago; no plano free os dados somem a cada deploy
+    buildCommand: npm install --omit=dev
+    startCommand: npm start
+    healthCheckPath: /health
+    disk:
+      name: tenchiko-dados
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: DATA_DIR
+        value: /var/data
+      # Segredos: o Render pede o valor na criação (nunca coloque valores aqui).
+      - key: DISCORD_TOKEN
+        sync: false
+      - key: CLIENT_ID
+        sync: false
+      - key: DISCORD_CLIENT_SECRET
+        sync: false
+      - key: GUILD_ID
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Tenchiko Bloodline • Painel de Controle</title>
+<meta name="description" content="Painel de controle do Tenchiko Bloodline: gerencie recursos do seu servidor Discord em um só lugar.">
+<meta name="theme-color" content="#08060d">
+<meta name="color-scheme" content="dark">
+<link rel="stylesheet" href="nvb-painel.css">
+</head>
+<body>
+<div class="pv-top"><button class="pv-ham" id="pvHam" aria-label="Abrir menu">☰</button><div class="pv-brand">🦇 TENCHIKO<small>PAINEL DE CONTROLE</small></div><span class="pv-spacer"></span><span id="pvTopUser"></span></div>
+<div class="pv-overlay" id="pvOverlay"></div>
+<aside class="pv-side" id="pvSide">
+  <div class="pv-side-h"><div class="pv-logo">🦇 TENCHIKO<small>BLOODLINE</small></div><button class="pv-x" id="pvSideClose" aria-label="Fechar menu">×</button></div>
+  <div class="pv-mini" id="pvUserCard"><a class="btn primary" href="/auth/discord">🔐 Entrar com Discord</a></div>
+  <div class="pv-mini" id="pvBotCard"><small class="muted">Selecione um servidor em <b>Servidores</b>.</small></div>
+  <div class="pv-sec">◆ CENTRAL DE CONTROLE</div>
+  <button class="pv-item" data-tela="overview"><span>🏠</span>Painel de controle</button>
+  <button class="pv-item" data-tela="servers"><span>🗄️</span>Servidores</button>
+  <button class="pv-item" data-tela="roles"><span>🧩</span>Funções</button>
+  <div class="pv-sec">✦ RECURSOS DO BOT</div>
+  <button class="pv-item" data-tela="autocargos"><span>🎭</span>Auto Cargos</button>
+  <button class="pv-item" data-tela="boasvindas"><span>👋</span>Boas-vindas</button>
+  <button class="pv-item" data-tela="tickets"><span>🎫</span>Tickets</button>
+  <button class="pv-item" data-tela="ia"><span>🤖</span>Tenchiko.IA</button>
+  <button class="pv-item" data-tela="games"><span>🎮</span>Games</button>
+  <button class="pv-item" data-tela="diag"><span>🩺</span>Diagnóstico</button>
+  <div class="pv-sec">CONTA E SUPORTE</div>
+  <button class="pv-item" data-tela="commands"><span>📖</span>Comandos</button>
+  <div class="pv-item" style="cursor:default"><span>🌐</span>Idioma<span class="pv-pill">Português</span></div>
+  <a class="pv-invite" id="pvInvite" target="_blank" rel="noopener" href="#">➕ Convidar bot</a>
+  <button class="pv-item" id="pvLogout" style="display:none"><span>🚪</span>Sair</button>
+</aside>
+<nav class="pv-bottom" aria-label="Navegação">
+  <button data-nav="home"><span>🏠</span>Início</button><button data-nav="roles"><span>🧩</span>Funções</button><button data-nav="servers"><span>🗄️</span>Servidores</button><button data-nav="menu"><span>▦</span>Menu</button>
+</nav>
+<main class="wrap">
+  <section id="home" class="screen active"></section>
+  <section id="overview" class="screen"></section>
+  <section id="servers" class="screen"></section>
+  <section id="roles" class="screen"></section>
+  <section id="autocargos" class="screen"></section>
+  <section id="boasvindas" class="screen"></section>
+  <section id="tickets" class="screen"></section>
+  <section id="diag" class="screen"></section>
+  <section id="ia" class="screen"></section>
+  <section id="games" class="screen"></section>
+  <section id="commands" class="screen"></section>
+</main>
+<script>
+function go(id){document.querySelectorAll('.screen').forEach(function(x){x.classList.remove('active')});var el=document.getElementById(id);if(el)el.classList.add('active');if(window.NVBPainel)window.NVBPainel.onGo(id);window.scrollTo({top:0,behavior:'smooth'})}
+function toast(m){var t=document.createElement('div');t.className='toast';t.textContent=m;document.body.append(t);setTimeout(function(){t.remove()},3200)}
+</script>
+<script src="nvb-painel.js"></script>
+</body>
+</html>
