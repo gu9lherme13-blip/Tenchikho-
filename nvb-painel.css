@@ -1,0 +1,159 @@
+/* 🦇 TENCHIKO BLOODLINE — tema vampírico premium: preto, roxo e prata */
+:root{--bg:#08060d;--panel:#100b17;--panel2:#171020;--line:#352344;--purple:#8b5cf6;--violet:#c4b5fd;--blue:#a78bfa;--green:#c4b5fd;--text:#f8f6fb;--muted:#aaa3b4;--danger:#fb7185;--glow:#8b5cf633}
+html,body{background:var(--bg)}
+body{color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:
+  radial-gradient(900px 520px at 85% -10%,#7c3aed36,transparent 60%),radial-gradient(700px 480px at -10% 30%,#a78bfa13,transparent 60%),radial-gradient(600px 400px at 60% 110%,#c0b8d510,transparent 60%),var(--bg);min-height:100vh}
+body .wrap{max-width:980px;padding:76px 16px 110px}
+.card{background:linear-gradient(180deg,#ffffff0b,#ffffff05);border:1px solid #ffffff17;border-radius:20px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 18px 50px #0006}
+.btn{border-radius:14px;border:1px solid #ffffff1c;background:#ffffff0d;padding:12px 16px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;color:#fff;cursor:pointer}
+.btn.primary,.primary{background:linear-gradient(135deg,#7c3aed,#c026d3);border-color:#a78bfa66;box-shadow:0 8px 28px #7c3aed55}
+.btn.blue,.blue{background:linear-gradient(135deg,#4c1d95,#7c3aed);border-color:#a78bfa66}.btn.green,.green{background:linear-gradient(135deg,#059669,#34d399);border-color:#34d39966;color:#04130d}
+.btn.danger,.danger{background:#7f1d2d;border-color:#fb5a7a66}.btn:disabled{opacity:.5}
+.input,input.input,select.input,textarea.input{background:#07040f;border:1px solid #3a2358;color:#fff;border-radius:12px;padding:12px;width:100%;font-size:15px}
+.notice{background:#facc1514;border:1px solid #facc1544;border-radius:14px;padding:12px;margin:10px 0;color:#fde68a;font-size:14px}.muted{color:var(--muted)}
+.hero{background:linear-gradient(160deg,#ffffff0d,#ffffff03);border:1px solid #ffffff17;border-radius:26px;padding:28px 22px;margin-bottom:18px}
+.hero h1{font-size:clamp(30px,7vw,48px);line-height:1.05;margin:0 0 10px;background:linear-gradient(90deg,#fff,#c4b5fd 60%,#f0abfc);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .kicker{display:inline-block;color:#e879f9;font-weight:900;letter-spacing:2px;font-size:12px;margin-bottom:8px}
+.hero .nav{flex-wrap:wrap;overflow:visible}.grid{gap:14px}
+
+/* barra do topo */
+.pv-top{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;gap:10px;padding:10px 14px;padding-top:max(10px,env(safe-area-inset-top));background:#06040cdd;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid #ffffff12}
+.pv-ham{width:44px;height:44px;border-radius:13px;border:1px solid #ffffff1c;background:#ffffff0d;color:#fff;font-size:22px;cursor:pointer}
+.pv-brand{font-weight:900;letter-spacing:.5px;display:flex;flex-direction:column;line-height:1.1}.pv-brand small{color:var(--muted);font-weight:500;font-size:11px;letter-spacing:0}.pv-spacer{flex:1}
+.pv-av{width:42px;height:42px;border-radius:50%;border:2px solid #a78bfa88;object-fit:cover}.pv-av.sm{width:36px;height:36px}
+
+/* menu lateral */
+.pv-side{position:fixed;z-index:60;top:0;bottom:0;left:0;width:min(86vw,320px);background:linear-gradient(180deg,#160c27,#07040f);border-right:1px solid #ffffff14;transform:translateX(-102%);transition:transform .22s ease;overflow-y:auto;padding:16px;padding-top:max(16px,env(safe-area-inset-top))}
+.pv-side.open{transform:none;box-shadow:0 0 80px #000}
+.pv-overlay{position:fixed;inset:0;z-index:55;background:#000a;opacity:0;pointer-events:none;transition:opacity .2s}.pv-overlay.open{opacity:1;pointer-events:auto}
+.pv-side-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.pv-logo{font-size:22px;font-weight:900}.pv-logo small{display:block;font-size:11px;color:var(--violet);letter-spacing:3px}
+.pv-x{background:none;border:0;color:var(--violet);font-size:28px;cursor:pointer}
+.pv-mini{display:flex;align-items:center;gap:12px;background:#ffffff0a;border:1px solid #ffffff14;border-radius:18px;padding:12px;margin-bottom:12px;min-height:66px}.pv-mini small{display:block;color:var(--violet)}
+.pv-sec{color:var(--muted);font-size:11px;font-weight:800;letter-spacing:1.5px;margin:18px 6px 6px}
+.pv-item{display:flex;align-items:center;gap:12px;width:100%;background:none;border:0;color:var(--text);padding:13px 12px;border-radius:14px;font-size:16px;font-weight:600;cursor:pointer;text-align:left}
+.pv-item span{width:28px;text-align:center;font-size:19px}.pv-item:hover,.pv-item.on{background:#8b5cf622;color:#fff}
+
+/* barra inferior (celular) */
+.pv-bottom{position:fixed;z-index:50;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));display:flex;justify-content:space-around;background:#0c0716ee;border:1px solid #ffffff1a;border-radius:24px;padding:8px 6px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 12px 50px #000a}
+.pv-bottom button{background:none;border:0;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:12px;font-weight:700;padding:6px 14px;border-radius:16px;cursor:pointer}.pv-bottom button span{font-size:22px}
+.pv-bottom button.on{color:#fff;background:#8b5cf62b}
+
+/* telas do painel */
+.pv-list{display:grid;gap:12px}.pv-row{display:flex;align-items:center;gap:14px}.pv-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px}
+.pv-gi{width:52px;height:52px;border-radius:16px;object-fit:cover;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#4c1d95,#26202f);font-weight:900;font-size:22px}
+.pv-server{display:flex;align-items:center;gap:14px;padding:14px}.pv-server.on{border-color:#a78bfa88;box-shadow:0 0 0 1px #8b5cf633,0 18px 50px #0006}.pv-server-i{flex:1;min-width:0}.pv-server-i b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pv-server-i small{color:var(--muted)}
+.pv-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#64748b;margin-right:4px}.pv-dot.on{background:#c4b5fd;box-shadow:0 0 10px #a78bfa}
+.pv-hero{padding:20px}.pv-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}.pv-stat{text-align:center;padding:14px 8px}.pv-stat b{font-size:26px;display:block}.pv-stat small{color:var(--muted)}
+.pv-panel{margin:10px 0;padding:16px}.pv-panel-h{display:flex;align-items:center;justify-content:space-between;gap:8px}.pill{background:#8b5cf62b;border:1px solid #8b5cf655;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700}
+.pv-chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}.pv-chip{background:#ffffff0d;border:1px solid #ffffff17;border-radius:999px;padding:4px 10px;font-size:12px}.pv-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.pv-menu{display:grid;gap:8px}.pv-menu .btn{justify-content:flex-start}
+
+/* editor de painel */
+.pv-modal{position:fixed;inset:0;z-index:90;background:#000b;overflow-y:auto;-webkit-overflow-scrolling:touch}.pv-modal-b{display:flex;justify-content:center;padding:14px;min-height:100%}
+.pv-modal-c{background:#0f0919;border:1px solid #ffffff1c;border-radius:22px;padding:18px;width:min(640px,100%);align-self:flex-start;margin:20px 0}.pv-modal-c .label{display:grid;gap:6px;margin:10px 0;font-size:13px;color:#cdbfda}
+.pv-roles{display:grid;gap:8px;max-height:46vh;overflow:auto;padding:4px}.pv-role{background:#ffffff08;border:1px solid #ffffff14;border-radius:14px;padding:10px}.pv-check{display:flex;align-items:center;gap:8px;font-weight:700}.pv-check input{width:20px;height:20px;accent-color:#8b5cf6}
+.pv-swatch{width:12px;height:12px;border-radius:50%;display:inline-block}.pv-role-f{display:grid;grid-template-columns:1fr 90px;gap:6px;margin-top:8px}.pv-role-f input:nth-child(3){grid-column:1/-1}
+
+/* computador: menu lateral fixo */
+@media (min-width:980px){
+  .pv-side{transform:none;box-shadow:none;z-index:45}.pv-ham,.pv-bottom,.pv-x,.pv-overlay{display:none}
+  .pv-top{left:320px}body .wrap{margin-left:340px;margin-right:auto;padding-bottom:40px}
+}
+@media (max-width:520px){.pv-stats{grid-template-columns:1fr 1fr 1fr}.pv-stat b{font-size:22px}.pv-bar{flex-wrap:wrap}}
+
+/* ===== base (página independente) ===== */
+*{box-sizing:border-box}body{margin:0}.screen{display:none}.screen.active{display:block}
+.wrap{max-width:980px;margin:0 auto}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.card{padding:18px}.icon{font-size:30px;margin-bottom:6px}.label{display:grid;gap:6px;margin:10px 0;font-size:13px;color:#cdbfda}h2{margin:14px 0 8px;font-size:26px}h3{margin:16px 0 8px}a{color:var(--violet)}
+.btn{font-size:15px}.toast{position:fixed;left:50%;top:72px;transform:translateX(-50%);z-index:120;background:#000d;border:1px solid #ffffff22;padding:12px 16px;border-radius:14px;max-width:92%;text-align:center}
+.pv-feature p{color:var(--muted);margin:4px 0 0}.pv-form{display:grid;gap:4px;padding:18px}.pv-form .pv-check{padding:6px 0}
+/* ===== painel de controle ===== */
+.pv-switch{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;margin-bottom:12px}.pv-switch-l{display:grid;gap:4px;flex:1;min-width:0;font-size:12px;color:var(--muted)}.pv-switch-l .input{font-weight:700;font-size:16px}
+.pv-bot{display:flex;align-items:center;font-weight:800;color:var(--green);white-space:nowrap;font-size:14px}
+.pv-greet{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:22px;background:linear-gradient(135deg,#7c3aed2b,#c0b8d50a);overflow:hidden}.pv-greet h2{margin:0 0 8px;font-size:30px}.pv-greet p{margin:0;font-size:16px;line-height:1.5}.pv-mascot{font-size:76px;filter:drop-shadow(0 0 24px #a78bfa)}
+.pv-stats{grid-template-columns:repeat(4,1fr)}.pv-stat{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:16px;text-align:left}.pv-stat-ic{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#7c3aed,#30263b);display:inline-flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:6px}
+.pv-stat b{font-size:26px}.pv-stat b.ok{color:var(--green)}.pv-stat b.bad{color:var(--danger)}.pv-stat small{color:var(--muted)}
+.pv-quick{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.pv-q{display:flex;flex-direction:column;align-items:center;gap:10px;padding:22px 10px;color:#fff;cursor:pointer;font-size:16px}.pv-q span{width:60px;height:60px;border-radius:18px;background:linear-gradient(135deg,#4c1d95,#8b5cf6);display:inline-flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 8px 26px #7c3aed55}
+.pv-fn{display:grid;gap:14px;padding:16px}.pv-fn-top{display:flex;align-items:center;gap:14px}.pv-fn-ic{width:62px;height:62px;border-radius:18px;background:linear-gradient(135deg,#5b21b6,#7c3aed);display:inline-flex;align-items:center;justify-content:center;font-size:30px;flex:0 0 auto;border:1px solid #a78bfa55}
+.pv-fn:nth-child(3n+2) .pv-fn-ic{background:linear-gradient(135deg,#352044,#5b3477)}.pv-fn:nth-child(3n) .pv-fn-ic{background:linear-gradient(135deg,#24202d,#4b3c5d)}.pv-fn-t{flex:1;min-width:0}.pv-fn-t b{display:block;font-size:19px}.pv-fn-t small{color:var(--violet)}
+.pill.on{background:#34d3991f;border-color:#34d39966;color:#6ee7b7}
+.pv-dg{display:flex;gap:12px;padding:14px;align-items:flex-start}.pv-dg span{font-size:20px}.pv-dg b{display:block}.pv-dg small{display:block;color:var(--muted);margin-top:2px;line-height:1.4}.pv-dg.erro{border-color:#fb5a7a66}.pv-dg.aviso{border-color:#facc1555}
+.pv-pill{display:inline-block;background:#facc151f;border:1px solid #facc1555;color:#fde68a;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700}.pv-item .pv-pill,.pv-item .pill{margin-left:auto}
+.pv-invite{display:flex;align-items:center;justify-content:center;gap:8px;margin:16px 0 6px;padding:14px;border:1px solid #8b5cf688;border-radius:16px;color:#fff;font-weight:800;text-decoration:none;background:#8b5cf614}
+@media (max-width:640px){.pv-stats{grid-template-columns:1fr 1fr}.pv-greet h2{font-size:24px}.pv-mascot{font-size:54px}}
+
+
+/* Polimento premium e ajustes de usabilidade do Tenchiko Bloodline */
+:root{scroll-behavior:smooth; color-scheme:dark}
+::selection{background:#8b5cf6;color:#fff}
+button,a,input,select,textarea{font:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #c4b5fd;outline-offset:3px}
+.pv-top{background:#08060df0;border-bottom-color:#a78bfa22}
+.pv-brand small{letter-spacing:1.2px;text-transform:uppercase;color:#c4b5fd}
+.pv-logo small{color:#c4b5fd}
+.pv-item:hover,.pv-item.on,.pv-bottom button.on{background:#8b5cf626}
+.pv-sec{color:#c4b5fd}
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#171020ed,#0d0913f2 65%,#211331cc);border-color:#a78bfa30;box-shadow:0 24px 80px #0008,inset 0 1px #ffffff0a}
+.hero:after{content:"";position:absolute;width:220px;height:220px;right:-80px;top:-95px;border-radius:50%;border:1px solid #c4b5fd1c;box-shadow:0 0 0 24px #c4b5fd07,0 0 0 48px #c4b5fd05;pointer-events:none}
+.hero .kicker{color:#d8b4fe;letter-spacing:2.2px}
+.hero .nav{display:flex;gap:10px;margin-top:18px}
+.pv-home-intro{margin:24px 0 12px}
+.pv-home-label{font-size:11px;font-weight:900;letter-spacing:2px;color:#c4b5fd}
+.pv-home-intro h2{margin:6px 0;font-size:clamp(23px,4vw,30px)}
+.pv-home-intro p{line-height:1.55;margin-top:4px}
+.pv-feature{position:relative;overflow:hidden;transition:transform .18s ease,border-color .18s ease,background .18s ease;border-color:#ffffff14}
+.pv-feature:hover{transform:translateY(-3px);border-color:#a78bfa55;background:linear-gradient(180deg,#a78bfa12,#ffffff05)}
+.pv-feature .icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;border:1px solid #a78bfa2b;border-radius:15px;background:linear-gradient(135deg,#8b5cf62b,#c4b5fd0a);font-size:25px}
+.card{border-color:#c4b5fd1b}
+.btn{transition:transform .16s ease,filter .16s ease,border-color .16s ease}
+.btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn.primary,.primary{background:linear-gradient(135deg,#5b21b6,#8b5cf6 62%,#a78bfa);border-color:#c4b5fd55;box-shadow:0 8px 28px #7c3aed35}
+.btn.blue,.blue{background:linear-gradient(135deg,#4c1d95,#7c3aed);border-color:#a78bfa55}
+.pv-bot{color:#d8b4fe}
+.pv-stat-ic{border:1px solid #c4b5fd25}
+.pill.on{background:#a78bfa1a;border-color:#a78bfa55;color:#ddd6fe}
+.pv-invite{border-color:#a78bfa55;background:#8b5cf614}
+.pv-side{background:linear-gradient(180deg,#171020,#08060d 72%);border-right-color:#c4b5fd1d}
+.pv-bottom{background:#100b17f5;border-color:#c4b5fd25}
+.pv-modal-c{background:#100b17;border-color:#c4b5fd2b}
+@media (min-width:980px){body .wrap{max-width:1120px;padding-top:92px}.pv-top{padding-left:22px}.hero{padding:36px 34px}.pv-side{width:292px}.pv-top{left:292px}body .wrap{margin-left:312px}}
+@media (max-width:640px){body .wrap{padding:76px 12px 112px}.hero{padding:24px 18px;border-radius:22px}.hero h1{font-size:clamp(29px,9vw,40px)}.hero .nav .btn{width:100%}.pv-switch{align-items:stretch;flex-direction:column}.pv-bot{font-size:13px}.pv-server{align-items:flex-start;flex-wrap:wrap}.pv-server .btn{width:100%}.pv-quick{grid-template-columns:repeat(2,minmax(0,1fr))}.pv-q{min-width:0}.pv-stats{gap:8px}.pv-stat{padding:12px}.pv-stat b{font-size:21px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+/* Landing premium inspirado na referência enviada — responsivo e sem imagens externas */
+.pv-landing{padding:28px 24px 22px;min-height:560px;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(ellipse at 90% 15%,#a855f744,transparent 35%),radial-gradient(ellipse at 15% 85%,#4338ca30,transparent 45%),linear-gradient(145deg,#090712 0%,#15102b 56%,#24113b 100%);border:1px solid #b45aff40;box-shadow:0 25px 90px #6d28d933,inset 0 1px #ffffff14}
+.pv-landing:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#c4b5fd08 1px,transparent 1px),linear-gradient(90deg,#c4b5fd08 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent);pointer-events:none}
+.pv-landing-brand{display:flex;align-items:center;gap:14px;margin-bottom:48px;position:relative}.pv-bat{width:78px;height:78px;display:grid;place-items:center;border-radius:50%;border:2px solid #c084fc;background:linear-gradient(145deg,#241238,#090711);font-size:42px;box-shadow:0 0 34px #a855f755}.pv-wordmark{font-size:clamp(28px,6vw,44px);font-weight:1000;letter-spacing:-1.5px;line-height:1}.pv-submark{color:#e879f9;font-weight:900;font-size:13px;margin-top:5px;letter-spacing:3px}.pv-landing .kicker{font-size:clamp(12px,2.8vw,16px);line-height:1.5;max-width:520px;margin-bottom:18px}.pv-landing h1{font-size:clamp(38px,8vw,68px);letter-spacing:-2.6px;line-height:.99;max-width:780px;margin:0 0 22px;color:#fff;background:none;-webkit-text-fill-color:#fff}.pv-landing-copy{font-size:clamp(16px,3.4vw,21px);line-height:1.65;max-width:650px;color:#d2cddd;margin:0}.pv-landing .nav{display:grid;grid-template-columns:1fr;gap:12px;margin-top:32px;max-width:640px}.pv-cta{min-height:64px;width:100%;border-radius:19px;font-size:clamp(16px,3.4vw,20px);font-weight:900}.pv-cta-outline{background:#080611a8;border:1.5px solid #d946ef;color:#fff;box-shadow:inset 0 1px #ffffff0a}.pv-landing-foot{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:30px;color:#b8a9cc;font-size:10px;font-weight:800;letter-spacing:1.2px}.pv-feature-grid{margin-bottom:26px}.pv-feature{position:relative;overflow:hidden;border-color:#a78bfa24;background:linear-gradient(150deg,#ffffff0c,#120b1d 80%)}.pv-feature-icon{width:52px;height:52px;display:grid;place-items:center;border-radius:16px;background:linear-gradient(140deg,#7c3aed,#c026d3);font-size:25px;box-shadow:0 8px 24px #7c3aed35}.pv-card-link{margin-top:12px}.pv-coming{display:inline-flex;margin-top:12px;color:#d8b4fe;background:#a855f71a;border:1px solid #a855f744;border-radius:10px;padding:7px 9px;font-size:12px;font-weight:700}.pv-home-intro{margin:30px 0 16px}.pv-home-label{font-size:11px;letter-spacing:2px;color:#e879f9;font-weight:900}.pv-home-intro h2{font-size:clamp(25px,5vw,36px);letter-spacing:-.7px}.pv-home-intro p{line-height:1.6}
+@media(min-width:700px){.pv-landing{padding:46px;min-height:620px}.pv-landing .nav{grid-template-columns:1fr 1fr}.pv-landing-brand{margin-bottom:60px}.pv-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){.pv-landing{padding:22px 18px}.pv-landing-brand{margin-bottom:36px}.pv-bat{width:66px;height:66px;font-size:34px}.pv-landing h1{letter-spacing:-1.5px}.pv-landing-foot{font-size:9px;letter-spacing:.6px}}
+
+/* Refinos da identidade Tenchikho Bloodline */
+.pv-landing{position:relative;overflow:hidden;border:1px solid rgba(167,139,250,.3);background:radial-gradient(ellipse at 50% 0%,rgba(109,40,217,.24),transparent 55%),linear-gradient(145deg,#10091b 0%,#08060d 62%,#171020 100%);box-shadow:0 22px 70px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.05)}
+.pv-landing:before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 15%,rgba(196,181,253,.035) 48%,transparent 75%)}
+.pv-landing-brand{position:relative;gap:15px}.pv-bat{display:grid;place-items:center;width:72px;height:72px;border-radius:50%;border:1px solid rgba(196,181,253,.42);background:linear-gradient(145deg,#2b1644,#100b18);box-shadow:0 0 35px rgba(139,92,246,.22);font-size:36px}.pv-wordmark{letter-spacing:.12em;text-shadow:0 0 25px rgba(167,139,250,.28)}
+.pv-landing h1{max-width:850px;text-wrap:balance}.pv-landing-copy{max-width:680px}.pv-cta{min-height:48px;padding:13px 20px!important;border-radius:12px!important;font-weight:750!important;box-shadow:0 8px 26px rgba(124,58,237,.14)}.pv-cta-outline{border:1px solid rgba(196,181,253,.42)!important;background:rgba(255,255,255,.025)!important}.pv-feature{transition:transform .18s ease,border-color .18s ease}.pv-feature:hover{transform:translateY(-3px);border-color:rgba(167,139,250,.4)}.pv-feature-icon{filter:drop-shadow(0 0 12px rgba(167,139,250,.18))}.pv-home-label{letter-spacing:.18em}.pv-landing-foot{border-top:1px solid rgba(196,181,253,.12)}
+.pv-side-h .pv-logo{letter-spacing:.08em}.pv-sec{letter-spacing:.07em}
+@media(max-width:600px){.pv-landing{padding:24px 18px!important}.pv-bat{width:58px;height:58px;font-size:29px}.pv-landing-brand{gap:11px}.pv-wordmark{font-size:1.35rem}.pv-landing .nav{display:flex;flex-direction:column;gap:10px}.pv-cta{width:100%;justify-content:center}.pv-landing-foot{gap:8px;flex-wrap:wrap}}
+
+.pv-bot-logo{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}.pv-brand-bat{display:inline-grid;place-items:center;vertical-align:middle;margin-right:5px;color:#c4b5fd}
+
+/* Loja do site Tenchiko Bloodline — apenas interface visual, sem comandos do bot */
+.store-hero{padding:26px;margin-bottom:24px;background:radial-gradient(circle at 90% 10%,#8b5cf633,transparent 42%),linear-gradient(145deg,#171020,#0b0711);border-color:#a78bfa45}.store-mark{font-size:42px;filter:drop-shadow(0 0 18px #a78bfa)}.store-kicker{display:block;color:#c4b5fd;font-size:11px;font-weight:900;letter-spacing:2px;margin-top:8px}.store-hero h2{font-size:clamp(30px,6vw,42px);margin:7px 0}.store-hero p{max-width:650px;line-height:1.6;color:var(--muted)}.store-balance{display:grid;gap:4px;margin-top:20px;padding:14px;border:1px solid #a78bfa33;background:#8b5cf610;border-radius:16px;max-width:420px}.store-balance span,.store-balance small{color:var(--muted);font-size:12px}.store-balance b{font-size:20px;color:#ddd6fe}.store-section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:26px 0 14px}.store-section-head h2{margin:4px 0 0}.store-grid,.store-plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.store-item{padding:16px;min-width:0}.store-art{height:110px;display:flex;align-items:center;justify-content:center;border-radius:16px;margin-bottom:14px;font-size:54px;color:#ddd6fe;background:radial-gradient(circle,#8b5cf644,transparent 65%),linear-gradient(145deg,#211331,#0c0812);border:1px solid #a78bfa22;text-shadow:0 0 24px #a78bfa}.store-art.crest,.store-art.relic-art{color:#cbd5e1;background:radial-gradient(circle,#c4b5fd30,transparent 65%),linear-gradient(145deg,#211b2b,#0c0812)}.store-art.crown-art{color:#e9d5ff}.store-art.potion-art{color:#d8b4fe}.store-rarity{display:inline-block;font-size:10px;font-weight:900;letter-spacing:1.2px;padding:5px 8px;border-radius:999px;margin-bottom:8px}.store-rarity.common{color:#d4d4d8;background:#a1a1aa16;border:1px solid #a1a1aa35}.store-rarity.rare{color:#c4b5fd;background:#8b5cf61c;border:1px solid #a78bfa44}.store-rarity.epic{color:#e9d5ff;background:#c026d31c;border:1px solid #d8b4fe44}.store-rarity.legendary{color:#f5d0fe;background:#a21caf24;border:1px solid #e879f955}.store-item h3,.store-plan h3{margin:3px 0 8px}.store-item p,.store-plan p,.store-plan li{font-size:13px;color:var(--muted);line-height:1.5}.store-buy{display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid #ffffff12;padding-top:12px;margin-top:14px}.store-buy b{color:#ddd6fe;font-size:17px}.store-buy b small{font-size:12px}.store-buy .btn,.store-plan .btn{font-size:12px;padding:9px 12px}.store-buy .btn:disabled,.store-plan .btn:disabled{opacity:.65;cursor:not-allowed}.store-plan{padding:18px;display:flex;flex-direction:column;align-items:flex-start}.store-plan.featured{border-color:#a78bfa88;box-shadow:0 0 0 1px #8b5cf622,0 18px 50px #0005}.store-price{font-size:28px;font-weight:900;color:#fff;margin:5px 0}.store-price small{font-size:13px;color:var(--muted);font-weight:500}.store-plan ul{padding-left:18px;margin:6px 0 18px}.store-plan .btn{margin-top:auto;width:100%}.store-plan p{margin:4px 0 8px}@media(max-width:520px){.store-hero{padding:21px}.store-section-head{align-items:center}.store-grid,.store-plans{grid-template-columns:1fr 1fr;gap:9px}.store-item,.store-plan{padding:12px}.store-art{height:90px;font-size:42px}.store-item h3,.store-plan h3{font-size:15px}.store-item p,.store-plan p,.store-plan li{font-size:12px}.store-buy{align-items:flex-start;flex-direction:column}.store-buy .btn{width:100%}.store-price{font-size:22px}}@media(max-width:360px){.store-grid,.store-plans{grid-template-columns:1fr}}
+
+/* Identidade premium Tenchiko Bloodline: molduras góticas discretas e editor responsivo */
+:root{--tenchiko-violet:#a78bfa;--tenchiko-deep:#100a18;--tenchiko-silver:#c7c3d1}
+.pv-brand,.pv-logo{letter-spacing:1.6px;text-shadow:0 0 22px #8b5cf633}
+.pv-side{background:radial-gradient(ellipse at 20% 0%,#32164c 0%,transparent 40%),linear-gradient(180deg,#100a18,#07050b 78%);border-right:1px solid #a78bfa36}
+.card{border-color:#a78bfa24;box-shadow:0 16px 44px #0007, inset 0 1px #ffffff08}
+.card h2,.card h3{letter-spacing:.15px}
+.pv-item.on{box-shadow:inset 3px 0 0 #b58aff,0 0 24px #8b5cf61a}
+.pv-language{cursor:default;gap:8px}
+.pv-language-label{width:auto!important;flex:1;text-align:left;font-size:15px}
+.pv-lang-select{max-width:145px;min-width:0;background:#171020;color:#eee8f8;border:1px solid #a78bfa55;border-radius:10px;padding:8px 7px;font:inherit;font-size:12px;outline:none}
+.pv-lang-select:focus{border-color:#c4a5ff;box-shadow:0 0 0 3px #a78bfa22}
+#tickets h2{font-weight:800;letter-spacing:.2px}
+#tickets .pv-form{background:linear-gradient(145deg,#171020,#0c0911);border:1px solid #a78bfa35;position:relative;overflow:hidden}
+#tickets .pv-form:before{content:"";display:block;height:2px;position:absolute;top:0;left:0;right:0;background:linear-gradient(90deg,transparent,#8b5cf6,#d8b4fe,transparent)}
+#tickets .input{background:#0d0a12;border-color:#ffffff20}
+#tickets .btn.primary{background:linear-gradient(135deg,#7c3aed,#5b21b6);box-shadow:0 5px 20px #7c3aed30}
+@media(max-width:600px){.pv-lang-select{max-width:132px;font-size:11px}.pv-language{padding:10px 8px}}
