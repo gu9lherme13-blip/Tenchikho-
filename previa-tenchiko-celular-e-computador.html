@@ -1,0 +1,1149 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prévia · Tenchikho Bloodline</title>
+<style>
+ body{margin:0;background:#020104;color:#e9e4f3;font-family:system-ui,Segoe UI,Roboto,sans-serif;padding:28px 18px}
+ h1{font-family:Georgia,serif;letter-spacing:.14em;font-size:20px;margin:0 0 4px;color:#d9dde8}
+ p.aviso{color:#9a93a8;font-size:13px;margin:0 0 22px}
+ .linha{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}
+ .rotulo{font-size:11px;letter-spacing:.2em;color:#c4b5fd;font-weight:700;margin-bottom:8px;text-transform:uppercase}
+ .celular{width:390px;height:844px;border-radius:44px;border:10px solid #15101f;box-shadow:0 0 0 1px rgba(167,139,250,.35),0 30px 80px rgba(124,58,237,.25);overflow:hidden;background:#040307}
+ .computador-wrap{width:100%;overflow-x:auto;padding-bottom:6px}.computador{width:1100px;height:760px;flex:0 0 1100px;border-radius:18px;border:1px solid rgba(167,139,250,.35);box-shadow:0 30px 80px rgba(124,58,237,.2);overflow:hidden;background:#040307}
+ iframe{width:100%;height:100%;border:0;display:block}
+</style></head><body>
+<h1>TENCHIKHO BLOODLINE · PRÉVIA</h1>
+<p class="aviso">Dados de exemplo, não são do seu servidor. Os botões não funcionam nesta prévia (ela não carrega o JavaScript do painel).</p>
+<div class="linha">
+  <div><div class="rotulo">Celular · 390 px</div><div class="celular"><iframe title="Versão celular" srcdoc="<!doctype html>
+<html lang=&quot;pt-BR&quot;>
+<head>
+<meta charset=&quot;utf-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1,viewport-fit=cover&quot;>
+<title>Tenchikho Bloodline • Painel de Controle</title>
+<meta name=&quot;description&quot; content=&quot;Painel de controle do Tenchikho Bloodline: gerencie recursos do seu servidor Discord em um só lugar.&quot;>
+<meta name=&quot;theme-color&quot; content=&quot;#040307&quot;>
+<meta name=&quot;color-scheme&quot; content=&quot;dark&quot;>
+<style>/* 🦇 TENCHIKHO BLOODLINE — identidade gótica premium: preto profundo, roxo vampírico e prata.
+   Um único arquivo, sem fontes externas (usa fontes do sistema), sem imagens extras.
+   Todas as classes usadas pelo nvb-painel.js e pelo index.html estão aqui. */
+
+:root{
+  --bg:#07040d;
+  --bg2:#0d0817;
+  --glass:rgba(255,255,255,.035);
+  --glass-2:rgba(255,255,255,.06);
+  --line:rgba(196,181,253,.16);
+  --line-2:rgba(196,181,253,.34);
+  --silver:#d9dde8;
+  --silver-2:#9ea5b8;
+  --text:#f2eff7;
+  --muted:#9a93a8;
+  --purple:#7c3aed;
+  --violet:#b794f6;
+  --violet-2:#d8c4ff;
+  --glow:rgba(168,120,255,.5);
+  --ok:#86efac;
+  --warn:#fcd34d;
+  --danger:#fb7185;
+  --radius:18px;
+  --serif:&quot;Iowan Old Style&quot;,&quot;Palatino Linotype&quot;,Palatino,Georgia,&quot;Times New Roman&quot;,serif;
+  --sans:Inter,system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,sans-serif;
+}
+
+*{box-sizing:border-box}
+html,body{background:var(--bg);margin:0}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:84px}
+body{
+  color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.5;min-height:100vh;
+  background:
+    radial-gradient(880px 520px at 88% -12%,rgba(124,58,237,.30),transparent 62%),
+    radial-gradient(640px 460px at -8% 38%,rgba(167,139,250,.10),transparent 60%),
+    radial-gradient(700px 420px at 60% 112%,rgba(203,213,225,.07),transparent 62%),
+    radial-gradient(1.2px 1.2px at 12% 18%,rgba(216,196,255,.55),transparent 60%),
+    radial-gradient(1px 1px at 37% 64%,rgba(216,196,255,.4),transparent 60%),
+    radial-gradient(1.4px 1.4px at 78% 32%,rgba(216,196,255,.5),transparent 60%),
+    radial-gradient(1px 1px at 91% 82%,rgba(216,196,255,.45),transparent 60%),
+    radial-gradient(1px 1px at 54% 9%,rgba(216,196,255,.35),transparent 60%),
+    var(--bg);
+  background-attachment:fixed;
+}
+h1,h2,h3{font-family:var(--serif);font-weight:700;letter-spacing:.03em;color:var(--text);text-shadow:0 0 18px rgba(168,120,255,.28);margin:.2em 0 .45em;line-height:1.15}
+h2{font-size:clamp(22px,4.2vw,30px)}
+h3{font-size:18px}
+p{margin:.4em 0 .8em}
+b{font-weight:700}
+small{font-size:12.5px}
+a{color:var(--violet-2)}
+.muted{color:var(--muted)}
+.ok{color:var(--ok)!important}
+.bad{color:var(--danger)!important}
+
+/* ---------- barra superior ---------- */
+.pv-top{
+  position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;gap:12px;
+  padding:10px 16px;padding-top:max(10px,env(safe-area-inset-top));
+  background:rgba(4,3,7,.78);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);box-shadow:0 10px 40px rgba(0,0,0,.45);
+}
+.pv-ham{
+  width:44px;height:44px;border-radius:14px;border:1px solid var(--line-2);background:var(--glass);
+  color:var(--silver);font-size:20px;cursor:pointer;flex:0 0 auto;
+}
+.pv-brand{font-family:var(--serif);font-size:17px;font-weight:700;letter-spacing:.16em;color:var(--silver);display:flex;align-items:center;gap:8px;white-space:nowrap}
+.pv-brand small{display:block;font-family:var(--sans);font-size:9.5px;letter-spacing:.32em;color:var(--violet);font-weight:600}
+.pv-brand-bat{font-size:18px;filter:drop-shadow(0 0 8px var(--glow))}
+.pv-spacer{flex:1}
+#pvTopUser{display:flex;align-items:center}
+
+/* ---------- avatares e ícones ---------- */
+.pv-av{width:36px;height:36px;border-radius:50%;object-fit:cover;border:1px solid var(--line-2);box-shadow:0 0 0 3px rgba(124,58,237,.18)}
+.pv-av.sm{width:34px;height:34px}
+.pv-gi{width:44px;height:44px;border-radius:14px;object-fit:cover;border:1px solid var(--line-2);flex:0 0 auto}
+.pv-gi.ph{display:grid;place-items:center;background:linear-gradient(145deg,#2e1065,#0a0711);color:var(--silver);font-family:var(--serif);font-weight:700;font-size:18px}
+.pv-bat{
+  width:92px;height:92px;border-radius:50%;display:grid;place-items:center;overflow:hidden;font-size:42px;
+  background:radial-gradient(circle at 35% 30%,#2e1065,#0a0711 70%);
+  border:1px solid var(--line-2);box-shadow:0 0 0 6px rgba(124,58,237,.12),0 0 60px rgba(124,58,237,.45);
+}
+.pv-bot-logo{width:100%;height:100%;object-fit:cover;border-radius:50%}
+
+/* ---------- menu lateral ---------- */
+.pv-side{
+  position:fixed;z-index:60;top:0;bottom:0;left:0;width:min(86vw,300px);overflow-y:auto;
+  padding:18px 16px;padding-top:max(18px,env(safe-area-inset-top));
+  background:radial-gradient(ellipse at 15% 0%,rgba(124,58,237,.30),transparent 45%),linear-gradient(180deg,#0c0814,#040307 80%);
+  border-right:1px solid var(--line);transform:translateX(-104%);transition:transform .24s ease;
+}
+.pv-side.open{transform:none;box-shadow:0 0 90px rgba(0,0,0,.8)}
+.pv-side-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.pv-logo{font-family:var(--serif);font-size:20px;font-weight:700;letter-spacing:.14em;color:var(--silver);display:flex;align-items:center;gap:8px}
+.pv-logo small{display:block;font-family:var(--sans);font-size:9.5px;letter-spacing:.34em;color:var(--violet);font-weight:600}
+.pv-x{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--glass);color:var(--silver);font-size:22px;cursor:pointer}
+.pv-mini{
+  display:flex;align-items:center;gap:12px;padding:12px;margin-bottom:10px;border-radius:16px;
+  background:var(--glass);border:1px solid var(--line);
+}
+.pv-mini b{display:block;font-size:14px}
+.pv-mini .btn{width:100%}
+.pv-sec{
+  margin:18px 6px 8px;font-size:10.5px;font-weight:700;letter-spacing:.2em;color:var(--silver-2);
+  text-transform:uppercase;display:flex;align-items:center;gap:8px;
+}
+.pv-sec::after{content:&quot;&quot;;flex:1;height:1px;background:linear-gradient(90deg,var(--line-2),transparent)}
+.pv-sec::before{content:&quot;✚&quot;;color:var(--violet);font-size:11px}
+.pv-item{
+  width:100%;display:flex;align-items:center;gap:12px;padding:11px 12px;margin:2px 0;border-radius:14px;
+  border:1px solid transparent;background:transparent;color:var(--muted);font:600 14.5px var(--sans);
+  text-align:left;cursor:pointer;position:relative;
+}
+.pv-item span:first-child{width:26px;text-align:center;font-size:17px;flex:0 0 auto}
+.pv-item:hover{background:rgba(124,58,237,.12);color:var(--text)}
+.pv-item.on{background:linear-gradient(90deg,rgba(124,58,237,.32),rgba(124,58,237,.06));color:#fff;border-color:rgba(167,139,250,.30)}
+.pv-item.on::before{content:&quot;&quot;;position:absolute;left:-16px;top:10px;bottom:10px;width:3px;border-radius:3px;background:var(--violet-2);box-shadow:0 0 12px var(--violet)}
+.pv-language{cursor:default}
+.pv-language:hover{background:transparent}
+.pv-language-label{flex:1}
+.pv-lang-select{
+  background:rgba(4,3,7,.7);color:var(--silver);border:1px solid var(--line-2);border-radius:10px;
+  padding:6px 8px;font:600 12.5px var(--sans);max-width:150px;
+}
+.pv-invite{
+  display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;padding:13px;border-radius:14px;
+  text-decoration:none;font-weight:700;color:#fff;background:linear-gradient(135deg,#6d28d9,#a855f7);
+  box-shadow:0 10px 30px rgba(124,58,237,.45);
+}
+#pvLogout{margin-top:6px}
+.pv-overlay{position:fixed;inset:0;z-index:55;background:rgba(0,0,0,.62);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .2s}
+.pv-overlay.open{opacity:1;pointer-events:auto}
+
+/* ---------- navegação inferior (celular) ---------- */
+.pv-bottom{
+  position:fixed;z-index:50;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));
+  display:flex;justify-content:space-around;gap:4px;padding:7px 6px;border-radius:22px;
+  background:rgba(10,7,17,.86);border:1px solid var(--line-2);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 14px 40px rgba(0,0,0,.6),0 0 0 1px rgba(124,58,237,.10);
+}
+.pv-bottom button{
+  flex:1;background:none;border:0;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px;
+  font:700 11.5px var(--sans);padding:7px 4px;border-radius:16px;cursor:pointer;min-width:0;
+}
+.pv-bottom button span{font-size:20px;line-height:1.1}
+.pv-bottom button.on{color:#fff;background:linear-gradient(180deg,rgba(124,58,237,.38),rgba(124,58,237,.14));box-shadow:inset 0 0 0 1px rgba(167,139,250,.35)}
+
+/* ---------- área principal ---------- */
+.screen{display:none}
+.screen.active{display:block;animation:pvIn .28s ease both}
+@keyframes pvIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+body .wrap{max-width:1080px;margin:0 auto;padding:84px 16px 124px}
+.wrap{max-width:1080px;margin:0 auto}
+
+/* ---------- blocos ---------- */
+.card{
+  position:relative;background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.012));
+  border:1px solid var(--line-2);border-radius:var(--radius);padding:18px;margin:0 0 14px;
+  box-shadow:0 18px 50px rgba(0,0,0,.45),inset 0 0 0 4px rgba(7,4,13,.85),inset 0 0 0 5px rgba(196,181,253,.14),inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.card h3:first-child{margin-top:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.pill{
+  display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;font-size:11.5px;font-weight:700;
+  letter-spacing:.04em;color:var(--silver);border:1px solid var(--line-2);background:rgba(255,255,255,.04);white-space:nowrap;
+}
+.pill.on{color:#f5f3ff;border-color:rgba(167,139,250,.55);background:rgba(124,58,237,.22);box-shadow:0 0 16px rgba(124,58,237,.3)}
+.notice{
+  margin:12px 0;padding:12px 14px;border-radius:14px;font-size:13.5px;color:#f5e9c8;
+  background:rgba(252,211,77,.07);border:1px solid rgba(252,211,77,.28);
+}
+.notice b{color:#fff}
+.label{display:grid;gap:7px;margin:14px 0;font-size:13px;font-weight:600;color:var(--silver-2)}
+.input{
+  width:100%;background:rgba(4,3,7,.72);color:var(--text);border:1px solid var(--line-2);border-radius:13px;
+  padding:12px 13px;font:500 15px var(--sans);outline:none;transition:border-color .15s,box-shadow .15s;
+}
+textarea.input{resize:vertical;min-height:84px}
+select.input{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--silver-2) 50%),linear-gradient(135deg,var(--silver-2) 50%,transparent 50%);background-position:calc(100% - 18px) 55%,calc(100% - 13px) 55%;background-size:5px 5px;background-repeat:no-repeat;padding-right:34px}
+.input:focus{border-color:var(--violet);box-shadow:0 0 0 3px rgba(124,58,237,.28)}
+input[type=color].input{height:48px;padding:6px;cursor:pointer}
+input[type=checkbox]{accent-color:var(--purple);width:18px;height:18px}
+
+/* ---------- botões ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:11px 18px;
+  border-radius:14px;border:1px solid var(--line-2);background:rgba(255,255,255,.05);color:var(--text);
+  font:700 14.5px var(--sans);text-decoration:none;cursor:pointer;transition:transform .12s,box-shadow .15s,filter .15s;
+  white-space:normal;text-align:center;
+}
+.btn:hover{filter:brightness(1.12)}
+.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.45;cursor:not-allowed;filter:none;transform:none}
+.btn.primary,.primary{background:linear-gradient(135deg,#6d28d9,#a855f7);border-color:rgba(196,181,253,.45);color:#fff;box-shadow:0 10px 30px rgba(124,58,237,.42)}
+.btn.blue,.blue{background:linear-gradient(135deg,rgba(76,29,149,.85),rgba(124,58,237,.55));border-color:rgba(167,139,250,.45);color:#fff}
+.btn.green,.green{background:linear-gradient(135deg,#14532d,#15803d);border-color:rgba(134,239,172,.4);color:#ecfdf5}
+.btn.danger,.danger{background:linear-gradient(135deg,#4c0519,#9f1239);border-color:rgba(251,113,133,.4);color:#ffe4e9}
+.pv-cta{min-height:50px;padding:13px 22px;font-size:15.5px;border-radius:16px}
+.pv-cta-outline{background:rgba(124,58,237,.12);border-color:rgba(167,139,250,.55);box-shadow:none}
+.pv-card-link{margin-top:10px;width:100%}
+.pv-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.pv-actions .btn{flex:1 1 140px}
+
+/* ---------- cabeçalhos de tela e barras ---------- */
+.pv-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.pv-row{display:flex;align-items:center;gap:14px}
+.pv-hero{text-align:center;padding:30px 22px}
+.pv-hero .icon,.icon{font-size:44px;filter:drop-shadow(0 0 16px var(--glow));margin-bottom:6px}
+.pv-hero p{color:var(--muted)}
+.pv-hero .btn{margin-top:10px}
+
+/* ---------- indicadores de estado ---------- */
+.pv-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#64607a;margin-right:6px;vertical-align:middle;box-shadow:0 0 0 3px rgba(100,96,122,.18)}
+.pv-dot.on{background:var(--ok);box-shadow:0 0 0 3px rgba(134,239,172,.18),0 0 12px rgba(134,239,172,.8)}
+.pv-bot{display:inline-flex;align-items:center;gap:4px;font-size:13.5px;font-weight:600;color:var(--silver)}
+
+/* ---------- lista de servidores ---------- */
+.pv-list{display:grid;gap:10px}
+.pv-server{display:flex;align-items:center;gap:14px;padding:14px;margin:0}
+.pv-server.on{border-color:rgba(167,139,250,.55);box-shadow:0 0 0 1px rgba(167,139,250,.25),0 18px 50px rgba(0,0,0,.42)}
+.pv-server-i{flex:1;min-width:0}
+.pv-server-i b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pv-server-i small{display:block;color:var(--muted)}
+.pv-server .btn{flex:0 0 auto;min-width:120px}
+
+/* ---------- seletor de servidor e saudação ---------- */
+.pv-switch{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:14px 18px}
+.pv-switch-l{flex:1;min-width:220px;display:grid;gap:6px;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--silver-2)}
+.pv-greet{display:flex;align-items:center;justify-content:space-between;gap:16px;overflow:hidden;position:relative;
+  background:radial-gradient(circle at 92% 0%,rgba(124,58,237,.42),transparent 45%),linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.01))}
+.pv-greet h2{margin:0 0 4px}
+.pv-greet p{margin:0;color:var(--muted)}
+.pv-mascot{font-size:64px;filter:drop-shadow(0 0 22px var(--glow));flex:0 0 auto}
+
+/* ---------- estatísticas ---------- */
+.pv-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:14px 0}
+.pv-stat{margin:0;padding:16px;text-align:left;display:flex;flex-direction:column;gap:2px}
+.pv-stat small{color:var(--muted);font-size:12px;letter-spacing:.03em;text-transform:uppercase;font-weight:700}
+.pv-stat b{font-family:var(--serif);font-size:28px;color:var(--silver);line-height:1.1;margin-top:4px}
+.pv-stat-ic{font-size:20px;margin-bottom:4px}
+.pv-stat:first-child b{background:linear-gradient(90deg,#fff,var(--violet-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ---------- acesso rápido ---------- */
+.pv-quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:6px}
+.pv-q{margin:0;padding:18px 14px;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:8px;color:var(--text);font:inherit;border:1px solid var(--line)}
+.pv-q span{font-size:26px;filter:drop-shadow(0 0 10px rgba(167,139,250,.5))}
+.pv-q b{font-size:14.5px}
+.pv-q:hover{border-color:rgba(167,139,250,.55);background:rgba(124,58,237,.12)}
+
+/* ---------- funções (cartões de recurso) ---------- */
+.pv-fn{padding:16px}
+.pv-fn-top{display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.pv-fn-ic{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;font-size:22px;flex:0 0 auto;
+  background:linear-gradient(145deg,rgba(124,58,237,.35),rgba(255,255,255,.04));border:1px solid rgba(167,139,250,.35)}
+.pv-fn-t{flex:1;min-width:0;display:grid}
+.pv-fn-t b{font-size:16px}
+.pv-fn-t small{color:var(--muted)}
+.pv-fn .btn{width:100%}
+
+/* ---------- painéis de cargos ---------- */
+.pv-panel{padding:16px}
+.pv-panel-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:4px}
+.pv-panel-h b{font-family:var(--serif);font-size:18px}
+.pv-chips{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
+.pv-chip{padding:5px 11px;border-radius:999px;font-size:12.5px;font-weight:600;background:rgba(124,58,237,.14);border:1px solid rgba(167,139,250,.3);color:#ede9fe}
+.pv-panel .pv-actions{margin-top:6px}
+
+/* ---------- formulários e modais ---------- */
+.pv-form{display:block}
+.pv-form .label{margin-top:12px}
+.pv-form .pv-actions{margin-top:18px}
+.pv-check{display:flex;align-items:center;gap:10px;font-size:14.5px;font-weight:600;color:var(--text);cursor:pointer;margin:6px 0}
+.pv-roles{display:grid;gap:10px;margin:8px 0}
+.pv-role{padding:12px;border-radius:15px;background:var(--glass);border:1px solid var(--line)}
+.pv-role .pv-check{margin:0}
+.pv-role-f{display:grid;grid-template-columns:1fr;gap:8px;margin-top:10px}
+.pv-swatch{display:inline-block;width:13px;height:13px;border-radius:50%;box-shadow:0 0 0 2px rgba(255,255,255,.12);flex:0 0 auto}
+.pv-modal{position:fixed;inset:0;z-index:90;background:rgba(2,1,5,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.pv-modal-b{display:flex;justify-content:center;padding:16px;min-height:100%}
+.pv-modal-c{
+  width:min(640px,100%);align-self:flex-start;margin:24px 0;padding:22px;border-radius:24px;
+  background:radial-gradient(circle at 100% 0%,rgba(124,58,237,.28),transparent 42%),linear-gradient(180deg,#120c1e,#07050c);
+  border:1px solid var(--line-2);box-shadow:0 30px 90px rgba(0,0,0,.7);
+}
+.pv-modal-c .label{font-size:13px}
+.pv-modal-c .pv-actions{position:sticky;bottom:0;background:linear-gradient(180deg,transparent,#07050c 35%);padding-top:14px}
+
+/* ---------- diagnóstico ---------- */
+.pv-dg{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;margin:0;border-left:3px solid var(--line-2)}
+.pv-dg>span{font-size:19px;line-height:1.3}
+.pv-dg b{display:block}
+.pv-dg small{display:block;color:var(--muted);margin-top:2px}
+.pv-dg.ok{border-left-color:var(--ok)}
+.pv-dg.aviso{border-left-color:var(--warn)}
+.pv-dg.erro{border-left-color:var(--danger)}
+
+/* ---------- tela inicial (sem login) ---------- */
+.hero{
+  position:relative;overflow:hidden;padding:34px 24px;border-radius:28px;margin:0 0 22px;
+  background:radial-gradient(circle at 85% 0%,rgba(124,58,237,.45),transparent 48%),radial-gradient(circle at 0% 100%,rgba(203,213,225,.08),transparent 45%),linear-gradient(160deg,#130c22,#060409 70%);
+  border:1px solid var(--line-2);box-shadow:0 30px 90px rgba(0,0,0,.6);
+}
+.hero h1{font-family:var(--serif);font-size:clamp(28px,6.4vw,50px);letter-spacing:-.01em;line-height:1.08;margin:12px 0 14px;
+  background:linear-gradient(180deg,#ffffff,#c9cdd9 55%,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);max-width:620px}
+.kicker{display:block;font-size:11px;font-weight:700;letter-spacing:.24em;color:var(--violet-2);text-transform:uppercase}
+.hero .nav{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.pv-landing{padding:30px 24px 28px}
+.pv-landing-brand{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;margin-bottom:18px}
+.pv-wordmark{font-family:var(--serif);font-size:clamp(30px,8.4vw,58px);font-weight:700;letter-spacing:.12em;line-height:1;background:linear-gradient(180deg,#ffffff,#d8c4ff 60%,#9d7bf0);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 22px rgba(168,120,255,.35))}
+.pv-submark{font-family:var(--serif);font-size:clamp(14px,3.6vw,22px);letter-spacing:.55em;color:var(--violet-2);font-weight:600;margin-top:-4px;padding-left:.55em}
+.pv-tagline{font-family:var(--serif);font-style:italic;font-size:clamp(16px,4vw,20px);color:var(--silver);margin:8px 0 4px;text-align:center}
+.pv-landing-copy{font-size:15.5px;color:#c9c3d6;max-width:620px;margin:6px auto 0;text-align:center}
+.pv-landing .nav{justify-content:center}
+.pv-landing-foot{display:flex;flex-wrap:wrap;gap:16px;margin-top:28px;padding-top:18px;border-top:1px solid var(--line);font-size:10.5px;font-weight:700;letter-spacing:.16em;color:var(--silver-2)}
+.pv-home-intro{margin:30px 0 14px}
+.pv-home-label{display:block;font-size:11px;font-weight:700;letter-spacing:.22em;color:var(--violet-2);margin-bottom:4px}
+.pv-home-intro p{margin:4px 0 0}
+.pv-feature-grid{grid-template-columns:1fr}
+.pv-feature{padding:20px}
+.pv-feature h3{margin:6px 0 4px}
+.pv-feature p{color:var(--muted);margin:0}
+.pv-feature-icon{width:52px;height:52px;border-radius:17px;display:grid;place-items:center;font-size:24px;
+  background:linear-gradient(145deg,rgba(124,58,237,.4),rgba(255,255,255,.04));border:1px solid rgba(167,139,250,.35);box-shadow:0 0 24px rgba(124,58,237,.25)}
+
+/* ---------- loja Tenkhyrons (visual de apresentação) ---------- */
+.store-hero{text-align:center;padding:30px 22px;background:radial-gradient(circle at 90% 10%,rgba(124,58,237,.35),transparent 45%),linear-gradient(145deg,#15101f,#07050c);border-color:rgba(167,139,250,.4)}
+.store-mark{font-size:44px;filter:drop-shadow(0 0 18px var(--violet))}
+.store-kicker{display:block;color:var(--violet-2);font-size:11px;letter-spacing:.24em;font-weight:700;margin:6px 0}
+.store-balance{display:grid;gap:4px;justify-items:center;margin-top:18px;padding:14px;border-radius:16px;background:rgba(4,3,7,.5);border:1px solid var(--line)}
+.store-balance span{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.12em}
+.store-balance b{font-family:var(--serif);font-size:20px;color:var(--silver)}
+.store-section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:26px 0 12px}
+.store-section-head h2{margin:2px 0 0}
+.store-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.store-item{margin:0;text-align:left;display:flex;flex-direction:column;gap:6px}
+.store-item p{color:var(--muted);font-size:13.5px;margin:0 0 6px}
+.store-item h3{margin:6px 0 0;font-size:17px}
+.store-art{width:100%;height:86px;border-radius:16px;display:grid;place-items:center;font-size:36px;color:var(--silver);
+  background:radial-gradient(circle at 50% 30%,rgba(167,139,250,.35),transparent 60%),rgba(4,3,7,.6);border:1px solid var(--line);margin-bottom:4px}
+.store-art.crystal{color:var(--violet-2)}
+.store-art.crest,.store-art.relic-art{color:var(--silver)}
+.store-art.title-art{color:var(--violet-2)}
+.store-art.frame-art{color:#e9d5ff}
+.store-art.crown-art{color:#f5f3ff;filter:drop-shadow(0 0 12px rgba(196,181,253,.8))}
+.store-art.potion-art{color:#f0abfc}
+.store-rarity{align-self:flex-start;font-size:10.5px;font-weight:800;letter-spacing:.14em;padding:3px 9px;border-radius:999px;border:1px solid var(--line-2);color:var(--silver)}
+.store-rarity.common{color:var(--silver-2)}
+.store-rarity.rare{color:var(--violet-2);border-color:rgba(167,139,250,.45);background:rgba(124,58,237,.14)}
+.store-rarity.epic{color:#f0abfc;border-color:rgba(240,171,252,.45);background:rgba(192,38,211,.12)}
+.store-rarity.legendary{color:#fff;border-color:rgba(255,255,255,.6);background:linear-gradient(90deg,rgba(203,213,225,.2),rgba(124,58,237,.3));box-shadow:0 0 18px rgba(196,181,253,.35)}
+.store-buy{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:8px}
+.store-buy b{font-family:var(--serif);font-size:17px;color:var(--silver)}
+.store-buy small{color:var(--violet-2)}
+.store-buy .btn{min-height:38px;padding:8px 12px;font-size:13px}
+.store-plans{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.store-plan{margin:0;display:flex;flex-direction:column;gap:6px}
+.store-plan h3{margin:6px 0 0}
+.store-plan p{color:var(--muted);margin:0}
+.store-plan ul{margin:6px 0 10px;padding-left:18px;color:#d6d0e2;font-size:14px}
+.store-plan.featured{border-color:rgba(167,139,250,.6);box-shadow:0 0 0 1px rgba(167,139,250,.3),0 26px 70px rgba(124,58,237,.3)}
+.store-price{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--silver)}
+.store-price small{font-family:var(--sans);font-size:13px;color:var(--muted)}
+.store-plan .btn{margin-top:auto}
+
+/* ---------- toast (aviso rápido) ---------- */
+.toast{
+  position:fixed;left:50%;top:76px;transform:translateX(-50%);z-index:120;max-width:92%;
+  padding:13px 18px;border-radius:16px;text-align:center;font-weight:600;color:var(--text);
+  background:rgba(12,8,20,.94);border:1px solid rgba(167,139,250,.45);box-shadow:0 18px 50px rgba(0,0,0,.6),0 0 30px rgba(124,58,237,.25);
+  animation:pvIn .24s ease both;
+}
+
+/* ---------- desktop: menu lateral fixo ---------- */
+@media (min-width:980px){
+  .pv-side{transform:none;box-shadow:none;z-index:45;width:300px}
+  .pv-ham,.pv-bottom,.pv-x,.pv-overlay{display:none}
+  .pv-top{left:300px;padding-left:26px}
+  body .wrap{margin-left:320px;margin-right:auto;max-width:1100px;padding:96px 28px 48px}
+  .pv-stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .pv-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pv-landing{padding:44px 44px 40px}
+  .pv-quick{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .pv-role-f{grid-template-columns:1fr 1fr 1fr}
+}
+
+/* ---------- celular e tablet pequeno ---------- */
+@media (max-width:979px){
+  body .wrap{padding:84px 14px 128px}
+  .pv-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pv-quick{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pv-brand small{display:none}
+}
+@media (max-width:640px){
+  .pv-greet h2{font-size:24px}
+  .pv-mascot{font-size:52px}
+  .hero{padding:24px 18px;border-radius:22px}
+  .hero .nav .btn,.pv-landing .nav .btn{width:100%}
+  .pv-cta{width:100%}
+  .pv-bat{width:70px;height:70px;font-size:32px}
+  .pv-landing-brand{gap:10px;margin-bottom:14px}
+  .pv-landing-foot{gap:10px;font-size:9.5px;letter-spacing:.1em}
+  .pv-server{flex-wrap:wrap}
+  .pv-server .btn{width:100%;min-width:0}
+  .pv-switch{flex-direction:column;align-items:stretch}
+  .pv-bot{font-size:13px}
+  .pv-bar{flex-wrap:wrap}
+  .pv-bar .btn{width:100%}
+  .pv-fn-top .btn{margin-left:0}
+  .pv-modal-b{padding:10px}
+  .pv-modal-c{padding:18px;border-radius:20px;margin:10px 0}
+  .pv-lang-select{max-width:132px;font-size:11.5px}
+  .pv-language{padding:10px 8px}
+  .store-grid{grid-template-columns:1fr 1fr}
+  .toast{top:70px}
+  .pv-stat b{font-size:24px}
+}
+@media (max-width:360px){
+  .pv-quick{grid-template-columns:1fr}
+  .store-grid{grid-template-columns:1fr}
+  .pv-bottom button{font-size:10.5px}
+}
+
+/* ---------- movimento reduzido (acessibilidade) ---------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+}
+
+
+/* ---------- painel do servidor: banner, colunas e cartões laterais ---------- */
+.pv-dash-banner{
+  display:flex;flex-direction:column;gap:14px;padding:22px;overflow:hidden;position:relative;
+  background:radial-gradient(circle at 100% 0%,rgba(124,58,237,.42),transparent 46%),radial-gradient(circle at 0% 100%,rgba(203,213,225,.07),transparent 40%),linear-gradient(150deg,#140d24,#06040b 75%);
+  border-color:rgba(167,139,250,.35);
+}
+.pv-banner-id{display:flex;align-items:center;gap:16px;min-width:0}
+.pv-banner-id h2{margin:4px 0 6px;overflow-wrap:anywhere}
+.pv-gi-lg{width:68px;height:68px;border-radius:20px;font-size:27px}
+.pv-dash{display:grid;gap:16px;align-items:start}
+.pv-dash-main{min-width:0}
+.pv-dash-side{display:grid;gap:14px;min-width:0}
+.pv-profile{display:flex;align-items:center;gap:14px;margin:0}
+.pv-profile .pv-av{width:52px;height:52px}
+.pv-profile b{display:block;overflow-wrap:anywhere}
+.pv-side-card{margin:0;padding:16px}
+.pv-side-card p{margin:6px 0 0}
+.pv-side-card .kicker{margin-bottom:6px}
+.pv-dash .pv-quick{margin-bottom:18px}
+@media (min-width:980px){
+  .pv-dash{grid-template-columns:minmax(0,1fr) 320px}
+  .pv-dash-banner{flex-direction:row;align-items:center;justify-content:space-between}
+  .pv-dash-banner .pv-actions{margin-top:0;flex:0 0 auto}
+  .pv-dash-banner .pv-actions .btn{flex:0 0 auto}
+}
+
+/* ---------- toques góticos (ornamentos originais em CSS) ---------- */
+.hero::after,.pv-dash-banner::after{
+  content:&quot;&quot;;position:absolute;right:-36px;top:-36px;width:180px;height:180px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(216,196,255,.22),rgba(124,58,237,.10) 45%,transparent 70%);
+}
+.pv-dash-banner::before{
+  content:&quot;&quot;;position:absolute;inset:auto 18px 10px auto;width:86px;height:14px;pointer-events:none;opacity:.55;
+  background:
+    radial-gradient(circle at 6px 6px,rgba(216,196,255,.7) 0 2px,transparent 3px),
+    linear-gradient(90deg,transparent,rgba(196,181,253,.35) 30%,rgba(196,181,253,.35) 70%,transparent);
+  background-size:14px 14px,100% 1px;background-repeat:repeat-x,no-repeat;background-position:0 0,0 6px;
+}
+.kicker::before{content:&quot;✦ &quot;;color:var(--violet-2)}
+.btn.primary{box-shadow:0 10px 30px rgba(124,58,237,.42),inset 0 1px 0 rgba(255,255,255,.18)}
+
+/* ---------- morcego do logo: quadrado com a mesma moldura do botão ☰ ---------- */
+.pv-bat-sq{width:44px;height:44px;border-radius:14px;display:inline-grid;place-items:center;flex:0 0 auto;
+  background:linear-gradient(145deg,rgba(124,58,237,.30),rgba(4,3,7,.6));border:1px solid var(--line-2);box-shadow:0 0 18px rgba(124,58,237,.28)}
+.pv-bat-sq svg{width:26px;height:26px;fill:var(--violet-2);filter:drop-shadow(0 0 6px var(--glow))}
+.pv-side-h .pv-bat-sq{width:40px;height:40px;border-radius:12px}
+.pv-side-h .pv-bat-sq svg{width:24px;height:24px}
+</style>
+</head>
+<body>
+<div class=&quot;pv-top&quot;><button class=&quot;pv-ham&quot; id=&quot;pvHam&quot; aria-label=&quot;Abrir menu&quot;>☰</button><div class=&quot;pv-brand&quot;><span class=&quot;pv-bat-sq&quot;><svg viewBox=&quot;0 0 64 40&quot; aria-hidden=&quot;true&quot;><path d=&quot;M32 12C26 6 18 4 4 10c6 2 8 6 10 8 4-1 8 1 12 4l2 6 4-4 4 4 2-6c4-3 8-5 12-4 2-2 4-6 10-8C46 4 38 6 32 12z&quot;/></svg></span> TENCHIKHO<small>PAINEL DE CONTROLE</small></div><span class=&quot;pv-spacer&quot;></span><span id=&quot;pvTopUser&quot;></span></div>
+<div class=&quot;pv-overlay&quot; id=&quot;pvOverlay&quot;></div>
+<aside class=&quot;pv-side&quot; id=&quot;pvSide&quot;>
+  <div class=&quot;pv-side-h&quot;><div class=&quot;pv-logo&quot;><span class=&quot;pv-bat-sq&quot;><svg viewBox=&quot;0 0 64 40&quot; aria-hidden=&quot;true&quot;><path d=&quot;M32 12C26 6 18 4 4 10c6 2 8 6 10 8 4-1 8 1 12 4l2 6 4-4 4 4 2-6c4-3 8-5 12-4 2-2 4-6 10-8C46 4 38 6 32 12z&quot;/></svg></span> TENCHIKHO<small>BLOODLINE</small></div><button class=&quot;pv-x&quot; id=&quot;pvSideClose&quot; aria-label=&quot;Fechar menu&quot;>×</button></div>
+  <div class=&quot;pv-mini&quot; id=&quot;pvUserCard&quot;><a class=&quot;btn primary&quot; href=&quot;/auth/discord&quot;>🔐 Entrar com Discord</a></div>
+  <div class=&quot;pv-mini&quot; id=&quot;pvBotCard&quot;><small class=&quot;muted&quot;>Selecione um servidor em <b>Servidores</b>.</small></div>
+  <div class=&quot;pv-sec&quot;>◆ CENTRAL DE CONTROLE</div>
+  <button class=&quot;pv-item&quot; data-tela=&quot;overview&quot;><span>🏠</span>Painel de controle</button>
+  <button class=&quot;pv-item&quot; data-tela=&quot;servers&quot;><span>🗄️</span>Servidores</button>
+  <button class=&quot;pv-item&quot; data-tela=&quot;roles&quot;><span>🧩</span>Funções</button>
+  <div class=&quot;pv-sec&quot;>✦ RECURSOS DO BOT</div>
+  <button class=&quot;pv-item&quot; data-tela=&quot;autocargos&quot;><span>🎭</span>Auto Cargos</button>
+  <button class=&quot;pv-item&quot; data-tela=&quot;boasvindas&quot;><span>👋</span>Boas-vindas</button>
+  <button class=&quot;pv-item&quot; data-tela=&quot;tickets&quot;><span>🎫</span>Tickets</button>
+  <button class=&quot;pv-item&quot; data-tela=&quot;ia&quot;><span>🤖</span>Tenchiko.IA</button>
+  <button class=&quot;pv-item&quot; data-tela=&quot;games&quot;><span>🎮</span>Games</button>
+  <button class=&quot;pv-item&quot; data-tela=&quot;loja&quot;><span>💎</span>Loja Tenkhyrons</button>
+  <button class=&quot;pv-item&quot; data-tela=&quot;diag&quot;><span>🩺</span>Diagnóstico</button>
+  <div class=&quot;pv-sec&quot;>CENTRAL</div>
+  <button class=&quot;pv-item&quot; data-tela=&quot;commands&quot;><span>📖</span>Comandos</button>
+  <label class=&quot;pv-item pv-language&quot;><span>🌐</span><span class=&quot;pv-language-label&quot;>Idioma</span><select id=&quot;pvLanguage&quot; aria-label=&quot;Idioma&quot; class=&quot;pv-lang-select&quot;><option value=&quot;pt&quot;>🇧🇷 Português</option><option value=&quot;en&quot;>🇬🇧 English</option><option value=&quot;es&quot;>🇪🇸 Español</option></select></label>
+  <a class=&quot;pv-invite&quot; id=&quot;pvInvite&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot; href=&quot;#&quot;>➕ Convidar bot</a>
+  <button class=&quot;pv-item&quot; id=&quot;pvLogout&quot; style=&quot;display:none&quot;><span>🚪</span>Sair</button>
+</aside>
+<nav class=&quot;pv-bottom&quot; aria-label=&quot;Navegação&quot;>
+  <button data-nav=&quot;home&quot;><span>🏠</span>Início</button><button data-nav=&quot;roles&quot;><span>🧩</span>Funções</button><button data-nav=&quot;servers&quot;><span>🗄️</span>Servidores</button><button data-nav=&quot;menu&quot;><span>▦</span>Menu</button>
+</nav>
+<main class=&quot;wrap&quot;>
+  <section id=&quot;home&quot; class=&quot;screen active&quot;><div class=&quot;pv-preview-tag&quot;>PRÉVIA · tela inicial</div><section class=&quot;hero pv-landing&quot;><div class=&quot;pv-landing-brand&quot;><div class=&quot;pv-bat&quot;>🦇</div><div class=&quot;pv-wordmark&quot;>TENCHIKHO</div><div class=&quot;pv-submark&quot;>BLOODLINE</div></div><p class=&quot;pv-tagline&quot;>Mais que um bot, uma linhagem.</p><p class=&quot;pv-landing-copy&quot;>Todas as ferramentas do Tenchiko em um só lugar. Gerencie sua comunidade, configure seu bot e acompanhe cada detalhe com uma experiência exclusiva, intuitiva e elegante.</p><div class=&quot;nav&quot;><a class=&quot;btn primary pv-cta&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot; href=&quot;#&quot;>＋ Convidar bot ao servidor</a><a class=&quot;btn blue pv-cta pv-cta-outline&quot; href=&quot;/auth/discord&quot;>Entrar com Discord　↗</a></div></section>
+    <div class=&quot;pv-home-intro&quot;><span class=&quot;pv-home-label&quot;>CENTRAL TENCHIKO</span><h2>Seu servidor. Seu estilo. Seu controle.</h2><p class=&quot;muted&quot;>Entre com o Discord e escolha um servidor que você administra para abrir as ferramentas disponíveis.</p></div><div class=&quot;grid pv-feature-grid&quot;>
+    <div class=&quot;card pv-feature&quot;><div class=&quot;pv-feature-icon&quot;>🎭</div><h3>Auto cargos</h3><p>Crie painéis de seleção de cargos e publique no canal desejado.</p></div>
+    <div class=&quot;card pv-feature&quot;><div class=&quot;pv-feature-icon&quot;>🛡️</div><h3>Moderação</h3><p>Os comandos de moderação do bot ficam disponíveis no Discord conforme as permissões da equipe.</p><button class=&quot;btn pv-card-link&quot; data-pv=&quot;ir&quot; data-tela=&quot;commands&quot;>Ver comandos ↗</button></div>
+    <div class=&quot;card pv-feature&quot;><div class=&quot;pv-feature-icon&quot;>🛍️</div><h3>Loja e recompensas</h3><p>Área destacada para os recursos de economia e recompensas do Tenchiko.</p><button class=&quot;btn pv-card-link&quot; data-pv=&quot;ir&quot; data-tela=&quot;commands&quot;>Consultar comandos e recompensas ↗</button></div>
+    <div class=&quot;card pv-feature&quot;><div class=&quot;pv-feature-icon&quot;>🤖</div><h3>Tenchiko.IA</h3><p>Veja os recursos de inteligência artificial disponíveis nos comandos.</p></div>
+    <div class=&quot;card pv-feature&quot;><div class=&quot;pv-feature-icon&quot;>🎮</div><h3>Games e interações</h3><p>Quizzes, duelos e interações de anime para sua comunidade.</p></div>
+    <div class=&quot;card pv-feature&quot;><div class=&quot;pv-feature-icon&quot;>🎫</div><h3>Tickets e suporte</h3><p>Organize pedidos de ajuda com canais privados para cada atendimento.</p></div></div></section>
+  <section id=&quot;overview&quot; class=&quot;screen active&quot;><div class=&quot;pv-preview-tag&quot;>PRÉVIA · painel (dados de exemplo)</div><div class=&quot;card pv-switch&quot;><label class=&quot;pv-switch-l&quot;>Servidor ativo<select class=&quot;input&quot; data-pv-change=&quot;trocar&quot;><option value=&quot;1&quot; selected>Servidor Exemplo</option></select></label><span class=&quot;pv-bot&quot;><span class=&quot;pv-dot on&quot;></span> Bot online</span></div>
+    <div class=&quot;card pv-dash-banner&quot;><div class=&quot;pv-banner-id&quot;><div class=&quot;pv-gi pv-gi-lg ph&quot;>S</div><div><span class=&quot;kicker&quot;>Servidor sob seu comando</span><h2>Servidor Exemplo</h2><span class=&quot;pv-bot&quot;><span class=&quot;pv-dot on&quot;></span> Bot online</span></div></div>
+      <div class=&quot;pv-actions&quot;><button class=&quot;btn&quot; data-pv=&quot;ir&quot; data-tela=&quot;servers&quot;>Trocar servidor</button></div></div>
+    
+    <div class=&quot;pv-dash&quot;>
+      <div class=&quot;pv-dash-main&quot;>
+        <h3>Acesso rápido</h3><div class=&quot;pv-quick&quot;><button class=&quot;card pv-q&quot; data-pv=&quot;ir&quot; data-tela=&quot;autocargos&quot;><span>🎭</span><b>Auto Cargos</b></button><button class=&quot;card pv-q&quot; data-pv=&quot;ir&quot; data-tela=&quot;boasvindas&quot;><span>👋</span><b>Boas-vindas</b></button><button class=&quot;card pv-q&quot; data-pv=&quot;ir&quot; data-tela=&quot;tickets&quot;><span>🎫</span><b>Suporte</b></button><button class=&quot;card pv-q&quot; data-pv=&quot;ir&quot; data-tela=&quot;diag&quot;><span>🩺</span><b>Diagnóstico</b></button></div>
+        <div class=&quot;card&quot;><h3>Estatísticas</h3><div class=&quot;pv-stats&quot;>
+          <div class=&quot;card pv-stat&quot;><span class=&quot;pv-stat-ic&quot;>👥</span><small>Total de membros</small><b>1.234</b></div>
+          <div class=&quot;card pv-stat&quot;><span class=&quot;pv-stat-ic&quot;>🤖</span><small>Bot</small><b class=&quot;ok&quot;>Online</b></div>
+          <div class=&quot;card pv-stat&quot;><span class=&quot;pv-stat-ic&quot;>🧩</span><small>Funções ativas</small><b>2</b></div>
+          <div class=&quot;card pv-stat&quot;><span class=&quot;pv-stat-ic&quot;>🎭</span><small>Painéis de cargos</small><b>1</b></div>
+        </div></div>
+        <h3>Funções</h3><div class=&quot;pv-list&quot;><div class=&quot;card pv-fn&quot;><div class=&quot;pv-fn-top&quot;><span class=&quot;pv-fn-ic&quot;>🎭</span><div class=&quot;pv-fn-t&quot;><b>Auto Cargos</b><small>Servidor Exemplo</small></div><span class=&quot;pill on&quot;>Ativo</span></div><button class=&quot;btn primary&quot; style=&quot;width:100%&quot; data-pv=&quot;ir&quot; data-tela=&quot;autocargos&quot;>Configurar</button></div><div class=&quot;card pv-fn&quot;><div class=&quot;pv-fn-top&quot;><span class=&quot;pv-fn-ic&quot;>👋</span><div class=&quot;pv-fn-t&quot;><b>Boas-vindas</b><small>Servidor Exemplo</small></div><span class=&quot;pill &quot;>Desligado</span></div><button class=&quot;btn primary&quot; style=&quot;width:100%&quot; data-pv=&quot;ir&quot; data-tela=&quot;boasvindas&quot;>Configurar</button></div><div class=&quot;card pv-fn&quot;><div class=&quot;pv-fn-top&quot;><span class=&quot;pv-fn-ic&quot;>🎫</span><div class=&quot;pv-fn-t&quot;><b>Tickets</b><small>Servidor Exemplo</small></div><span class=&quot;pill on&quot;>Ativo</span></div><button class=&quot;btn primary&quot; style=&quot;width:100%&quot; data-pv=&quot;ir&quot; data-tela=&quot;tickets&quot;>Configurar</button></div><div class=&quot;card pv-fn&quot;><div class=&quot;pv-fn-top&quot;><span class=&quot;pv-fn-ic&quot;>🎮</span><div class=&quot;pv-fn-t&quot;><b>Games</b><small>Servidor Exemplo</small></div></div><button class=&quot;btn primary&quot; style=&quot;width:100%&quot; data-pv=&quot;ir&quot; data-tela=&quot;games&quot;>Configurar</button></div><div class=&quot;card pv-fn&quot;><div class=&quot;pv-fn-top&quot;><span class=&quot;pv-fn-ic&quot;>🤖</span><div class=&quot;pv-fn-t&quot;><b>Tenchiko.IA</b><small>Servidor Exemplo</small></div></div><button class=&quot;btn primary&quot; style=&quot;width:100%&quot; data-pv=&quot;ir&quot; data-tela=&quot;ia&quot;>Configurar</button></div><div class=&quot;card pv-fn&quot;><div class=&quot;pv-fn-top&quot;><span class=&quot;pv-fn-ic&quot;>🩺</span><div class=&quot;pv-fn-t&quot;><b>Diagnóstico</b><small>Servidor Exemplo</small></div></div><button class=&quot;btn primary&quot; style=&quot;width:100%&quot; data-pv=&quot;ir&quot; data-tela=&quot;diag&quot;>Configurar</button></div></div>
+      </div>
+      <aside class=&quot;pv-dash-side&quot;>
+        <div class=&quot;card pv-profile&quot;><div><b>Usuário Exemplo</b><small class=&quot;muted&quot;>Gerencia este servidor</small></div></div>
+        <div class=&quot;card pv-side-card&quot;><span class=&quot;kicker&quot;>Bot</span><span class=&quot;pv-bot&quot;><span class=&quot;pv-dot on&quot;></span> Bot online</span><small class=&quot;muted&quot;>Estado reportado pelo painel agora.</small></div>
+      </aside>
+    </div></section>
+  <section id=&quot;servers&quot; class=&quot;screen&quot;></section>
+  <section id=&quot;roles&quot; class=&quot;screen active&quot;><div class=&quot;pv-preview-tag&quot;>PRÉVIA · funções</div><div class=&quot;pv-bar&quot;><div><h2 style=&quot;margin:0&quot;>Auto cargos</h2><small class=&quot;muted&quot;>Servidor Exemplo</small></div><button class=&quot;btn primary&quot; data-pv=&quot;novo&quot;>＋ Criar painel</button></div>
+    <p class=&quot;muted&quot;>Cada painel publica uma mensagem com um menu em um canal do Discord, para os membros escolherem cargos.</p>
+    <div class=&quot;card pv-panel&quot;><div class=&quot;pv-panel-h&quot;><b>Escolha seus cargos</b><span class=&quot;pill&quot;>Seleção múltipla</span></div><small class=&quot;muted&quot;>1 cargo(s) • #geral</small><div class=&quot;pv-chips&quot;><span class=&quot;pv-chip&quot;>🦇 Membro</span></div><div class=&quot;pv-actions&quot;><button class=&quot;btn&quot; data-pv=&quot;editar&quot; data-id=&quot;p1&quot;>✏️ Editar</button><button class=&quot;btn danger&quot; data-pv=&quot;apagar&quot; data-id=&quot;p1&quot;>🗑️ Apagar</button></div></div></section>
+  <section id=&quot;autocargos&quot; class=&quot;screen&quot;></section>
+  <section id=&quot;boasvindas&quot; class=&quot;screen&quot;></section>
+  <section id=&quot;tickets&quot; class=&quot;screen&quot;></section>
+  <section id=&quot;diag&quot; class=&quot;screen&quot;></section>
+  <section id=&quot;ia&quot; class=&quot;screen&quot;></section>
+  <section id=&quot;games&quot; class=&quot;screen&quot;></section>
+  <section id=&quot;loja&quot; class=&quot;screen&quot;></section>
+  <section id=&quot;commands&quot; class=&quot;screen&quot;></section>
+</main>
+<script>
+function go(id){document.querySelectorAll('.screen').forEach(function(x){x.classList.remove('active')});var el=document.getElementById(id);if(el)el.classList.add('active');if(window.NVBPainel)window.NVBPainel.onGo(id);window.scrollTo({top:0,behavior:'smooth'})}
+function toast(m){var t=document.createElement('div');t.className='toast';t.textContent=m;document.body.append(t);setTimeout(function(){t.remove()},3200)}
+</script>
+
+<style>.pv-preview-tag{font-size:11px;letter-spacing:.2em;color:#c4b5fd;margin:26px 0 8px;font-weight:700}.screen{display:block!important;animation:none}</style></body>
+</html>
+"></iframe></div></div>
+  <div style="width:100%"><div class="rotulo">Computador · 1100 px (layout de computador)</div><div class="computador-wrap"><div class="computador"><iframe title="Versão computador" srcdoc="<!doctype html>
+<html lang=&quot;pt-BR&quot;>
+<head>
+<meta charset=&quot;utf-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1,viewport-fit=cover&quot;>
+<title>Tenchikho Bloodline • Painel de Controle</title>
+<meta name=&quot;description&quot; content=&quot;Painel de controle do Tenchikho Bloodline: gerencie recursos do seu servidor Discord em um só lugar.&quot;>
+<meta name=&quot;theme-color&quot; content=&quot;#040307&quot;>
+<meta name=&quot;color-scheme&quot; content=&quot;dark&quot;>
+<style>/* 🦇 TENCHIKHO BLOODLINE — identidade gótica premium: preto profundo, roxo vampírico e prata.
+   Um único arquivo, sem fontes externas (usa fontes do sistema), sem imagens extras.
+   Todas as classes usadas pelo nvb-painel.js e pelo index.html estão aqui. */
+
+:root{
+  --bg:#07040d;
+  --bg2:#0d0817;
+  --glass:rgba(255,255,255,.035);
+  --glass-2:rgba(255,255,255,.06);
+  --line:rgba(196,181,253,.16);
+  --line-2:rgba(196,181,253,.34);
+  --silver:#d9dde8;
+  --silver-2:#9ea5b8;
+  --text:#f2eff7;
+  --muted:#9a93a8;
+  --purple:#7c3aed;
+  --violet:#b794f6;
+  --violet-2:#d8c4ff;
+  --glow:rgba(168,120,255,.5);
+  --ok:#86efac;
+  --warn:#fcd34d;
+  --danger:#fb7185;
+  --radius:18px;
+  --serif:&quot;Iowan Old Style&quot;,&quot;Palatino Linotype&quot;,Palatino,Georgia,&quot;Times New Roman&quot;,serif;
+  --sans:Inter,system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,sans-serif;
+}
+
+*{box-sizing:border-box}
+html,body{background:var(--bg);margin:0}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:84px}
+body{
+  color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.5;min-height:100vh;
+  background:
+    radial-gradient(880px 520px at 88% -12%,rgba(124,58,237,.30),transparent 62%),
+    radial-gradient(640px 460px at -8% 38%,rgba(167,139,250,.10),transparent 60%),
+    radial-gradient(700px 420px at 60% 112%,rgba(203,213,225,.07),transparent 62%),
+    radial-gradient(1.2px 1.2px at 12% 18%,rgba(216,196,255,.55),transparent 60%),
+    radial-gradient(1px 1px at 37% 64%,rgba(216,196,255,.4),transparent 60%),
+    radial-gradient(1.4px 1.4px at 78% 32%,rgba(216,196,255,.5),transparent 60%),
+    radial-gradient(1px 1px at 91% 82%,rgba(216,196,255,.45),transparent 60%),
+    radial-gradient(1px 1px at 54% 9%,rgba(216,196,255,.35),transparent 60%),
+    var(--bg);
+  background-attachment:fixed;
+}
+h1,h2,h3{font-family:var(--serif);font-weight:700;letter-spacing:.03em;color:var(--text);text-shadow:0 0 18px rgba(168,120,255,.28);margin:.2em 0 .45em;line-height:1.15}
+h2{font-size:clamp(22px,4.2vw,30px)}
+h3{font-size:18px}
+p{margin:.4em 0 .8em}
+b{font-weight:700}
+small{font-size:12.5px}
+a{color:var(--violet-2)}
+.muted{color:var(--muted)}
+.ok{color:var(--ok)!important}
+.bad{color:var(--danger)!important}
+
+/* ---------- barra superior ---------- */
+.pv-top{
+  position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;gap:12px;
+  padding:10px 16px;padding-top:max(10px,env(safe-area-inset-top));
+  background:rgba(4,3,7,.78);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);box-shadow:0 10px 40px rgba(0,0,0,.45);
+}
+.pv-ham{
+  width:44px;height:44px;border-radius:14px;border:1px solid var(--line-2);background:var(--glass);
+  color:var(--silver);font-size:20px;cursor:pointer;flex:0 0 auto;
+}
+.pv-brand{font-family:var(--serif);font-size:17px;font-weight:700;letter-spacing:.16em;color:var(--silver);display:flex;align-items:center;gap:8px;white-space:nowrap}
+.pv-brand small{display:block;font-family:var(--sans);font-size:9.5px;letter-spacing:.32em;color:var(--violet);font-weight:600}
+.pv-brand-bat{font-size:18px;filter:drop-shadow(0 0 8px var(--glow))}
+.pv-spacer{flex:1}
+#pvTopUser{display:flex;align-items:center}
+
+/* ---------- avatares e ícones ---------- */
+.pv-av{width:36px;height:36px;border-radius:50%;object-fit:cover;border:1px solid var(--line-2);box-shadow:0 0 0 3px rgba(124,58,237,.18)}
+.pv-av.sm{width:34px;height:34px}
+.pv-gi{width:44px;height:44px;border-radius:14px;object-fit:cover;border:1px solid var(--line-2);flex:0 0 auto}
+.pv-gi.ph{display:grid;place-items:center;background:linear-gradient(145deg,#2e1065,#0a0711);color:var(--silver);font-family:var(--serif);font-weight:700;font-size:18px}
+.pv-bat{
+  width:92px;height:92px;border-radius:50%;display:grid;place-items:center;overflow:hidden;font-size:42px;
+  background:radial-gradient(circle at 35% 30%,#2e1065,#0a0711 70%);
+  border:1px solid var(--line-2);box-shadow:0 0 0 6px rgba(124,58,237,.12),0 0 60px rgba(124,58,237,.45);
+}
+.pv-bot-logo{width:100%;height:100%;object-fit:cover;border-radius:50%}
+
+/* ---------- menu lateral ---------- */
+.pv-side{
+  position:fixed;z-index:60;top:0;bottom:0;left:0;width:min(86vw,300px);overflow-y:auto;
+  padding:18px 16px;padding-top:max(18px,env(safe-area-inset-top));
+  background:radial-gradient(ellipse at 15% 0%,rgba(124,58,237,.30),transparent 45%),linear-gradient(180deg,#0c0814,#040307 80%);
+  border-right:1px solid var(--line);transform:translateX(-104%);transition:transform .24s ease;
+}
+.pv-side.open{transform:none;box-shadow:0 0 90px rgba(0,0,0,.8)}
+.pv-side-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.pv-logo{font-family:var(--serif);font-size:20px;font-weight:700;letter-spacing:.14em;color:var(--silver);display:flex;align-items:center;gap:8px}
+.pv-logo small{display:block;font-family:var(--sans);font-size:9.5px;letter-spacing:.34em;color:var(--violet);font-weight:600}
+.pv-x{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--glass);color:var(--silver);font-size:22px;cursor:pointer}
+.pv-mini{
+  display:flex;align-items:center;gap:12px;padding:12px;margin-bottom:10px;border-radius:16px;
+  background:var(--glass);border:1px solid var(--line);
+}
+.pv-mini b{display:block;font-size:14px}
+.pv-mini .btn{width:100%}
+.pv-sec{
+  margin:18px 6px 8px;font-size:10.5px;font-weight:700;letter-spacing:.2em;color:var(--silver-2);
+  text-transform:uppercase;display:flex;align-items:center;gap:8px;
+}
+.pv-sec::after{content:&quot;&quot;;flex:1;height:1px;background:linear-gradient(90deg,var(--line-2),transparent)}
+.pv-sec::before{content:&quot;✚&quot;;color:var(--violet);font-size:11px}
+.pv-item{
+  width:100%;display:flex;align-items:center;gap:12px;padding:11px 12px;margin:2px 0;border-radius:14px;
+  border:1px solid transparent;background:transparent;color:var(--muted);font:600 14.5px var(--sans);
+  text-align:left;cursor:pointer;position:relative;
+}
+.pv-item span:first-child{width:26px;text-align:center;font-size:17px;flex:0 0 auto}
+.pv-item:hover{background:rgba(124,58,237,.12);color:var(--text)}
+.pv-item.on{background:linear-gradient(90deg,rgba(124,58,237,.32),rgba(124,58,237,.06));color:#fff;border-color:rgba(167,139,250,.30)}
+.pv-item.on::before{content:&quot;&quot;;position:absolute;left:-16px;top:10px;bottom:10px;width:3px;border-radius:3px;background:var(--violet-2);box-shadow:0 0 12px var(--violet)}
+.pv-language{cursor:default}
+.pv-language:hover{background:transparent}
+.pv-language-label{flex:1}
+.pv-lang-select{
+  background:rgba(4,3,7,.7);color:var(--silver);border:1px solid var(--line-2);border-radius:10px;
+  padding:6px 8px;font:600 12.5px var(--sans);max-width:150px;
+}
+.pv-invite{
+  display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;padding:13px;border-radius:14px;
+  text-decoration:none;font-weight:700;color:#fff;background:linear-gradient(135deg,#6d28d9,#a855f7);
+  box-shadow:0 10px 30px rgba(124,58,237,.45);
+}
+#pvLogout{margin-top:6px}
+.pv-overlay{position:fixed;inset:0;z-index:55;background:rgba(0,0,0,.62);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .2s}
+.pv-overlay.open{opacity:1;pointer-events:auto}
+
+/* ---------- navegação inferior (celular) ---------- */
+.pv-bottom{
+  position:fixed;z-index:50;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));
+  display:flex;justify-content:space-around;gap:4px;padding:7px 6px;border-radius:22px;
+  background:rgba(10,7,17,.86);border:1px solid var(--line-2);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 14px 40px rgba(0,0,0,.6),0 0 0 1px rgba(124,58,237,.10);
+}
+.pv-bottom button{
+  flex:1;background:none;border:0;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px;
+  font:700 11.5px var(--sans);padding:7px 4px;border-radius:16px;cursor:pointer;min-width:0;
+}
+.pv-bottom button span{font-size:20px;line-height:1.1}
+.pv-bottom button.on{color:#fff;background:linear-gradient(180deg,rgba(124,58,237,.38),rgba(124,58,237,.14));box-shadow:inset 0 0 0 1px rgba(167,139,250,.35)}
+
+/* ---------- área principal ---------- */
+.screen{display:none}
+.screen.active{display:block;animation:pvIn .28s ease both}
+@keyframes pvIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+body .wrap{max-width:1080px;margin:0 auto;padding:84px 16px 124px}
+.wrap{max-width:1080px;margin:0 auto}
+
+/* ---------- blocos ---------- */
+.card{
+  position:relative;background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.012));
+  border:1px solid var(--line-2);border-radius:var(--radius);padding:18px;margin:0 0 14px;
+  box-shadow:0 18px 50px rgba(0,0,0,.45),inset 0 0 0 4px rgba(7,4,13,.85),inset 0 0 0 5px rgba(196,181,253,.14),inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.card h3:first-child{margin-top:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.pill{
+  display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;font-size:11.5px;font-weight:700;
+  letter-spacing:.04em;color:var(--silver);border:1px solid var(--line-2);background:rgba(255,255,255,.04);white-space:nowrap;
+}
+.pill.on{color:#f5f3ff;border-color:rgba(167,139,250,.55);background:rgba(124,58,237,.22);box-shadow:0 0 16px rgba(124,58,237,.3)}
+.notice{
+  margin:12px 0;padding:12px 14px;border-radius:14px;font-size:13.5px;color:#f5e9c8;
+  background:rgba(252,211,77,.07);border:1px solid rgba(252,211,77,.28);
+}
+.notice b{color:#fff}
+.label{display:grid;gap:7px;margin:14px 0;font-size:13px;font-weight:600;color:var(--silver-2)}
+.input{
+  width:100%;background:rgba(4,3,7,.72);color:var(--text);border:1px solid var(--line-2);border-radius:13px;
+  padding:12px 13px;font:500 15px var(--sans);outline:none;transition:border-color .15s,box-shadow .15s;
+}
+textarea.input{resize:vertical;min-height:84px}
+select.input{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--silver-2) 50%),linear-gradient(135deg,var(--silver-2) 50%,transparent 50%);background-position:calc(100% - 18px) 55%,calc(100% - 13px) 55%;background-size:5px 5px;background-repeat:no-repeat;padding-right:34px}
+.input:focus{border-color:var(--violet);box-shadow:0 0 0 3px rgba(124,58,237,.28)}
+input[type=color].input{height:48px;padding:6px;cursor:pointer}
+input[type=checkbox]{accent-color:var(--purple);width:18px;height:18px}
+
+/* ---------- botões ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:11px 18px;
+  border-radius:14px;border:1px solid var(--line-2);background:rgba(255,255,255,.05);color:var(--text);
+  font:700 14.5px var(--sans);text-decoration:none;cursor:pointer;transition:transform .12s,box-shadow .15s,filter .15s;
+  white-space:normal;text-align:center;
+}
+.btn:hover{filter:brightness(1.12)}
+.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.45;cursor:not-allowed;filter:none;transform:none}
+.btn.primary,.primary{background:linear-gradient(135deg,#6d28d9,#a855f7);border-color:rgba(196,181,253,.45);color:#fff;box-shadow:0 10px 30px rgba(124,58,237,.42)}
+.btn.blue,.blue{background:linear-gradient(135deg,rgba(76,29,149,.85),rgba(124,58,237,.55));border-color:rgba(167,139,250,.45);color:#fff}
+.btn.green,.green{background:linear-gradient(135deg,#14532d,#15803d);border-color:rgba(134,239,172,.4);color:#ecfdf5}
+.btn.danger,.danger{background:linear-gradient(135deg,#4c0519,#9f1239);border-color:rgba(251,113,133,.4);color:#ffe4e9}
+.pv-cta{min-height:50px;padding:13px 22px;font-size:15.5px;border-radius:16px}
+.pv-cta-outline{background:rgba(124,58,237,.12);border-color:rgba(167,139,250,.55);box-shadow:none}
+.pv-card-link{margin-top:10px;width:100%}
+.pv-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.pv-actions .btn{flex:1 1 140px}
+
+/* ---------- cabeçalhos de tela e barras ---------- */
+.pv-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.pv-row{display:flex;align-items:center;gap:14px}
+.pv-hero{text-align:center;padding:30px 22px}
+.pv-hero .icon,.icon{font-size:44px;filter:drop-shadow(0 0 16px var(--glow));margin-bottom:6px}
+.pv-hero p{color:var(--muted)}
+.pv-hero .btn{margin-top:10px}
+
+/* ---------- indicadores de estado ---------- */
+.pv-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#64607a;margin-right:6px;vertical-align:middle;box-shadow:0 0 0 3px rgba(100,96,122,.18)}
+.pv-dot.on{background:var(--ok);box-shadow:0 0 0 3px rgba(134,239,172,.18),0 0 12px rgba(134,239,172,.8)}
+.pv-bot{display:inline-flex;align-items:center;gap:4px;font-size:13.5px;font-weight:600;color:var(--silver)}
+
+/* ---------- lista de servidores ---------- */
+.pv-list{display:grid;gap:10px}
+.pv-server{display:flex;align-items:center;gap:14px;padding:14px;margin:0}
+.pv-server.on{border-color:rgba(167,139,250,.55);box-shadow:0 0 0 1px rgba(167,139,250,.25),0 18px 50px rgba(0,0,0,.42)}
+.pv-server-i{flex:1;min-width:0}
+.pv-server-i b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pv-server-i small{display:block;color:var(--muted)}
+.pv-server .btn{flex:0 0 auto;min-width:120px}
+
+/* ---------- seletor de servidor e saudação ---------- */
+.pv-switch{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:14px 18px}
+.pv-switch-l{flex:1;min-width:220px;display:grid;gap:6px;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--silver-2)}
+.pv-greet{display:flex;align-items:center;justify-content:space-between;gap:16px;overflow:hidden;position:relative;
+  background:radial-gradient(circle at 92% 0%,rgba(124,58,237,.42),transparent 45%),linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.01))}
+.pv-greet h2{margin:0 0 4px}
+.pv-greet p{margin:0;color:var(--muted)}
+.pv-mascot{font-size:64px;filter:drop-shadow(0 0 22px var(--glow));flex:0 0 auto}
+
+/* ---------- estatísticas ---------- */
+.pv-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:14px 0}
+.pv-stat{margin:0;padding:16px;text-align:left;display:flex;flex-direction:column;gap:2px}
+.pv-stat small{color:var(--muted);font-size:12px;letter-spacing:.03em;text-transform:uppercase;font-weight:700}
+.pv-stat b{font-family:var(--serif);font-size:28px;color:var(--silver);line-height:1.1;margin-top:4px}
+.pv-stat-ic{font-size:20px;margin-bottom:4px}
+.pv-stat:first-child b{background:linear-gradient(90deg,#fff,var(--violet-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ---------- acesso rápido ---------- */
+.pv-quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:6px}
+.pv-q{margin:0;padding:18px 14px;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:8px;color:var(--text);font:inherit;border:1px solid var(--line)}
+.pv-q span{font-size:26px;filter:drop-shadow(0 0 10px rgba(167,139,250,.5))}
+.pv-q b{font-size:14.5px}
+.pv-q:hover{border-color:rgba(167,139,250,.55);background:rgba(124,58,237,.12)}
+
+/* ---------- funções (cartões de recurso) ---------- */
+.pv-fn{padding:16px}
+.pv-fn-top{display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.pv-fn-ic{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;font-size:22px;flex:0 0 auto;
+  background:linear-gradient(145deg,rgba(124,58,237,.35),rgba(255,255,255,.04));border:1px solid rgba(167,139,250,.35)}
+.pv-fn-t{flex:1;min-width:0;display:grid}
+.pv-fn-t b{font-size:16px}
+.pv-fn-t small{color:var(--muted)}
+.pv-fn .btn{width:100%}
+
+/* ---------- painéis de cargos ---------- */
+.pv-panel{padding:16px}
+.pv-panel-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:4px}
+.pv-panel-h b{font-family:var(--serif);font-size:18px}
+.pv-chips{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
+.pv-chip{padding:5px 11px;border-radius:999px;font-size:12.5px;font-weight:600;background:rgba(124,58,237,.14);border:1px solid rgba(167,139,250,.3);color:#ede9fe}
+.pv-panel .pv-actions{margin-top:6px}
+
+/* ---------- formulários e modais ---------- */
+.pv-form{display:block}
+.pv-form .label{margin-top:12px}
+.pv-form .pv-actions{margin-top:18px}
+.pv-check{display:flex;align-items:center;gap:10px;font-size:14.5px;font-weight:600;color:var(--text);cursor:pointer;margin:6px 0}
+.pv-roles{display:grid;gap:10px;margin:8px 0}
+.pv-role{padding:12px;border-radius:15px;background:var(--glass);border:1px solid var(--line)}
+.pv-role .pv-check{margin:0}
+.pv-role-f{display:grid;grid-template-columns:1fr;gap:8px;margin-top:10px}
+.pv-swatch{display:inline-block;width:13px;height:13px;border-radius:50%;box-shadow:0 0 0 2px rgba(255,255,255,.12);flex:0 0 auto}
+.pv-modal{position:fixed;inset:0;z-index:90;background:rgba(2,1,5,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.pv-modal-b{display:flex;justify-content:center;padding:16px;min-height:100%}
+.pv-modal-c{
+  width:min(640px,100%);align-self:flex-start;margin:24px 0;padding:22px;border-radius:24px;
+  background:radial-gradient(circle at 100% 0%,rgba(124,58,237,.28),transparent 42%),linear-gradient(180deg,#120c1e,#07050c);
+  border:1px solid var(--line-2);box-shadow:0 30px 90px rgba(0,0,0,.7);
+}
+.pv-modal-c .label{font-size:13px}
+.pv-modal-c .pv-actions{position:sticky;bottom:0;background:linear-gradient(180deg,transparent,#07050c 35%);padding-top:14px}
+
+/* ---------- diagnóstico ---------- */
+.pv-dg{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;margin:0;border-left:3px solid var(--line-2)}
+.pv-dg>span{font-size:19px;line-height:1.3}
+.pv-dg b{display:block}
+.pv-dg small{display:block;color:var(--muted);margin-top:2px}
+.pv-dg.ok{border-left-color:var(--ok)}
+.pv-dg.aviso{border-left-color:var(--warn)}
+.pv-dg.erro{border-left-color:var(--danger)}
+
+/* ---------- tela inicial (sem login) ---------- */
+.hero{
+  position:relative;overflow:hidden;padding:34px 24px;border-radius:28px;margin:0 0 22px;
+  background:radial-gradient(circle at 85% 0%,rgba(124,58,237,.45),transparent 48%),radial-gradient(circle at 0% 100%,rgba(203,213,225,.08),transparent 45%),linear-gradient(160deg,#130c22,#060409 70%);
+  border:1px solid var(--line-2);box-shadow:0 30px 90px rgba(0,0,0,.6);
+}
+.hero h1{font-family:var(--serif);font-size:clamp(28px,6.4vw,50px);letter-spacing:-.01em;line-height:1.08;margin:12px 0 14px;
+  background:linear-gradient(180deg,#ffffff,#c9cdd9 55%,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);max-width:620px}
+.kicker{display:block;font-size:11px;font-weight:700;letter-spacing:.24em;color:var(--violet-2);text-transform:uppercase}
+.hero .nav{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.pv-landing{padding:30px 24px 28px}
+.pv-landing-brand{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;margin-bottom:18px}
+.pv-wordmark{font-family:var(--serif);font-size:clamp(30px,8.4vw,58px);font-weight:700;letter-spacing:.12em;line-height:1;background:linear-gradient(180deg,#ffffff,#d8c4ff 60%,#9d7bf0);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 22px rgba(168,120,255,.35))}
+.pv-submark{font-family:var(--serif);font-size:clamp(14px,3.6vw,22px);letter-spacing:.55em;color:var(--violet-2);font-weight:600;margin-top:-4px;padding-left:.55em}
+.pv-tagline{font-family:var(--serif);font-style:italic;font-size:clamp(16px,4vw,20px);color:var(--silver);margin:8px 0 4px;text-align:center}
+.pv-landing-copy{font-size:15.5px;color:#c9c3d6;max-width:620px;margin:6px auto 0;text-align:center}
+.pv-landing .nav{justify-content:center}
+.pv-landing-foot{display:flex;flex-wrap:wrap;gap:16px;margin-top:28px;padding-top:18px;border-top:1px solid var(--line);font-size:10.5px;font-weight:700;letter-spacing:.16em;color:var(--silver-2)}
+.pv-home-intro{margin:30px 0 14px}
+.pv-home-label{display:block;font-size:11px;font-weight:700;letter-spacing:.22em;color:var(--violet-2);margin-bottom:4px}
+.pv-home-intro p{margin:4px 0 0}
+.pv-feature-grid{grid-template-columns:1fr}
+.pv-feature{padding:20px}
+.pv-feature h3{margin:6px 0 4px}
+.pv-feature p{color:var(--muted);margin:0}
+.pv-feature-icon{width:52px;height:52px;border-radius:17px;display:grid;place-items:center;font-size:24px;
+  background:linear-gradient(145deg,rgba(124,58,237,.4),rgba(255,255,255,.04));border:1px solid rgba(167,139,250,.35);box-shadow:0 0 24px rgba(124,58,237,.25)}
+
+/* ---------- loja Tenkhyrons (visual de apresentação) ---------- */
+.store-hero{text-align:center;padding:30px 22px;background:radial-gradient(circle at 90% 10%,rgba(124,58,237,.35),transparent 45%),linear-gradient(145deg,#15101f,#07050c);border-color:rgba(167,139,250,.4)}
+.store-mark{font-size:44px;filter:drop-shadow(0 0 18px var(--violet))}
+.store-kicker{display:block;color:var(--violet-2);font-size:11px;letter-spacing:.24em;font-weight:700;margin:6px 0}
+.store-balance{display:grid;gap:4px;justify-items:center;margin-top:18px;padding:14px;border-radius:16px;background:rgba(4,3,7,.5);border:1px solid var(--line)}
+.store-balance span{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.12em}
+.store-balance b{font-family:var(--serif);font-size:20px;color:var(--silver)}
+.store-section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:26px 0 12px}
+.store-section-head h2{margin:2px 0 0}
+.store-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.store-item{margin:0;text-align:left;display:flex;flex-direction:column;gap:6px}
+.store-item p{color:var(--muted);font-size:13.5px;margin:0 0 6px}
+.store-item h3{margin:6px 0 0;font-size:17px}
+.store-art{width:100%;height:86px;border-radius:16px;display:grid;place-items:center;font-size:36px;color:var(--silver);
+  background:radial-gradient(circle at 50% 30%,rgba(167,139,250,.35),transparent 60%),rgba(4,3,7,.6);border:1px solid var(--line);margin-bottom:4px}
+.store-art.crystal{color:var(--violet-2)}
+.store-art.crest,.store-art.relic-art{color:var(--silver)}
+.store-art.title-art{color:var(--violet-2)}
+.store-art.frame-art{color:#e9d5ff}
+.store-art.crown-art{color:#f5f3ff;filter:drop-shadow(0 0 12px rgba(196,181,253,.8))}
+.store-art.potion-art{color:#f0abfc}
+.store-rarity{align-self:flex-start;font-size:10.5px;font-weight:800;letter-spacing:.14em;padding:3px 9px;border-radius:999px;border:1px solid var(--line-2);color:var(--silver)}
+.store-rarity.common{color:var(--silver-2)}
+.store-rarity.rare{color:var(--violet-2);border-color:rgba(167,139,250,.45);background:rgba(124,58,237,.14)}
+.store-rarity.epic{color:#f0abfc;border-color:rgba(240,171,252,.45);background:rgba(192,38,211,.12)}
+.store-rarity.legendary{color:#fff;border-color:rgba(255,255,255,.6);background:linear-gradient(90deg,rgba(203,213,225,.2),rgba(124,58,237,.3));box-shadow:0 0 18px rgba(196,181,253,.35)}
+.store-buy{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:8px}
+.store-buy b{font-family:var(--serif);font-size:17px;color:var(--silver)}
+.store-buy small{color:var(--violet-2)}
+.store-buy .btn{min-height:38px;padding:8px 12px;font-size:13px}
+.store-plans{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.store-plan{margin:0;display:flex;flex-direction:column;gap:6px}
+.store-plan h3{margin:6px 0 0}
+.store-plan p{color:var(--muted);margin:0}
+.store-plan ul{margin:6px 0 10px;padding-left:18px;color:#d6d0e2;font-size:14px}
+.store-plan.featured{border-color:rgba(167,139,250,.6);box-shadow:0 0 0 1px rgba(167,139,250,.3),0 26px 70px rgba(124,58,237,.3)}
+.store-price{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--silver)}
+.store-price small{font-family:var(--sans);font-size:13px;color:var(--muted)}
+.store-plan .btn{margin-top:auto}
+
+/* ---------- toast (aviso rápido) ---------- */
+.toast{
+  position:fixed;left:50%;top:76px;transform:translateX(-50%);z-index:120;max-width:92%;
+  padding:13px 18px;border-radius:16px;text-align:center;font-weight:600;color:var(--text);
+  background:rgba(12,8,20,.94);border:1px solid rgba(167,139,250,.45);box-shadow:0 18px 50px rgba(0,0,0,.6),0 0 30px rgba(124,58,237,.25);
+  animation:pvIn .24s ease both;
+}
+
+/* ---------- desktop: menu lateral fixo ---------- */
+@media (min-width:980px){
+  .pv-side{transform:none;box-shadow:none;z-index:45;width:300px}
+  .pv-ham,.pv-bottom,.pv-x,.pv-overlay{display:none}
+  .pv-top{left:300px;padding-left:26px}
+  body .wrap{margin-left:320px;margin-right:auto;max-width:1100px;padding:96px 28px 48px}
+  .pv-stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .pv-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pv-landing{padding:44px 44px 40px}
+  .pv-quick{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .pv-role-f{grid-template-columns:1fr 1fr 1fr}
+}
+
+/* ---------- celular e tablet pequeno ---------- */
+@media (max-width:979px){
+  body .wrap{padding:84px 14px 128px}
+  .pv-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pv-quick{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pv-brand small{display:none}
+}
+@media (max-width:640px){
+  .pv-greet h2{font-size:24px}
+  .pv-mascot{font-size:52px}
+  .hero{padding:24px 18px;border-radius:22px}
+  .hero .nav .btn,.pv-landing .nav .btn{width:100%}
+  .pv-cta{width:100%}
+  .pv-bat{width:70px;height:70px;font-size:32px}
+  .pv-landing-brand{gap:10px;margin-bottom:14px}
+  .pv-landing-foot{gap:10px;font-size:9.5px;letter-spacing:.1em}
+  .pv-server{flex-wrap:wrap}
+  .pv-server .btn{width:100%;min-width:0}
+  .pv-switch{flex-direction:column;align-items:stretch}
+  .pv-bot{font-size:13px}
+  .pv-bar{flex-wrap:wrap}
+  .pv-bar .btn{width:100%}
+  .pv-fn-top .btn{margin-left:0}
+  .pv-modal-b{padding:10px}
+  .pv-modal-c{padding:18px;border-radius:20px;margin:10px 0}
+  .pv-lang-select{max-width:132px;font-size:11.5px}
+  .pv-language{padding:10px 8px}
+  .store-grid{grid-template-columns:1fr 1fr}
+  .toast{top:70px}
+  .pv-stat b{font-size:24px}
+}
+@media (max-width:360px){
+  .pv-quick{grid-template-columns:1fr}
+  .store-grid{grid-template-columns:1fr}
+  .pv-bottom button{font-size:10.5px}
+}
+
+/* ---------- movimento reduzido (acessibilidade) ---------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+}
+
+
+/* ---------- painel do servidor: banner, colunas e cartões laterais ---------- */
+.pv-dash-banner{
+  display:flex;flex-direction:column;gap:14px;padding:22px;overflow:hidden;position:relative;
+  background:radial-gradient(circle at 100% 0%,rgba(124,58,237,.42),transparent 46%),radial-gradient(circle at 0% 100%,rgba(203,213,225,.07),transparent 40%),linear-gradient(150deg,#140d24,#06040b 75%);
+  border-color:rgba(167,139,250,.35);
+}
+.pv-banner-id{display:flex;align-items:center;gap:16px;min-width:0}
+.pv-banner-id h2{margin:4px 0 6px;overflow-wrap:anywhere}
+.pv-gi-lg{width:68px;height:68px;border-radius:20px;font-size:27px}
+.pv-dash{display:grid;gap:16px;align-items:start}
+.pv-dash-main{min-width:0}
+.pv-dash-side{display:grid;gap:14px;min-width:0}
+.pv-profile{display:flex;align-items:center;gap:14px;margin:0}
+.pv-profile .pv-av{width:52px;height:52px}
+.pv-profile b{display:block;overflow-wrap:anywhere}
+.pv-side-card{margin:0;padding:16px}
+.pv-side-card p{margin:6px 0 0}
+.pv-side-card .kicker{margin-bottom:6px}
+.pv-dash .pv-quick{margin-bottom:18px}
+@media (min-width:980px){
+  .pv-dash{grid-template-columns:minmax(0,1fr) 320px}
+  .pv-dash-banner{flex-direction:row;align-items:center;justify-content:space-between}
+  .pv-dash-banner .pv-actions{margin-top:0;flex:0 0 auto}
+  .pv-dash-banner .pv-actions .btn{flex:0 0 auto}
+}
+
+/* ---------- toques góticos (ornamentos originais em CSS) ---------- */
+.hero::after,.pv-dash-banner::after{
+  content:&quot;&quot;;position:absolute;right:-36px;top:-36px;width:180px;height:180px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(216,196,255,.22),rgba(124,58,237,.10) 45%,transparent 70%);
+}
+.pv-dash-banner::before{
+  content:&quot;&quot;;position:absolute;inset:auto 18px 10px auto;width:86px;height:14px;pointer-events:none;opacity:.55;
+  background:
+    radial-gradient(circle at 6px 6px,rgba(216,196,255,.7) 0 2px,transparent 3px),
+    linear-gradient(90deg,transparent,rgba(196,181,253,.35) 30%,rgba(196,181,253,.35) 70%,transparent);
+  background-size:14px 14px,100% 1px;background-repeat:repeat-x,no-repeat;background-position:0 0,0 6px;
+}
+.kicker::before{content:&quot;✦ &quot;;color:var(--violet-2)}
+.btn.primary{box-shadow:0 10px 30px rgba(124,58,237,.42),inset 0 1px 0 rgba(255,255,255,.18)}
+
+/* ---------- morcego do logo: quadrado com a mesma moldura do botão ☰ ---------- */
+.pv-bat-sq{width:44px;height:44px;border-radius:14px;display:inline-grid;place-items:center;flex:0 0 auto;
+  background:linear-gradient(145deg,rgba(124,58,237,.30),rgba(4,3,7,.6));border:1px solid var(--line-2);box-shadow:0 0 18px rgba(124,58,237,.28)}
+.pv-bat-sq svg{width:26px;height:26px;fill:var(--violet-2);filter:drop-shadow(0 0 6px var(--glow))}
+.pv-side-h .pv-bat-sq{width:40px;height:40px;border-radius:12px}
+.pv-side-h .pv-bat-sq svg{width:24px;height:24px}
+</style>
+</head>
+<body>
+<div class=&quot;pv-top&quot;><button class=&quot;pv-ham&quot; id=&quot;pvHam&quot; aria-label=&quot;Abrir menu&quot;>☰</button><div class=&quot;pv-brand&quot;><span class=&quot;pv-bat-sq&quot;><svg viewBox=&quot;0 0 64 40&quot; aria-hidden=&quot;true&quot;><path d=&quot;M32 12C26 6 18 4 4 10c6 2 8 6 10 8 4-1 8 1 12 4l2 6 4-4 4 4 2-6c4-3 8-5 12-4 2-2 4-6 10-8C46 4 38 6 32 12z&quot;/></svg></span> TENCHIKHO<small>PAINEL DE CONTROLE</small></div><span class=&quot;pv-spacer&quot;></span><span id=&quot;pvTopUser&quot;></span></div>
+<div class=&quot;pv-overlay&quot; id=&quot;pvOverlay&quot;></div>
+<aside class=&quot;pv-side&quot; id=&quot;pvSide&quot;>
+  <div class=&quot;pv-side-h&quot;><div class=&quot;pv-logo&quot;><span class=&quot;pv-bat-sq&quot;><svg viewBox=&quot;0 0 64 40&quot; aria-hidden=&quot;true&quot;><path d=&quot;M32 12C26 6 18 4 4 10c6 2 8 6 10 8 4-1 8 1 12 4l2 6 4-4 4 4 2-6c4-3 8-5 12-4 2-2 4-6 10-8C46 4 38 6 32 12z&quot;/></svg></span> TENCHIKHO<small>BLOODLINE</small></div><button class=&quot;pv-x&quot; id=&quot;pvSideClose&quot; aria-label=&quot;Fechar menu&quot;>×</button></div>
+  <div class=&quot;pv-mini&quot; id=&quot;pvUserCard&quot;><a class=&quot;btn primary&quot; href=&quot;/auth/discord&quot;>🔐 Entrar com Discord</a></div>
+  <div class=&quot;pv-mini&quot; id=&quot;pvBotCard&quot;><small class=&quot;muted&quot;>Selecione um servidor em <b>Servidores</b>.</small></div>
+  <div class=&quot;pv-sec&quot;>◆ CENTRAL DE CONTROLE</div>
+  <button class=&quot;pv-item&quot; data-tela=&quot;overview&quot;><span>🏠</span>Painel de controle</button>
+  <button class=&quot;pv-item&quot; data-tela=&quot;servers&quot;><span>🗄️</span>Servidores</button>
+  <button class=&quot;pv-item&quot; data-tela=&quot;roles&quot;><span>🧩</span>Funções</button>
+  <div class=&quot;pv-sec&quot;>✦ RECURSOS DO BOT</div>
+  <button class=&quot;pv-item&quot; data-tela=&quot;autocargos&quot;><span>🎭</span>Auto Cargos</button>
+  <button class=&quot;pv-item&quot; data-tela=&quot;boasvindas&quot;><span>👋</span>Boas-vindas</button>
+  <button class=&quot;pv-item&quot; data-tela=&quot;tickets&quot;><span>🎫</span>Tickets</button>
+  <button class=&quot;pv-item&quot; data-tela=&quot;ia&quot;><span>🤖</span>Tenchiko.IA</button>
+  <button class=&quot;pv-item&quot; data-tela=&quot;games&quot;><span>🎮</span>Games</button>
+  <button class=&quot;pv-item&quot; data-tela=&quot;loja&quot;><span>💎</span>Loja Tenkhyrons</button>
+  <button class=&quot;pv-item&quot; data-tela=&quot;diag&quot;><span>🩺</span>Diagnóstico</button>
+  <div class=&quot;pv-sec&quot;>CENTRAL</div>
+  <button class=&quot;pv-item&quot; data-tela=&quot;commands&quot;><span>📖</span>Comandos</button>
+  <label class=&quot;pv-item pv-language&quot;><span>🌐</span><span class=&quot;pv-language-label&quot;>Idioma</span><select id=&quot;pvLanguage&quot; aria-label=&quot;Idioma&quot; class=&quot;pv-lang-select&quot;><option value=&quot;pt&quot;>🇧🇷 Português</option><option value=&quot;en&quot;>🇬🇧 English</option><option value=&quot;es&quot;>🇪🇸 Español</option></select></label>
+  <a class=&quot;pv-invite&quot; id=&quot;pvInvite&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot; href=&quot;#&quot;>➕ Convidar bot</a>
+  <button class=&quot;pv-item&quot; id=&quot;pvLogout&quot; style=&quot;display:none&quot;><span>🚪</span>Sair</button>
+</aside>
+<nav class=&quot;pv-bottom&quot; aria-label=&quot;Navegação&quot;>
+  <button data-nav=&quot;home&quot;><span>🏠</span>Início</button><button data-nav=&quot;roles&quot;><span>🧩</span>Funções</button><button data-nav=&quot;servers&quot;><span>🗄️</span>Servidores</button><button data-nav=&quot;menu&quot;><span>▦</span>Menu</button>
+</nav>
+<main class=&quot;wrap&quot;>
+  <section id=&quot;home&quot; class=&quot;screen active&quot;><div class=&quot;pv-preview-tag&quot;>PRÉVIA · tela inicial</div><section class=&quot;hero pv-landing&quot;><div class=&quot;pv-landing-brand&quot;><div class=&quot;pv-bat&quot;>🦇</div><div class=&quot;pv-wordmark&quot;>TENCHIKHO</div><div class=&quot;pv-submark&quot;>BLOODLINE</div></div><p class=&quot;pv-tagline&quot;>Mais que um bot, uma linhagem.</p><p class=&quot;pv-landing-copy&quot;>Todas as ferramentas do Tenchiko em um só lugar. Gerencie sua comunidade, configure seu bot e acompanhe cada detalhe com uma experiência exclusiva, intuitiva e elegante.</p><div class=&quot;nav&quot;><a class=&quot;btn primary pv-cta&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot; href=&quot;#&quot;>＋ Convidar bot ao servidor</a><a class=&quot;btn blue pv-cta pv-cta-outline&quot; href=&quot;/auth/discord&quot;>Entrar com Discord　↗</a></div></section>
+    <div class=&quot;pv-home-intro&quot;><span class=&quot;pv-home-label&quot;>CENTRAL TENCHIKO</span><h2>Seu servidor. Seu estilo. Seu controle.</h2><p class=&quot;muted&quot;>Entre com o Discord e escolha um servidor que você administra para abrir as ferramentas disponíveis.</p></div><div class=&quot;grid pv-feature-grid&quot;>
+    <div class=&quot;card pv-feature&quot;><div class=&quot;pv-feature-icon&quot;>🎭</div><h3>Auto cargos</h3><p>Crie painéis de seleção de cargos e publique no canal desejado.</p></div>
+    <div class=&quot;card pv-feature&quot;><div class=&quot;pv-feature-icon&quot;>🛡️</div><h3>Moderação</h3><p>Os comandos de moderação do bot ficam disponíveis no Discord conforme as permissões da equipe.</p><button class=&quot;btn pv-card-link&quot; data-pv=&quot;ir&quot; data-tela=&quot;commands&quot;>Ver comandos ↗</button></div>
+    <div class=&quot;card pv-feature&quot;><div class=&quot;pv-feature-icon&quot;>🛍️</div><h3>Loja e recompensas</h3><p>Área destacada para os recursos de economia e recompensas do Tenchiko.</p><button class=&quot;btn pv-card-link&quot; data-pv=&quot;ir&quot; data-tela=&quot;commands&quot;>Consultar comandos e recompensas ↗</button></div>
+    <div class=&quot;card pv-feature&quot;><div class=&quot;pv-feature-icon&quot;>🤖</div><h3>Tenchiko.IA</h3><p>Veja os recursos de inteligência artificial disponíveis nos comandos.</p></div>
+    <div class=&quot;card pv-feature&quot;><div class=&quot;pv-feature-icon&quot;>🎮</div><h3>Games e interações</h3><p>Quizzes, duelos e interações de anime para sua comunidade.</p></div>
+    <div class=&quot;card pv-feature&quot;><div class=&quot;pv-feature-icon&quot;>🎫</div><h3>Tickets e suporte</h3><p>Organize pedidos de ajuda com canais privados para cada atendimento.</p></div></div></section>
+  <section id=&quot;overview&quot; class=&quot;screen active&quot;><div class=&quot;pv-preview-tag&quot;>PRÉVIA · painel (dados de exemplo)</div><div class=&quot;card pv-switch&quot;><label class=&quot;pv-switch-l&quot;>Servidor ativo<select class=&quot;input&quot; data-pv-change=&quot;trocar&quot;><option value=&quot;1&quot; selected>Servidor Exemplo</option></select></label><span class=&quot;pv-bot&quot;><span class=&quot;pv-dot on&quot;></span> Bot online</span></div>
+    <div class=&quot;card pv-dash-banner&quot;><div class=&quot;pv-banner-id&quot;><div class=&quot;pv-gi pv-gi-lg ph&quot;>S</div><div><span class=&quot;kicker&quot;>Servidor sob seu comando</span><h2>Servidor Exemplo</h2><span class=&quot;pv-bot&quot;><span class=&quot;pv-dot on&quot;></span> Bot online</span></div></div>
+      <div class=&quot;pv-actions&quot;><button class=&quot;btn&quot; data-pv=&quot;ir&quot; data-tela=&quot;servers&quot;>Trocar servidor</button></div></div>
+    
+    <div class=&quot;pv-dash&quot;>
+      <div class=&quot;pv-dash-main&quot;>
+        <h3>Acesso rápido</h3><div class=&quot;pv-quick&quot;><button class=&quot;card pv-q&quot; data-pv=&quot;ir&quot; data-tela=&quot;autocargos&quot;><span>🎭</span><b>Auto Cargos</b></button><button class=&quot;card pv-q&quot; data-pv=&quot;ir&quot; data-tela=&quot;boasvindas&quot;><span>👋</span><b>Boas-vindas</b></button><button class=&quot;card pv-q&quot; data-pv=&quot;ir&quot; data-tela=&quot;tickets&quot;><span>🎫</span><b>Suporte</b></button><button class=&quot;card pv-q&quot; data-pv=&quot;ir&quot; data-tela=&quot;diag&quot;><span>🩺</span><b>Diagnóstico</b></button></div>
+        <div class=&quot;card&quot;><h3>Estatísticas</h3><div class=&quot;pv-stats&quot;>
+          <div class=&quot;card pv-stat&quot;><span class=&quot;pv-stat-ic&quot;>👥</span><small>Total de membros</small><b>1.234</b></div>
+          <div class=&quot;card pv-stat&quot;><span class=&quot;pv-stat-ic&quot;>🤖</span><small>Bot</small><b class=&quot;ok&quot;>Online</b></div>
+          <div class=&quot;card pv-stat&quot;><span class=&quot;pv-stat-ic&quot;>🧩</span><small>Funções ativas</small><b>2</b></div>
+          <div class=&quot;card pv-stat&quot;><span class=&quot;pv-stat-ic&quot;>🎭</span><small>Painéis de cargos</small><b>1</b></div>
+        </div></div>
+        <h3>Funções</h3><div class=&quot;pv-list&quot;><div class=&quot;card pv-fn&quot;><div class=&quot;pv-fn-top&quot;><span class=&quot;pv-fn-ic&quot;>🎭</span><div class=&quot;pv-fn-t&quot;><b>Auto Cargos</b><small>Servidor Exemplo</small></div><span class=&quot;pill on&quot;>Ativo</span></div><button class=&quot;btn primary&quot; style=&quot;width:100%&quot; data-pv=&quot;ir&quot; data-tela=&quot;autocargos&quot;>Configurar</button></div><div class=&quot;card pv-fn&quot;><div class=&quot;pv-fn-top&quot;><span class=&quot;pv-fn-ic&quot;>👋</span><div class=&quot;pv-fn-t&quot;><b>Boas-vindas</b><small>Servidor Exemplo</small></div><span class=&quot;pill &quot;>Desligado</span></div><button class=&quot;btn primary&quot; style=&quot;width:100%&quot; data-pv=&quot;ir&quot; data-tela=&quot;boasvindas&quot;>Configurar</button></div><div class=&quot;card pv-fn&quot;><div class=&quot;pv-fn-top&quot;><span class=&quot;pv-fn-ic&quot;>🎫</span><div class=&quot;pv-fn-t&quot;><b>Tickets</b><small>Servidor Exemplo</small></div><span class=&quot;pill on&quot;>Ativo</span></div><button class=&quot;btn primary&quot; style=&quot;width:100%&quot; data-pv=&quot;ir&quot; data-tela=&quot;tickets&quot;>Configurar</button></div><div class=&quot;card pv-fn&quot;><div class=&quot;pv-fn-top&quot;><span class=&quot;pv-fn-ic&quot;>🎮</span><div class=&quot;pv-fn-t&quot;><b>Games</b><small>Servidor Exemplo</small></div></div><button class=&quot;btn primary&quot; style=&quot;width:100%&quot; data-pv=&quot;ir&quot; data-tela=&quot;games&quot;>Configurar</button></div><div class=&quot;card pv-fn&quot;><div class=&quot;pv-fn-top&quot;><span class=&quot;pv-fn-ic&quot;>🤖</span><div class=&quot;pv-fn-t&quot;><b>Tenchiko.IA</b><small>Servidor Exemplo</small></div></div><button class=&quot;btn primary&quot; style=&quot;width:100%&quot; data-pv=&quot;ir&quot; data-tela=&quot;ia&quot;>Configurar</button></div><div class=&quot;card pv-fn&quot;><div class=&quot;pv-fn-top&quot;><span class=&quot;pv-fn-ic&quot;>🩺</span><div class=&quot;pv-fn-t&quot;><b>Diagnóstico</b><small>Servidor Exemplo</small></div></div><button class=&quot;btn primary&quot; style=&quot;width:100%&quot; data-pv=&quot;ir&quot; data-tela=&quot;diag&quot;>Configurar</button></div></div>
+      </div>
+      <aside class=&quot;pv-dash-side&quot;>
+        <div class=&quot;card pv-profile&quot;><div><b>Usuário Exemplo</b><small class=&quot;muted&quot;>Gerencia este servidor</small></div></div>
+        <div class=&quot;card pv-side-card&quot;><span class=&quot;kicker&quot;>Bot</span><span class=&quot;pv-bot&quot;><span class=&quot;pv-dot on&quot;></span> Bot online</span><small class=&quot;muted&quot;>Estado reportado pelo painel agora.</small></div>
+      </aside>
+    </div></section>
+  <section id=&quot;servers&quot; class=&quot;screen&quot;></section>
+  <section id=&quot;roles&quot; class=&quot;screen active&quot;><div class=&quot;pv-preview-tag&quot;>PRÉVIA · funções</div><div class=&quot;pv-bar&quot;><div><h2 style=&quot;margin:0&quot;>Auto cargos</h2><small class=&quot;muted&quot;>Servidor Exemplo</small></div><button class=&quot;btn primary&quot; data-pv=&quot;novo&quot;>＋ Criar painel</button></div>
+    <p class=&quot;muted&quot;>Cada painel publica uma mensagem com um menu em um canal do Discord, para os membros escolherem cargos.</p>
+    <div class=&quot;card pv-panel&quot;><div class=&quot;pv-panel-h&quot;><b>Escolha seus cargos</b><span class=&quot;pill&quot;>Seleção múltipla</span></div><small class=&quot;muted&quot;>1 cargo(s) • #geral</small><div class=&quot;pv-chips&quot;><span class=&quot;pv-chip&quot;>🦇 Membro</span></div><div class=&quot;pv-actions&quot;><button class=&quot;btn&quot; data-pv=&quot;editar&quot; data-id=&quot;p1&quot;>✏️ Editar</button><button class=&quot;btn danger&quot; data-pv=&quot;apagar&quot; data-id=&quot;p1&quot;>🗑️ Apagar</button></div></div></section>
+  <section id=&quot;autocargos&quot; class=&quot;screen&quot;></section>
+  <section id=&quot;boasvindas&quot; class=&quot;screen&quot;></section>
+  <section id=&quot;tickets&quot; class=&quot;screen&quot;></section>
+  <section id=&quot;diag&quot; class=&quot;screen&quot;></section>
+  <section id=&quot;ia&quot; class=&quot;screen&quot;></section>
+  <section id=&quot;games&quot; class=&quot;screen&quot;></section>
+  <section id=&quot;loja&quot; class=&quot;screen&quot;></section>
+  <section id=&quot;commands&quot; class=&quot;screen&quot;></section>
+</main>
+<script>
+function go(id){document.querySelectorAll('.screen').forEach(function(x){x.classList.remove('active')});var el=document.getElementById(id);if(el)el.classList.add('active');if(window.NVBPainel)window.NVBPainel.onGo(id);window.scrollTo({top:0,behavior:'smooth'})}
+function toast(m){var t=document.createElement('div');t.className='toast';t.textContent=m;document.body.append(t);setTimeout(function(){t.remove()},3200)}
+</script>
+
+<style>.pv-preview-tag{font-size:11px;letter-spacing:.2em;color:#c4b5fd;margin:26px 0 8px;font-weight:700}.screen{display:block!important;animation:none}</style></body>
+</html>
+"></iframe></div></div></div>
+</div>
+</body></html>
