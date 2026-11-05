@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tenchikho - Painel</title>
+<style>
+  :root { --azul1:#3970ac; --azul2:#5491ca; --azul3:#acd9fd; --texto:#fff; --borda:#acd9fd; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; min-height:100%; background:linear-gradient(180deg,#3970ac,#5491ca 45%,#619fd3 75%,#acd9fd); color:var(--texto); font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; }
+  header { position:fixed; top:0; left:0; right:0; z-index:10; height:72px; display:flex; align-items:center; justify-content:space-between; padding:14px 18px; background:#3970ac; border:0; box-shadow:none; }
+  html, body { overscroll-behavior:none; }
+  body { padding-top:72px; }
+  header h1 { margin:0; font-size:20px; letter-spacing:.14em; position:absolute; left:50%; transform:translateX(-50%); white-space:nowrap; }
+  .btn-menu { width:44px; height:44px; padding:0; border-radius:14px; background:rgba(255,255,255,.2); color:#fff; font-size:22px; border:1px solid rgba(255,255,255,.6); }
+  #drawerFundo { position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:25; }
+  #drawer { position:fixed; top:0; left:0; bottom:0; width:78%; max-width:300px; z-index:30; background:linear-gradient(180deg,#2c5f99,#3970ac 50%,#5491ca); padding:14px 14px 24px; display:flex; flex-direction:column; gap:10px; overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; transform:translateX(-100%); transition:transform .25s ease; box-shadow:4px 0 20px rgba(0,0,0,.35); }
+  #drawer.aberto { transform:translateX(0); }
+  .drw-topo { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+  .drw-topo strong { font-size:18px; letter-spacing:.12em; }
+  #drawer nav { display:grid; gap:8px; }
+  .drw-card { display:flex; align-items:center; gap:10px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.35); border-radius:16px; padding:9px 12px; }
+  .drw-card strong { display:block; font-size:15px; }
+  .drw-card span { font-size:14px; opacity:.85; }
+  .drw-avatar { width:38px; height:38px; border-radius:50%; flex:none; }
+  .drw-secao { font-size:11px; letter-spacing:.12em; opacity:.8; margin:6px 0 0; }
+  #drawer nav button { width:100%; text-align:left; background:rgba(255,255,255,.15); color:#fff; border:1px solid rgba(255,255,255,.35); padding:10px 14px; font-size:15px; }
+  main { max-width:520px; margin:0 auto; padding:18px 14px 40px; }
+  .card { background:linear-gradient(135deg,#3970ac 0%,#5491ca 45%,#619fd3 70%,#acd9fd 100%); border:1px solid var(--borda); border-radius:24px; padding:18px; margin:14px 0; box-shadow:0 10px 28px rgba(84,145,202,.4); }
+  .card h2 { margin:0 0 10px; font-size:19px; }
+  label { display:block; font-size:14px; margin:10px 0 4px; }
+  select, input, textarea { width:100%; padding:12px; border-radius:14px; border:0; font:inherit; background:#fff; color:#0b2a55; }
+  textarea { min-height:80px; resize:vertical; }
+  button { border:0; border-radius:999px; padding:12px 18px; font:inherit; font-weight:700; background:#fff; color:#2477bf; cursor:pointer; }
+  button.primario { background:linear-gradient(180deg,#62caff,#2686df); color:#fff; }
+  button:disabled { opacity:.5; cursor:default; }
+  .linha { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:10px 0; }
+  .funcao { border-top:1px solid rgba(255,255,255,.35); padding-top:12px; margin-top:12px; }
+  .nota { font-size:13px; opacity:.9; margin:6px 0 0; }
+  .msg { min-height:22px; margin:8px 0 0; font-size:14px; }
+  .erro { color:#ffe3e8; }
+  .oculto { display:none !important; }
+  .checks { display:grid; gap:8px; max-height:220px; overflow-y:auto; background:rgba(255,255,255,.12); border-radius:14px; padding:10px; }
+  .check { display:flex; align-items:center; gap:8px; font-size:15px; margin:0; }
+  .check input { width:auto; }
+  #entrada { min-height:380px; }
+  #entrada { display:flex; flex-direction:column; align-items:stretch; justify-content:flex-end; }
+  #entrada h2 { font-size:26px; margin:0 0 8px; }
+  #entrada p { margin:0 0 14px; }
+  #entrada button { width:100%; padding:14px 10px; border-radius:18px; background:rgba(255,255,255,.92); color:#2477bf; }
+  #acesso { margin-top:60px; }
+  .acesso-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
+  .acesso-grid button { width:100%; padding:14px 10px; border-radius:18px; background:rgba(255,255,255,.92); color:#2477bf; }
+  .hero { min-height:220px; display:flex; align-items:flex-end; padding:22px; background:linear-gradient(90deg,rgba(22,91,153,.86) 0%,rgba(40,126,190,.68) 54%,rgba(35,116,177,.12) 100%), url("assets/hero.jpg") right center/cover no-repeat; }
+  .hero h2 { font-size:26px; }
+</style>
+</head>
+<body>
+<header>
+  <button id="btnMenu" class="btn-menu" aria-label="Abrir menu">☰</button>
+  <h1>TENCHIKHO</h1>
+  <button id="btnSair" style="visibility:hidden">Sair</button>
+</header>
+<div id="drawerFundo" class="oculto"></div>
+<aside id="drawer" aria-label="Menu">
+  <div class="drw-topo">
+    <button id="btnFechar" class="btn-menu" aria-label="Fechar menu">✕</button>
+  </div>
+  <div class="drw-card">
+    <img id="drwAvatar" class="drw-avatar oculto" alt="">
+    <div><strong id="drwNome">Entre com Discord</strong><span id="drwPapel">Faça login para continuar</span></div>
+  </div>
+  <div class="drw-card">
+    <div><strong id="drwBotNome">Bot</strong><span id="drwBotStatus">Sem conexão</span></div>
+  </div>
+  <p class="drw-secao">GERENCIAR</p>
+  <nav>
+    <button data-vis="painel">Painel de controle</button>
+    <button data-vis="servidores">Servidores</button>
+    <button data-vis="funcoes">Funções</button>
+  </nav>
+  <p class="drw-secao">RECURSOS</p>
+  <nav id="drwRecursos">
+    <button data-recurso="1">🎭 Auto Cargo</button>
+    <button data-recurso="2">👋 Boas-vindas</button>
+    <button data-recurso="3">🛡️ Moderação</button>
+    <button data-recurso="4">🎫 Ticket</button>
+    <button data-recurso="5">🛒 Loja</button>
+    <button data-recurso="6">🎮 Games</button>
+    <button data-recurso="7">🤖 Tenchikho IA</button>
+    <button data-recurso="8">🩺 Diagnóstico</button>
+  </nav>
+  <p class="drw-secao">CENTRAL</p>
+  <nav id="drwCentral">
+    <button data-central="comandos">📖 Comandos</button>
+    <button data-central="idioma">🌐 Idioma</button>
+    <button data-central="sair">🚪 Sair</button>
+  </nav>
+</aside>
+
+<main>
+  <section id="entrada" class="card hero oculto">
+    <h2>Entre no painel</h2>
+    <p>Use sua conta do Discord. Você verá só os servidores em que é administrador.</p>
+    <button class="primario" onclick="location.href='/auth/login'">Entrar com Discord</button>
+  </section>
+
+  <section id="acesso" class="card">
+    <h2>Acesso rápido</h2>
+    <div class="acesso-grid">
+      <button onclick="location.href='/auth/login'">Boas-vindas</button>
+      <button onclick="location.href='/auth/login'">Moderação</button>
+      <button onclick="location.href='/auth/login'">Ticket</button>
+      <button onclick="location.href='/auth/login'">Suporte</button>
+      <button onclick="location.href='/auth/login'" style="grid-column:1 / -1">Tenchikho IA</button>
+    </div>
+    <p class="nota">Entre com o Discord para configurar essas funções no seu servidor.</p>
+  </section>
+
+  <section id="painel" class="oculto">
+    <div class="card hero">
+      <p class="nota">Painel do servidor</p>
+      <h2 id="tituloServidor">Nenhum servidor</h2>
+    </div>
+    <div class="card" id="cardServidor">
+      <h2>Servidor</h2>
+      <label for="servidor">Servidor ativo</label>
+      <select id="servidor"><option value="">Escolha um servidor</option></select>
+      <p id="statusBot" class="nota"></p>
+      <div class="linha">
+        <a id="convidar" href="#" target="_blank" rel="noopener" class="oculto"><button class="primario">Convidar bot</button></a>
+      </div>
+      <p id="msgServidor" class="msg"></p>
+    </div>
+
+    <div id="funcoesBox" class="card oculto">
+      <h2>Funções</h2>
+      <div id="listaFuncoes"></div>
+    </div>
+
+    <div id="configBox" class="card oculto">
+      <div class="linha"><button id="configVoltar" class="sec">← Voltar</button></div>
+      <h2 id="configTitulo">Configurar</h2>
+      <div id="configCampos"></div>
+      <div class="linha"><button id="configSalvar" class="primario">Salvar</button><button id="configTeste" class="sec">Enviar teste</button></div>
+      <p id="configMsg" class="msg"></p>
+    </div>
+
+    <div id="avisosBox" class="card oculto">
+      <h2>Enviar aviso</h2>
+      <label for="avisoCanal">Canal</label>
+      <select id="avisoCanal"></select>
+      <label for="avisoTexto">Texto (até 1500 caracteres)</label>
+      <textarea id="avisoTexto" maxlength="1500"></textarea>
+      <div class="linha"><button id="btnAviso" class="primario">Enviar aviso</button></div>
+      <p id="msgAviso" class="msg"></p>
+    </div>
+  </section>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+let servidorAtual = null;
+let funcoesCache = [];
+let canaisCache = [];
+let rolesCache = [];
+
+async function api(url, opts = {}) {
+  const r = await fetch(url, { ...opts, credentials: 'same-origin', headers: { 'Content-Type': 'application/json' } });
+  const dados = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(dados.error || 'Erro inesperado.');
+  return dados;
+}
+function msg(el, texto, erro) { el.textContent = texto; el.className = 'msg' + (erro ? ' erro' : ''); }
+function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+
+async function iniciar() {
+  try {
+    const me = await api('/api/me');
+    $('entrada').classList.add('oculto');
+    $('acesso').classList.add('oculto');
+    $('painel').classList.remove('oculto');
+    $('btnSair').style.visibility = 'visible';
+    $('drwNome').textContent = me.user.nome;
+    $('drwPapel').textContent = me.servidores.length ? 'Administrador' : 'Sem servidor administrado';
+    if (me.user.avatar) { const img = $('drwAvatar'); img.src = me.user.avatar; img.classList.remove('oculto'); }
+    $('drwBotNome').textContent = me.botNome || 'Bot';
+    $('drwBotStatus').textContent = me.botOnline ? 'Bot online' : 'Bot offline';
+    const sel = $('servidor');
+    sel.innerHTML = '<option value="">Escolha um servidor</option>' +
+      me.servidores.map(s => `<option value="${esc(s.id)}" data-bot="${s.botPresente}">${esc(s.nome)}${s.botPresente ? '' : ' (bot fora)'}</option>`).join('');
+    if (!me.servidores.length) msg($('msgServidor'), 'Você não é administrador de nenhum servidor.', true);
+    $('statusBot').textContent = me.botOnline ? 'Bot online.' : 'Bot offline no momento.';
+  } catch (e) {
+    $('entrada').classList.remove('oculto');
+  }
+}
+
+$('servidor').addEventListener('change', async e => {
+  const id = e.target.value;
+  servidorAtual = id || null;
+  $('tituloServidor').textContent = e.target.selectedOptions[0]?.textContent.trim() || 'Nenhum servidor';
+  ['funcoesBox', 'avisosBox'].forEach(x => $(x).classList.add('oculto'));
+  $('convidar').classList.add('oculto');
+  msg($('msgServidor'), '');
+  if (!id) return;
+  const opt = e.target.selectedOptions[0];
+  if (opt.dataset.bot !== 'true') {
+    $('convidar').href = '/convidar';
+    $('convidar').classList.remove('oculto');
+    msg($('msgServidor'), 'O bot ainda não está neste servidor. Convide primeiro.', true);
+    return;
+  }
+  try {
+    const [f, c, r] = await Promise.all([
+      api(`/api/guilds/${id}/funcoes`),
+      api(`/api/guilds/${id}/canais`),
+      api(`/api/guilds/${id}/cargos`),
+    ]);
+    funcoesCache = f.funcoes;
+    canaisCache = c.canais;
+    rolesCache = r.cargos;
+    renderFuncoes();
+    preencherCanaisAviso();
+    aplicarVisao();
+  } catch (err) {
+    msg($('msgServidor'), err.message, true);
+  }
+});
+
+function opcoesCanais(atual) {
+  return '<option value="">Nenhum</option>' + canaisCache.map(c =>
+    `<option value="${esc(c.id)}" ${c.id === atual ? 'selected' : ''}>#${esc(c.nome)}</option>`).join('');
+}
+
+function opcoesCargos(atual) {
+  return '<option value="">Nenhum</option>' + rolesCache.map(r =>
+    `<option value="${esc(r.id)}" ${r.id === atual ? 'selected' : ''}>@${esc(r.nome)}</option>`).join('');
+}
+
+function lerCamposDe(root) {
+  const campos = {};
+  root.querySelectorAll('[data-campo]').forEach(el => { campos[el.dataset.campo] = el.value; });
+  root.querySelectorAll('[data-grupo]').forEach(g => {
+    campos[g.dataset.grupo] = [...g.querySelectorAll('input:checked')].map(i => i.value);
+  });
+  return campos;
+}
+
+function camposHtml(f) {
+  const simNao = v => `<option value="sim" ${v ? 'selected' : ''}>Sim</option><option value="nao" ${!v ? 'selected' : ''}>Não</option>`;
+  const campos = [];
+  if (f.chave === 'boasvindas') {
+    campos.push(`<label>Canal de boas-vindas</label><select data-campo="canalId">${opcoesCanais(f.campos.canalId)}</select>`);
+    campos.push(`<label>Mensagem ({membro} vira a menção)</label><textarea data-campo="mensagem" maxlength="500">${esc(f.campos.mensagem || '')}</textarea>`);
+    campos.push(`<label>Enviar como cartão (embed)</label><select data-campo="embed">${simNao(f.campos.embed)}</select>`);
+    campos.push(`<label>Cargo automático ao entrar</label><select data-campo="cargoId">${opcoesCargos(f.campos.cargoId)}</select>`);
+    campos.push(`<label>Enviar mensagem privada (DM)</label><select data-campo="dm">${simNao(f.campos.dm)}</select>`);
+    campos.push(`<label>Mensagem privada ({membro} vira o nome)</label><textarea data-campo="mensagemDm" maxlength="500">${esc(f.campos.mensagemDm || '')}</textarea>`);
+  }
+  if (f.chave === 'ticket') {
+    campos.push(`<label>Canal do painel de tickets</label><select data-campo="canalPainelId">${opcoesCanais(f.campos.canalPainelId)}</select>`);
+    campos.push(`<label>ID da categoria dos tickets (opcional)</label><input data-campo="categoriaId" type="text" maxlength="20" value="${esc(f.campos.categoriaId || '')}" placeholder="Clique direito na categoria > Copiar ID">`);
+    const marcados = Array.isArray(f.campos.cargoEquipeId) ? f.campos.cargoEquipeId : (f.campos.cargoEquipeId ? [f.campos.cargoEquipeId] : []);
+    campos.push(`<label>Cargos da equipe (marque quantos quiser)</label><div class="checks" data-grupo="cargoEquipeId">${rolesCache.map(r => `<label class="check"><input type="checkbox" value="${esc(r.id)}" ${marcados.includes(r.id) ? 'checked' : ''}> @${esc(r.nome)}</label>`).join('')}</div>`);
+    campos.push(`<label>Título do painel</label><input data-campo="tituloPainel" type="text" maxlength="256" value="${esc(f.campos.tituloPainel || '')}" placeholder="🎫 Atendimento">`);
+    campos.push(`<label>Texto do painel</label><textarea data-campo="textoPainel" maxlength="500">${esc(f.campos.textoPainel || '')}</textarea>`);
+    campos.push(`<label>Opções do menu: uma por linha, no formato "Nome | descrição | texto de abertura" (vazio = botão)</label><textarea data-campo="opcoes" maxlength="12000" placeholder="Sup-Suporte | Contestação de punições | Descreva seu caso&#10;ADM-ADministrador | Inscrição | Preencha a ficha">${esc(f.campos.opcoes || '')}</textarea>`);
+    campos.push(`<label>Texto do botão de abrir (quando não há menu)</label><input data-campo="textoBotao" type="text" maxlength="80" value="${esc(f.campos.textoBotao || '')}" placeholder="🎫 Abrir ticket">`);
+    campos.push(`<label>Texto do botão de fechar</label><input data-campo="textoBotaoFechar" type="text" maxlength="80" value="${esc(f.campos.textoBotaoFechar || '')}" placeholder="🔒 Fechar ticket">`);
+    campos.push(`<label>Mensagem ao abrir ticket ({membro} vira a menção)</label><textarea data-campo="mensagemAbertura" maxlength="500">${esc(f.campos.mensagemAbertura || '')}</textarea>`);
+  }
+  if (f.chave === 'autocargo') {
+    campos.push(`<label>Cargo para membros que entram</label><select data-campo="cargoMembroId">${opcoesCargos(f.campos.cargoMembroId)}</select>`);
+    campos.push(`<label>Cargo para bots que entram</label><select data-campo="cargoBotId">${opcoesCargos(f.campos.cargoBotId)}</select>`);
+  }
+  if (f.chave === 'avisos') {
+    campos.push(`<label>Canal padrão de avisos</label><select data-campo="canalId">${opcoesCanais(f.campos.canalId)}</select>`);
+  }
+  return campos.join('');
+}
+
+function renderFuncoes() {
+  $('listaFuncoes').innerHTML = funcoesCache.map(f => {
+    const nota = f.implementada ? '' : '<p class="nota">Ainda sem comportamento no bot. Pode configurar, mas não ativa.</p>';
+    return `
+      <div class="funcao" data-chave="${esc(f.chave)}">
+        <div class="linha">
+          <strong>${esc(f.nome)}</strong>
+          <span>${f.ativa ? '🟢 Ativa' : '🔴 Desligada'}</span>
+        </div>
+        ${nota}
+        <div class="linha">
+          <button class="primario" data-acao="configurar">Configurar</button>
+          <button data-acao="alternar" ${f.implementada ? '' : 'disabled'}>${f.ativa ? 'Desligar' : 'Ativar'}</button>
+        </div>
+        <p class="msg" data-msg></p>
+      </div>`;
+  }).join('');
+}
+
+async function gravarFuncao(chave, ativa, campos) {
+  const r = await api(`/api/guilds/${servidorAtual}/funcoes/${chave}`, {
+    method: 'PUT',
+    body: JSON.stringify({ ativa, campos }),
+  });
+  const f = funcoesCache.find(x => x.chave === chave);
+  f.ativa = r.configuracao.ativa;
+  f.campos = r.configuracao.campos;
+  return f;
+}
+
+let funcaoEditando = null;
+
+function abrirConfiguracao(chave) {
+  const f = funcoesCache.find(x => x.chave === chave);
+  if (!f) return;
+  funcaoEditando = chave;
+  $('configTitulo').textContent = f.nome;
+  const corpo = camposHtml(f) || '<p class="nota">Esta função ainda não tem opções para configurar.</p>';
+  const aviso = f.implementada ? '' : '<p class="nota">Ainda sem comportamento no bot. A configuração fica salva, mas a função não ativa.</p>';
+  $('configCampos').innerHTML = corpo + aviso;
+  msg($('configMsg'), '');
+  visaoAtual = 'config';
+  aplicarVisao();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function voltarFuncoes() {
+  visaoAtual = 'funcoes';
+  aplicarVisao();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+$('listaFuncoes').addEventListener('click', async e => {
+  const btn = e.target.closest('button[data-acao]');
+  if (!btn) return;
+  const chave = btn.closest('.funcao').dataset.chave;
+  if (btn.dataset.acao === 'configurar') { abrirConfiguracao(chave); return; }
+  const f = funcoesCache.find(x => x.chave === chave);
+  try {
+    await gravarFuncao(chave, !f.ativa, f.campos);
+    renderFuncoes();
+    msg(document.querySelector(`.funcao[data-chave="${chave}"] [data-msg]`), f.ativa ? 'Ativada.' : 'Desligada.');
+  } catch (err) {
+    msg(btn.closest('.funcao').querySelector('[data-msg]'), err.message, true);
+  }
+});
+
+$('configVoltar').addEventListener('click', voltarFuncoes);
+
+$('configTeste').addEventListener('click', async () => {
+  const btn = $('configTeste');
+  const campos = lerCamposDe($('configCampos'));
+  btn.disabled = true;
+  try {
+    await api(`/api/guilds/${servidorAtual}/funcoes/${funcaoEditando}/teste`, {
+      method: 'POST',
+      body: JSON.stringify({ campos }),
+    });
+    msg($('configMsg'), 'Teste enviado no canal escolhido.');
+  } catch (err) {
+    msg($('configMsg'), err.message, true);
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+$('configSalvar').addEventListener('click', async () => {
+  const f = funcoesCache.find(x => x.chave === funcaoEditando);
+  if (!f) return;
+  const campos = lerCamposDe($('configCampos'));
+  try {
+    await gravarFuncao(f.chave, f.ativa, campos);
+    renderFuncoes();
+    voltarFuncoes();
+    msg(document.querySelector(`.funcao[data-chave="${f.chave}"] [data-msg]`), 'Configuração salva.');
+  } catch (err) {
+    msg($('configMsg'), err.message, true);
+  }
+});
+
+function preencherCanaisAviso() {
+  $('avisoCanal').innerHTML = canaisCache.map(c => `<option value="${esc(c.id)}">#${esc(c.nome)}</option>`).join('');
+}
+
+$('btnAviso').addEventListener('click', async () => {
+  const btn = $('btnAviso');
+  btn.disabled = true;
+  try {
+    await api(`/api/guilds/${servidorAtual}/avisos`, {
+      method: 'POST',
+      body: JSON.stringify({ canalId: $('avisoCanal').value, texto: $('avisoTexto').value }),
+    });
+    $('avisoTexto').value = '';
+    msg($('msgAviso'), 'Aviso enviado.');
+  } catch (err) {
+    msg($('msgAviso'), err.message, true);
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+$('btnSair').addEventListener('click', async () => {
+  await api('/auth/logout', { method: 'POST' }).catch(() => {});
+  location.reload();
+});
+
+// Visões do painel: "painel" mostra tudo; "servidores" mostra só o cartão Servidor.
+let visaoAtual = 'painel';
+
+// Mostra só a parte escolhida no menu: painel (tudo), servidores ou funções.
+function aplicarVisao() {
+  [...$('painel').children].forEach(el => {
+    const base = !['funcoesBox', 'avisosBox', 'configBox'].includes(el.id) || !!servidorAtual;
+    let mostrar = base;
+    if (visaoAtual === 'servidores') mostrar = el.id === 'cardServidor';
+    if (visaoAtual === 'funcoes') mostrar = el.id === 'funcoesBox' && !!servidorAtual;
+    if (visaoAtual === 'config') mostrar = el.id === 'configBox' && !!servidorAtual;
+    el.classList.toggle('oculto', !mostrar);
+  });
+}
+function abrirMenu() { $('drawer').classList.add('aberto'); $('drawerFundo').classList.remove('oculto'); }
+function fecharMenu() { $('drawer').classList.remove('aberto'); $('drawerFundo').classList.add('oculto'); }
+$('btnMenu').addEventListener('click', abrirMenu);
+$('btnFechar').addEventListener('click', fecharMenu);
+$('drawerFundo').addEventListener('click', fecharMenu);
+$('drawer').addEventListener('click', e => {
+  const central = e.target.closest('button[data-central]');
+  if (central) {
+    fecharMenu();
+    if (central.dataset.central === 'sair') $('btnSair').click();
+    return;
+  }
+  if (e.target.closest('button[data-recurso]')) { fecharMenu(); return; }
+  const vis = e.target.closest('button[data-vis]');
+  if (!vis) return;
+  fecharMenu();
+  const v = vis.dataset.vis;
+  if (v === 'funcoes' && !servidorAtual) {
+    visaoAtual = 'servidores';
+    msg($('msgServidor'), 'Escolha um servidor para ver as funções.', true);
+  } else {
+    visaoAtual = v;
+  }
+  aplicarVisao();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+iniciar();
+</script>
+</body>
+</html>
