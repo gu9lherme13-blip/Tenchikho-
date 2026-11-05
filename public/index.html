@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tenchikho - Painel</title>
+<style>
+  :root { --azul1:#3970ac; --azul2:#5491ca; --azul3:#acd9fd; --texto:#fff; --borda:#acd9fd; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; min-height:100%; background:linear-gradient(180deg,#3970ac,#5491ca 45%,#619fd3 75%,#acd9fd); color:var(--texto); font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; }
+  header { position:fixed; top:0; left:0; right:0; z-index:10; height:72px; display:flex; align-items:center; justify-content:space-between; padding:14px 18px; background:#3970ac; border:0; box-shadow:none; }
+  html, body { overscroll-behavior:none; }
+  body { padding-top:72px; }
+  header h1 { margin:0; font-size:20px; letter-spacing:.14em; position:absolute; left:50%; transform:translateX(-50%); white-space:nowrap; }
+  .btn-menu { width:44px; height:44px; padding:0; border-radius:14px; background:rgba(255,255,255,.2); color:#fff; font-size:22px; border:1px solid rgba(255,255,255,.6); }
+  #drawerFundo { position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:25; }
+  #drawer { position:fixed; top:0; left:0; bottom:0; width:78%; max-width:300px; z-index:30; background:linear-gradient(180deg,#2c5f99,#3970ac 50%,#5491ca); padding:18px 16px; display:flex; flex-direction:column; gap:12px; transform:translateX(-100%); transition:transform .25s ease; box-shadow:4px 0 20px rgba(0,0,0,.35); }
+  #drawer.aberto { transform:translateX(0); }
+  .drw-topo { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+  .drw-topo strong { font-size:18px; letter-spacing:.12em; }
+  #drawer nav { display:grid; gap:10px; }
+  .drw-card { display:flex; align-items:center; gap:12px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.35); border-radius:18px; padding:12px 14px; }
+  .drw-card strong { display:block; font-size:16px; }
+  .drw-card span { font-size:14px; opacity:.85; }
+  .drw-avatar { width:44px; height:44px; border-radius:50%; flex:none; }
+  .drw-secao { font-size:12px; letter-spacing:.12em; opacity:.8; margin:10px 0 0; }
+  #drawer nav button { width:100%; text-align:left; background:rgba(255,255,255,.15); color:#fff; border:1px solid rgba(255,255,255,.35); padding:14px 16px; font-size:16px; }
+  main { max-width:520px; margin:0 auto; padding:18px 14px 40px; }
+  .card { background:linear-gradient(135deg,#3970ac 0%,#5491ca 45%,#619fd3 70%,#acd9fd 100%); border:1px solid var(--borda); border-radius:24px; padding:18px; margin:14px 0; box-shadow:0 10px 28px rgba(84,145,202,.4); }
+  .card h2 { margin:0 0 10px; font-size:19px; }
+  label { display:block; font-size:14px; margin:10px 0 4px; }
+  select, input, textarea { width:100%; padding:12px; border-radius:14px; border:0; font:inherit; background:#fff; color:#0b2a55; }
+  textarea { min-height:80px; resize:vertical; }
+  button { border:0; border-radius:999px; padding:12px 18px; font:inherit; font-weight:700; background:#fff; color:#2477bf; cursor:pointer; }
+  button.primario { background:linear-gradient(180deg,#62caff,#2686df); color:#fff; }
+  button:disabled { opacity:.5; cursor:default; }
+  .linha { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:10px 0; }
+  .funcao { border-top:1px solid rgba(255,255,255,.35); padding-top:12px; margin-top:12px; }
+  .nota { font-size:13px; opacity:.9; margin:6px 0 0; }
+  .msg { min-height:22px; margin:8px 0 0; font-size:14px; }
+  .erro { color:#ffe3e8; }
+  .oculto { display:none !important; }
+  #entrada { min-height:380px; }
+  #entrada { display:flex; flex-direction:column; align-items:stretch; justify-content:flex-end; }
+  #entrada h2 { font-size:26px; margin:0 0 8px; }
+  #entrada p { margin:0 0 14px; }
+  #entrada button { width:100%; padding:14px 10px; border-radius:18px; background:rgba(255,255,255,.92); color:#2477bf; }
+  #acesso { margin-top:60px; }
+  .acesso-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
+  .acesso-grid button { width:100%; padding:14px 10px; border-radius:18px; background:rgba(255,255,255,.92); color:#2477bf; }
+  .hero { min-height:220px; display:flex; align-items:flex-end; padding:22px; background:linear-gradient(90deg,rgba(22,91,153,.86) 0%,rgba(40,126,190,.68) 54%,rgba(35,116,177,.12) 100%), url("assets/hero.jpg") right center/cover no-repeat; }
+  .hero h2 { font-size:26px; }
+</style>
+</head>
+<body>
+<header>
+  <button id="btnMenu" class="btn-menu" aria-label="Abrir menu">☰</button>
+  <h1>TENCHIKHO</h1>
+  <button id="btnSair" style="visibility:hidden">Sair</button>
+</header>
+<div id="drawerFundo" class="oculto"></div>
+<aside id="drawer" aria-label="Menu">
+  <div class="drw-topo">
+    <button id="btnFechar" class="btn-menu" aria-label="Fechar menu">✕</button>
+  </div>
+  <div class="drw-card">
+    <img id="drwAvatar" class="drw-avatar oculto" alt="">
+    <div><strong id="drwNome">Entre com Discord</strong><span id="drwPapel">Faça login para continuar</span></div>
+  </div>
+  <div class="drw-card">
+    <div><strong id="drwBotNome">Bot</strong><span id="drwBotStatus">Sem conexão</span></div>
+  </div>
+  <p class="drw-secao">GERENCIAR</p>
+  <nav>
+    <button data-ir="topo">Painel de controle</button>
+    <button data-ir="cardServidor">Servidores</button>
+    <button data-ir="funcoesBox">Funções</button>
+  </nav>
+  <p class="drw-secao">RECURSOS</p>
+  <nav id="drwRecursos">
+    <button data-recurso="1">🎭 Auto Cargo</button>
+    <button data-recurso="2">👋 Boas-vindas</button>
+    <button data-recurso="3">🛡️ Moderação</button>
+    <button data-recurso="4">🎫 Ticket</button>
+    <button data-recurso="5">🛒 Loja</button>
+    <button data-recurso="6">🎮 Games</button>
+    <button data-recurso="7">🤖 Tenchikho IA</button>
+    <button data-recurso="8">🩺 Diagnóstico</button>
+  </nav>
+  <p class="drw-secao">CENTRAL</p>
+  <nav id="drwCentral">
+    <button data-central="comandos">📖 Comandos</button>
+    <button data-central="idioma">🌐 Idioma</button>
+    <button data-central="sair">🚪 Sair</button>
+  </nav>
+</aside>
+
+<main>
+  <section id="entrada" class="card hero oculto">
+    <h2>Entre no painel</h2>
+    <p>Use sua conta do Discord. Você verá só os servidores em que é administrador.</p>
+    <button class="primario" onclick="location.href='/auth/login'">Entrar com Discord</button>
+  </section>
+
+  <section id="acesso" class="card">
+    <h2>Acesso rápido</h2>
+    <div class="acesso-grid">
+      <button onclick="location.href='/auth/login'">Boas-vindas</button>
+      <button onclick="location.href='/auth/login'">Moderação</button>
+      <button onclick="location.href='/auth/login'">Ticket</button>
+      <button onclick="location.href='/auth/login'">Suporte</button>
+      <button onclick="location.href='/auth/login'" style="grid-column:1 / -1">Tenchikho IA</button>
+    </div>
+    <p class="nota">Entre com o Discord para configurar essas funções no seu servidor.</p>
+  </section>
+
+  <section id="painel" class="oculto">
+    <div class="card hero">
+      <p class="nota">Painel do servidor</p>
+      <h2 id="tituloServidor">Nenhum servidor</h2>
+    </div>
+    <div class="card" id="cardServidor">
+      <h2>Servidor</h2>
+      <label for="servidor">Servidor ativo</label>
+      <select id="servidor"><option value="">Escolha um servidor</option></select>
+      <p id="statusBot" class="nota"></p>
+      <div class="linha">
+        <a id="convidar" href="#" target="_blank" rel="noopener" class="oculto"><button class="primario">Convidar bot</button></a>
+      </div>
+      <p id="msgServidor" class="msg"></p>
+    </div>
+
+    <div id="funcoesBox" class="card oculto">
+      <h2>Funções</h2>
+      <div id="listaFuncoes"></div>
+    </div>
+
+    <div id="avisosBox" class="card oculto">
+      <h2>Enviar aviso</h2>
+      <label for="avisoCanal">Canal</label>
+      <select id="avisoCanal"></select>
+      <label for="avisoTexto">Texto (até 1500 caracteres)</label>
+      <textarea id="avisoTexto" maxlength="1500"></textarea>
+      <div class="linha"><button id="btnAviso" class="primario">Enviar aviso</button></div>
+      <p id="msgAviso" class="msg"></p>
+    </div>
+  </section>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+let servidorAtual = null;
+let funcoesCache = [];
+let canaisCache = [];
+
+async function api(url, opts = {}) {
+  const r = await fetch(url, { ...opts, credentials: 'same-origin', headers: { 'Content-Type': 'application/json' } });
+  const dados = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(dados.error || 'Erro inesperado.');
+  return dados;
+}
+function msg(el, texto, erro) { el.textContent = texto; el.className = 'msg' + (erro ? ' erro' : ''); }
+function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+
+async function iniciar() {
+  try {
+    const me = await api('/api/me');
+    $('entrada').classList.add('oculto');
+    $('acesso').classList.add('oculto');
+    $('painel').classList.remove('oculto');
+    $('btnSair').style.visibility = 'visible';
+    $('drwNome').textContent = me.user.nome;
+    $('drwPapel').textContent = me.servidores.length ? 'Administrador' : 'Sem servidor administrado';
+    if (me.user.avatar) { const img = $('drwAvatar'); img.src = me.user.avatar; img.classList.remove('oculto'); }
+    $('drwBotNome').textContent = me.botNome || 'Bot';
+    $('drwBotStatus').textContent = me.botOnline ? 'Bot online' : 'Bot offline';
+    const sel = $('servidor');
+    sel.innerHTML = '<option value="">Escolha um servidor</option>' +
+      me.servidores.map(s => `<option value="${esc(s.id)}" data-bot="${s.botPresente}">${esc(s.nome)}${s.botPresente ? '' : ' (bot fora)'}</option>`).join('');
+    if (!me.servidores.length) msg($('msgServidor'), 'Você não é administrador de nenhum servidor.', true);
+    $('statusBot').textContent = me.botOnline ? 'Bot online.' : 'Bot offline no momento.';
+  } catch (e) {
+    $('entrada').classList.remove('oculto');
+  }
+}
+
+$('servidor').addEventListener('change', async e => {
+  const id = e.target.value;
+  servidorAtual = id || null;
+  $('tituloServidor').textContent = e.target.selectedOptions[0]?.textContent.trim() || 'Nenhum servidor';
+  ['funcoesBox', 'avisosBox'].forEach(x => $(x).classList.add('oculto'));
+  $('convidar').classList.add('oculto');
+  msg($('msgServidor'), '');
+  if (!id) return;
+  const opt = e.target.selectedOptions[0];
+  if (opt.dataset.bot !== 'true') {
+    $('convidar').href = '/convidar';
+    $('convidar').classList.remove('oculto');
+    msg($('msgServidor'), 'O bot ainda não está neste servidor. Convide primeiro.', true);
+    return;
+  }
+  try {
+    const [f, c] = await Promise.all([api(`/api/guilds/${id}/funcoes`), api(`/api/guilds/${id}/canais`)]);
+    funcoesCache = f.funcoes;
+    canaisCache = c.canais;
+    renderFuncoes();
+    preencherCanaisAviso();
+    $('funcoesBox').classList.remove('oculto');
+    $('avisosBox').classList.remove('oculto');
+  } catch (err) {
+    msg($('msgServidor'), err.message, true);
+  }
+});
+
+function opcoesCanais(atual) {
+  return '<option value="">Nenhum</option>' + canaisCache.map(c =>
+    `<option value="${esc(c.id)}" ${c.id === atual ? 'selected' : ''}>#${esc(c.nome)}</option>`).join('');
+}
+
+function renderFuncoes() {
+  $('listaFuncoes').innerHTML = funcoesCache.map(f => {
+    const campos = [];
+    if (f.chave === 'boasvindas') {
+      campos.push(`<label>Canal de boas-vindas</label><select data-campo="canalId">${opcoesCanais(f.campos.canalId)}</select>`);
+      campos.push(`<label>Mensagem ({membro} vira a menção)</label><textarea data-campo="mensagem" maxlength="500">${esc(f.campos.mensagem || '')}</textarea>`);
+    }
+    if (f.chave === 'avisos') {
+      campos.push(`<label>Canal padrão de avisos</label><select data-campo="canalId">${opcoesCanais(f.campos.canalId)}</select>`);
+    }
+    const nota = f.implementada ? '' : '<p class="nota">Ainda sem comportamento no bot. Pode configurar, mas não ativa.</p>';
+    return `
+      <div class="funcao" data-chave="${esc(f.chave)}">
+        <div class="linha">
+          <strong>${esc(f.nome)}</strong>
+          <span>${f.ativa ? '🟢 Ativa' : '🔴 Desligada'}</span>
+        </div>
+        ${nota}
+        ${campos.join('')}
+        <div class="linha">
+          <button class="primario" data-acao="salvar">Salvar</button>
+          <button data-acao="alternar" ${f.implementada ? '' : 'disabled'}>${f.ativa ? 'Desligar' : 'Ativar'}</button>
+        </div>
+        <p class="msg" data-msg></p>
+      </div>`;
+  }).join('');
+}
+
+function lerCampos(bloco) {
+  const campos = {};
+  bloco.querySelectorAll('[data-campo]').forEach(el => { campos[el.dataset.campo] = el.value; });
+  return campos;
+}
+
+$('listaFuncoes').addEventListener('click', async e => {
+  const btn = e.target.closest('button[data-acao]');
+  if (!btn) return;
+  const bloco = btn.closest('.funcao');
+  const chave = bloco.dataset.chave;
+  const atual = funcoesCache.find(f => f.chave === chave);
+  const saida = bloco.querySelector('[data-msg]');
+  const ativa = btn.dataset.acao === 'alternar' ? !atual.ativa : atual.ativa;
+  try {
+    const r = await api(`/api/guilds/${servidorAtual}/funcoes/${chave}`, {
+      method: 'PUT',
+      body: JSON.stringify({ ativa, campos: lerCampos(bloco) }),
+    });
+    atual.ativa = r.configuracao.ativa;
+    atual.campos = r.configuracao.campos;
+    renderFuncoes();
+    const nova = [...$('listaFuncoes').querySelectorAll('.funcao')].find(b => b.dataset.chave === chave);
+    msg(nova.querySelector('[data-msg]'), 'Salvo.');
+  } catch (err) {
+    msg(saida, err.message, true);
+  }
+});
+
+function preencherCanaisAviso() {
+  $('avisoCanal').innerHTML = canaisCache.map(c => `<option value="${esc(c.id)}">#${esc(c.nome)}</option>`).join('');
+}
+
+$('btnAviso').addEventListener('click', async () => {
+  const btn = $('btnAviso');
+  btn.disabled = true;
+  try {
+    await api(`/api/guilds/${servidorAtual}/avisos`, {
+      method: 'POST',
+      body: JSON.stringify({ canalId: $('avisoCanal').value, texto: $('avisoTexto').value }),
+    });
+    $('avisoTexto').value = '';
+    msg($('msgAviso'), 'Aviso enviado.');
+  } catch (err) {
+    msg($('msgAviso'), err.message, true);
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+$('btnSair').addEventListener('click', async () => {
+  await api('/auth/logout', { method: 'POST' }).catch(() => {});
+  location.reload();
+});
+
+function abrirMenu() { $('drawer').classList.add('aberto'); $('drawerFundo').classList.remove('oculto'); }
+function fecharMenu() { $('drawer').classList.remove('aberto'); $('drawerFundo').classList.add('oculto'); }
+$('btnMenu').addEventListener('click', abrirMenu);
+$('btnFechar').addEventListener('click', fecharMenu);
+$('drawerFundo').addEventListener('click', fecharMenu);
+$('drawer').addEventListener('click', e => {
+  const central = e.target.closest('button[data-central]');
+  if (central) {
+    fecharMenu();
+    if (central.dataset.central === 'sair') $('btnSair').click();
+    return;
+  }
+  if (e.target.closest('button[data-recurso]')) { fecharMenu(); return; }
+  const b = e.target.closest('button[data-ir]');
+  if (!b) return;
+  fecharMenu();
+  const alvo = b.dataset.ir;
+  if (alvo === 'topo') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+  const el = $(alvo);
+  if (el && !el.classList.contains('oculto')) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+iniciar();
+</script>
+</body>
+</html>
