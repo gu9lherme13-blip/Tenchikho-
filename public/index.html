@@ -1,0 +1,1263 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tenchikho - Painel</title>
+<style>
+  :root { --azul1:#3970ac; --azul2:#5491ca; --azul3:#acd9fd; --texto:#fff; --borda:#acd9fd; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; min-height:100%; background:linear-gradient(180deg,#3970ac,#5491ca 45%,#619fd3 75%,#acd9fd); color:var(--texto); font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; }
+  header { position:fixed; top:0; left:0; right:0; z-index:10; height:72px; display:flex; align-items:center; justify-content:space-between; padding:14px 18px; background:#3970ac; border:0; box-shadow:none; }
+  html, body { overscroll-behavior:none; }
+  body { padding-top:72px; }
+  header h1 { margin:0; font-size:20px; letter-spacing:.14em; position:absolute; left:50%; transform:translateX(-50%); white-space:nowrap; }
+  .btn-menu { width:44px; height:44px; padding:0; border-radius:14px; background:rgba(255,255,255,.2); color:#fff; font-size:22px; border:1px solid rgba(255,255,255,.6); }
+  #drawerFundo { position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:25; }
+  #drawer { position:fixed; top:0; left:0; bottom:0; width:78%; max-width:300px; z-index:30; background:linear-gradient(180deg,#2c5f99,#3970ac 50%,#5491ca); padding:14px 14px 24px; display:flex; flex-direction:column; gap:10px; overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; transform:translateX(-100%); transition:transform .25s ease; box-shadow:4px 0 20px rgba(0,0,0,.35); }
+  #drawer.aberto { transform:translateX(0); }
+  .drw-topo { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+  .drw-topo strong { font-size:18px; letter-spacing:.12em; }
+  #drawer nav { display:grid; gap:8px; }
+  .drw-card { display:flex; align-items:center; gap:10px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.35); border-radius:16px; padding:9px 12px; }
+  .drw-card strong { display:block; font-size:15px; }
+  .drw-card span { font-size:14px; opacity:.85; }
+  .drw-avatar { width:38px; height:38px; border-radius:50%; flex:none; }
+  .drw-secao { font-size:11px; letter-spacing:.12em; opacity:.8; margin:6px 0 0; }
+  #drawer nav button { width:100%; text-align:left; background:rgba(255,255,255,.15); color:#fff; border:1px solid rgba(255,255,255,.35); padding:10px 14px; font-size:15px; }
+  main { max-width:520px; margin:0 auto; padding:18px 14px 40px; }
+  .card { background:linear-gradient(135deg,#3970ac 0%,#5491ca 45%,#619fd3 70%,#acd9fd 100%); border:1px solid var(--borda); border-radius:24px; padding:18px; margin:14px 0; box-shadow:0 10px 28px rgba(84,145,202,.4); }
+  .card h2 { margin:0 0 10px; font-size:19px; }
+  label { display:block; font-size:14px; margin:10px 0 4px; }
+  select, input, textarea { width:100%; padding:12px; border-radius:14px; border:0; font:inherit; background:#fff; color:#0b2a55; }
+  textarea { min-height:80px; resize:vertical; }
+  button { border:0; border-radius:999px; padding:12px 18px; font:inherit; font-weight:700; background:#fff; color:#2477bf; cursor:pointer; }
+  button.primario { background:linear-gradient(180deg,#62caff,#2686df); color:#fff; }
+  button:disabled { opacity:.5; cursor:default; }
+  .linha { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:10px 0; }
+  #funcoesBox { background:transparent; border:0; box-shadow:none; padding:0; margin:14px 0; }
+  .tituloFuncoes { margin:0 0 14px; font-size:19px; }
+  .funcao { background:linear-gradient(135deg,#3970ac 0%,#5491ca 45%,#619fd3 70%,#acd9fd 100%); border:1px solid var(--borda); border-radius:24px; padding:18px; margin:14px 0; box-shadow:0 10px 28px rgba(84,145,202,.4); }
+  .funcao strong { font-size:19px; }
+  .nota { font-size:13px; opacity:.9; margin:6px 0 0; }
+  .msg { min-height:22px; margin:8px 0 0; font-size:14px; }
+  .erro { color:#ffe3e8; }
+  .oculto { display:none !important; }
+  .checks { display:grid; gap:8px; max-height:220px; overflow-y:auto; background:rgba(255,255,255,.12); border-radius:14px; padding:10px; }
+  .check { display:flex; align-items:center; gap:8px; font-size:15px; margin:0; }
+  .check input { width:auto; }
+  #entrada { min-height:380px; padding:0 0 22px !important; overflow:hidden; display:block !important; }
+  #entrada .entrada-foto { width:100%; overflow:hidden; margin:0 0 22px; border-radius:22px 22px 0 0; }
+  #entrada .entrada-foto img { display:block; width:100%; height:auto; object-fit:contain; object-position:center; }
+  #entrada h2, #entrada p, #entrada button { margin-left:22px; margin-right:22px; }
+  #entrada h2 { font-size:26px; margin-top:0; margin-bottom:8px; }
+  #entrada p { margin:0 22px 14px; }
+  #entrada button { width:calc(100% - 44px); margin-left:22px; margin-right:22px; box-sizing:border-box; padding:14px 10px; border-radius:18px; background:rgba(255,255,255,.92); color:#2477bf; }
+  #acesso { margin-top:60px; }
+  .acesso-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
+  .acesso-grid button { width:100%; padding:14px 10px; border-radius:18px; background:rgba(255,255,255,.92); color:#2477bf; }
+  .tickets-lista { display:grid; gap:10px; margin-top:14px; }
+  .ticket-item { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.35); border-radius:18px; padding:14px; }
+  .ticket-item .acoes { display:flex; gap:8px; margin-top:10px; }
+  .ticket-item .acoes button { flex:1; padding:10px 12px; }
+  .ticket-item small { opacity:.8; display:block; margin-top:3px; }
+  .ticket-form { margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,255,255,.35); }
+  .ticket-topo { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .hero { min-height:220px; display:flex; align-items:flex-end; padding:22px; background:linear-gradient(90deg,rgba(22,91,153,.86) 0%,rgba(40,126,190,.68) 54%,rgba(35,116,177,.12) 100%), url("assets/hero.jpg") right center/cover no-repeat; }
+  .hero h2 { font-size:26px; }
+  #painel .painel-servidor-foto { width:100%; overflow:hidden; margin:0 0 20px; border-radius:22px 22px 0 0; }
+  #painel .painel-servidor-foto img { display:block; width:100%; height:auto; object-fit:contain; object-position:center; }
+  #painel .card.hero { padding:0 0 22px !important; overflow:hidden; display:block; }
+  #painel .card.hero > .nota, #painel .card.hero > h2 { margin-left:22px; margin-right:22px; }
+  #painel .card.hero > h2 { margin-top:0; }
+
+/* ===== Tema preto e verde (enviado pelo usuário) ===== */
+html, body {
+  background: #000 !important;
+}
+.card, .servidor, .funcoes {
+  background: #050a08 !important;
+  border: 1.5px solid #22c55e !important;
+  border-radius: 24px !important;
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.2) !important;
+}
+button, select, .dropdown {
+  background: #000 !important;
+  border: 1.5px solid #22c55e !important;
+  color: #22c55e !important;
+  border-radius: 999px !important;
+}
+.sair, [class*="Sair"] {
+  color: #22c55e !important;
+}
+
+/* ===== Visual completo preto e verde (conforme as capturas) ===== */
+:root { --verde:#22c55e; --verde-claro:#4ade80; --verde-escuro:#14532d; --card:#0c110e; --campo:#1a1d1b; --vermelho:#dc2626; }
+html, body { background:#000 !important; color:#e5e7eb !important; }
+header, header.topo {
+  position:fixed !important;
+  top:0 !important;
+  left:0 !important;
+  right:0 !important;
+  z-index:100 !important;
+  background:#000 !important;
+  border-bottom:1px solid var(--verde-escuro) !important;
+  box-shadow:none !important;
+  color:#fff !important;
+  transform:translateZ(0);
+  will-change:transform;
+}
+.btn-menu { background:#000 !important; border:1.5px solid var(--verde) !important; color:var(--verde) !important; }
+.card { background:var(--card) !important; border:1.5px solid var(--verde) !important; border-radius:24px !important; box-shadow:0 0 12px rgba(34,197,94,.2) !important; color:#fff !important; }
+.card h2 { color:#fff !important; }
+#funcoesBox { background:transparent !important; border:0 !important; box-shadow:none !important; padding:0 !important; }
+.tituloFuncoes { color:#fff !important; }
+.funcao { background:var(--card) !important; border:1.5px solid var(--verde) !important; border-radius:24px !important; box-shadow:0 0 12px rgba(34,197,94,.2) !important; color:#fff !important; padding:18px !important; margin:14px 0 !important; }
+.funcao strong { color:#fff !important; }
+.card label, label { color:var(--verde-claro) !important; }
+.nota, .msg { color:#9ca3af !important; }
+.msg.erro { color:#fca5a5 !important; }
+input, select, textarea { background:var(--campo) !important; color:#fff !important; border:1px solid var(--verde-escuro) !important; border-radius:14px !important; }
+button, .btn, .primario { background:var(--verde) !important; color:#fff !important; border:0 !important; border-radius:999px !important; box-shadow:none !important; }
+button.sec, .sec, #configVoltar, #configTeste { background:#000 !important; color:var(--verde) !important; border:1.5px solid var(--verde) !important; }
+button:disabled { opacity:.4 !important; }
+#btnSair, header button { background:var(--verde) !important; color:#fff !important; border:0 !important; }
+#drawer { background:#070a08 !important; border-right:1px solid var(--verde-escuro) !important; box-shadow:none !important; }
+#drawer nav button { background:#141815 !important; border:0 !important; color:#fff !important; border-radius:999px !important; }
+.drw-card { background:#141815 !important; border:0 !important; color:#fff !important; }
+.drw-card span { color:#d1d5db !important; }
+.drw-secao { color:var(--verde) !important; opacity:1 !important; }
+.checks { background:#141815 !important; }
+.check { color:#fff !important; }
+
+/* ===== Convite do bot dentro do painel ===== */
+.convidar-area { margin-top:14px; display:flex; justify-content:center; }
+.btn-convidar { width:100%; min-height:52px; font-size:17px; font-weight:800; padding:12px 18px; }
+@media (min-width:700px) { .btn-convidar { width:auto; min-width:280px; } }
+
+/* ===== Dashboard do Bot ===== */
+#dashboardBox { margin:14px 0; }
+.dashboard-header { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:14px; }
+.dashboard-header h2 { margin:0 !important; font-size:24px !important; }
+.dashboard-subtitle { margin:2px 0 0; color:#9ca3af; font-size:14px; }
+.dashboard-status { flex:none; padding:7px 12px; border:1px solid #14532d; border-radius:999px; color:#4ade80; background:#0c110e; font-weight:700; font-size:13px; }
+.dashboard-status.offline { color:#f87171; border-color:#7f1d1d; }
+.dashboard-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.dashboard-stat { background:#080d0a; border:1px solid #14532d; border-radius:16px; padding:14px; min-height:118px; }
+.dashboard-stat .icone { font-size:24px; margin-bottom:5px; }
+.dashboard-stat h3 { margin:0; font-size:16px; color:#fff; }
+.dashboard-stat p { margin:3px 0 0; color:#9ca3af; font-size:12px; }
+.dashboard-stat .valor { margin-top:7px; font-size:30px; line-height:1; font-weight:800; color:#22c55e; }
+.dashboard-lower { display:grid; grid-template-columns:1.5fr 1fr; gap:10px; margin-top:10px; }
+.dashboard-panel { background:#080d0a; border:1px solid #14532d; border-radius:16px; padding:14px; }
+.dashboard-panel h3 { margin:0 0 12px; font-size:17px; }
+.dashboard-metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.dashboard-metric span { display:block; color:#9ca3af; font-size:12px; }
+.dashboard-metric strong { display:block; margin-top:2px; color:#22c55e; font-size:22px; }
+.dashboard-status-list { display:grid; gap:9px; }
+.dashboard-status-item { padding-bottom:9px; border-bottom:1px solid #1f2937; }
+.dashboard-status-item:last-child { padding-bottom:0; border-bottom:0; }
+.dashboard-status-item strong { display:block; color:#22c55e; }
+.dashboard-status-item span { color:#9ca3af; font-size:12px; }
+@media (max-width:620px) {
+  .dashboard-header { align-items:flex-start; }
+  .dashboard-header h2 { font-size:22px !important; }
+  .dashboard-lower { grid-template-columns:1fr; }
+  .dashboard-metrics { grid-template-columns:repeat(3,1fr); }
+}
+
+.cand{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#1a1d1b;border-radius:14px;padding:12px 14px;margin:10px 0;cursor:pointer}
+.cand .sub{display:block;font-size:13px;color:#9ca3af;margin-top:3px}
+.st{font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.st-pendente{background:#854d0e;color:#fde68a}
+.st-aprovada{background:#14532d;color:#bbf7d0}
+.st-recusada{background:#7f1d1d;color:#fecaca}
+#candidaturasBox input,#candidaturasBox select{width:100%;margin:8px 0}
+</style>
+</head>
+<body>
+<header>
+  <button id="btnMenu" class="btn-menu" aria-label="Abrir menu">☰</button>
+  <h1>TENCHIKHO</h1>
+  <button id="btnSair" style="visibility:hidden">Sair</button>
+</header>
+<div id="drawerFundo" class="oculto"></div>
+<aside id="drawer" aria-label="Menu">
+  <div class="drw-topo">
+    <button id="btnFechar" class="btn-menu" aria-label="Fechar menu">✕</button>
+  </div>
+  <div class="drw-card">
+    <img id="drwAvatar" class="drw-avatar oculto" alt="">
+    <div><strong id="drwNome">Entre com Discord</strong><span id="drwPapel">Faça login para continuar</span></div>
+  </div>
+  <div class="drw-card">
+    <img id="drwServidorIcon" class="drw-avatar oculto" alt="">
+    <div><strong id="drwServidorNome">Nenhum servidor</strong><span id="drwServidorStatus">Selecione um servidor</span></div>
+  </div>
+  <p class="drw-secao">GERENCIAR</p>
+  <nav>
+    <button data-vis="painel">Painel de controle</button>
+    <button data-vis="servidores">Servidores</button>
+    <button data-vis="funcoes">Funções</button>
+  </nav>
+  <p class="drw-secao">RECURSOS</p>
+  <nav id="drwRecursos">
+    <button data-recurso="1">🎭 Auto Cargo</button>
+    <button data-recurso="2">👋 Boas-vindas</button>
+    <button data-recurso="3">🛡️ Moderação</button>
+    <button data-recurso="4">🎫 Ticket</button>
+    <button data-recurso="5">🛒 Loja</button>
+    <button data-recurso="6">🎮 Games</button>
+    <button data-recurso="7">🤖 Tenchikho IA</button>
+    <button data-recurso="8">🩺 Diagnóstico</button>
+  </nav>
+  <p class="drw-secao">CENTRAL</p>
+  <nav id="drwCentral">
+    <button data-central="comandos">📖 Comandos</button>
+    <button data-central="idioma">🌐 Idioma</button>
+    <button data-central="sair">🚪 Sair</button>
+  </nav>
+</aside>
+
+<main>
+  <section id="entrada" class="card hero oculto">
+    <div class="entrada-foto"><img src="assets/hero.jpg" alt="Imagem do painel"></div>
+    <h2>Entre no painel</h2>
+    <p>Bem-vindo ao Tenchikho. Entre com o Discord e assuma o controle do seu servidor.</p>
+    <button class="primario" onclick="location.href='/auth/login'">Entrar com Discord</button>
+    <a id="convidar" href="/convidar" target="_blank" rel="noopener" style="display:block;margin:12px 22px 0;">
+      <button type="button" class="primario btn-convidar" style="width:100%;margin:0;">🤖 Convidar bot para o Discord</button>
+    </a>
+  </section>
+
+  <div id="oferece" style="padding:8px 26px 4px;">
+    <h2 style="font-size:20px;margin:0 0 12px;color:#fff;">O que o Tenchikho oferece</h2>
+    <ul style="margin:0;padding-left:20px;font-size:15px;line-height:1.7;color:#d1d5db;">
+      <li style="margin:0 0 10px;">Seu servidor do Discord, organizado em um só lugar.</li>
+      <li style="margin:0 0 10px;">Entre com o Discord e escolha o servidor que você administra.</li>
+      <li style="margin:0 0 10px;">Tenha tudo o que precisa para gerenciar sua comunidade.</li>
+    </ul>
+  </div>
+
+  <section id="acesso" class="card">
+    <h2>O que o Tenchikho faz</h2>
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:0 0 14px;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,.15);">
+        <div style="flex:0 0 46px;height:46px;border-radius:50%;border:1.5px solid var(--verde);display:flex;align-items:center;justify-content:center;color:var(--verde);font-weight:700;font-size:18px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></div>
+        <div>
+          <strong style="display:block;font-size:17px;color:#fff;margin-bottom:4px;">Automação</strong>
+          <span style="font-size:14px;line-height:1.5;color:#9ca3af;">Avisos enviados pelo painel no canal que você escolher.</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:0 0 14px;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,.15);">
+        <div style="flex:0 0 46px;height:46px;border-radius:50%;border:1.5px solid var(--verde);display:flex;align-items:center;justify-content:center;color:var(--verde);font-weight:700;font-size:18px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div>
+          <strong style="display:block;font-size:17px;color:#fff;margin-bottom:4px;">Moderação</strong>
+          <span style="font-size:14px;line-height:1.5;color:#9ca3af;">Proteção do servidor.</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:0 0 14px;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,.15);">
+        <div style="flex:0 0 46px;height:46px;border-radius:50%;border:1.5px solid var(--verde);display:flex;align-items:center;justify-content:center;color:var(--verde);font-weight:700;font-size:18px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><path d="M21 15v3a2 2 0 0 1-2 2h-3v-5h3a2 2 0 0 1 2 0z"/><path d="M3 15v3a2 2 0 0 0 2 2h3v-5H5a2 2 0 0 0-2 0z"/></svg></div>
+        <div>
+          <strong style="display:block;font-size:17px;color:#fff;margin-bottom:4px;">Suporte</strong>
+          <span style="font-size:14px;line-height:1.5;color:#9ca3af;">Atendimento para os membros do servidor.</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:0 0 14px;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,.15);">
+        <div style="flex:0 0 46px;height:46px;border-radius:50%;border:1.5px solid var(--verde);display:flex;align-items:center;justify-content:center;color:var(--verde);font-weight:700;font-size:18px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16v4a2 2 0 0 0 0 4v4H4v-4a2 2 0 0 0 0-4z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg></div>
+        <div>
+          <strong style="display:block;font-size:17px;color:#fff;margin-bottom:4px;">Ticket</strong>
+          <span style="font-size:14px;line-height:1.5;color:#9ca3af;">Painéis de atendimento com menus próprios.</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:0 0 14px;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,.15);">
+        <div style="flex:0 0 46px;height:46px;border-radius:50%;border:1.5px solid var(--verde);display:flex;align-items:center;justify-content:center;color:var(--verde);font-weight:700;font-size:18px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="8" width="14" height="11" rx="2"/><path d="M12 4v4"/><circle cx="9.5" cy="13" r="1"/><circle cx="14.5" cy="13" r="1"/></svg></div>
+        <div>
+          <strong style="display:block;font-size:17px;color:#fff;margin-bottom:4px;">Tenchikho IA</strong>
+          <span style="font-size:14px;line-height:1.5;color:#9ca3af;">Assistente com inteligência artificial.</span>
+        </div>
+      </div>
+  </section>
+
+  <footer id="sobre" style="text-align:center;padding:24px 26px 8px;font-size:15px;line-height:1.7;color:#9ca3af;">
+    <p style="margin:0 0 10px;"><strong style="color:#22c55e;">Sobre nós</strong></p>
+    <p style="margin:0 0 10px;">Ao continuar, você concorda com nossos <strong style="color:#22c55e;">Termos de Serviço</strong> e <strong style="color:#22c55e;">Política de Privacidade</strong>.</p>
+    <p style="margin:0;">© 2026 Tenchikho</p>
+  </footer>
+
+  <section id="painel" class="oculto">
+    <div class="card hero">
+      <div class="painel-servidor-foto"><img src="assets/hero.jpg" alt="Imagem do servidor"></div>
+      <p class="nota">Painel do servidor</p>
+      <h2 id="tituloServidor">Nenhum servidor</h2>
+    </div>
+    <div class="card" id="cardServidor">
+      <h2>Servidor</h2>
+      <label for="servidor">Servidor ativo</label>
+      <select id="servidor"><option value="">Escolha um servidor</option></select>
+      <p id="statusBot" class="nota"></p>
+      <p id="msgServidor" class="msg"></p>
+    </div>
+
+
+    <section id="dashboardBox" class="card">
+      <div class="dashboard-header">
+        <div>
+          <h2>Dashboard do Bot</h2>
+          <p class="dashboard-subtitle">Monitoramento e controle do TENCHIKHO</p>
+        </div>
+        <span id="dashboardStatus" class="dashboard-status">● Online</span>
+      </div>
+      <div class="dashboard-grid">
+        <div class="dashboard-stat"><div class="icone">⚙️</div><h3>Configurações</h3><p>módulos disponíveis</p><div id="dashFuncoes" class="valor">0</div></div>
+        <div class="dashboard-stat"><div class="icone">🎫</div><h3>Tickets</h3><p>função de atendimento</p><div id="dashTicket" class="valor">—</div></div>
+        <div class="dashboard-stat"><div class="icone">🛡️</div><h3>Moderação</h3><p>status da função</p><div id="dashModeracao" class="valor">—</div></div>
+        <div class="dashboard-stat"><div class="icone">🔔</div><h3>Avisos</h3><p>status da função</p><div id="dashAvisos" class="valor">—</div></div>
+      </div>
+      <div class="dashboard-lower">
+        <div class="dashboard-panel">
+          <h3>📊 Estatísticas de Atividade</h3>
+          <div class="dashboard-metrics">
+            <div class="dashboard-metric"><span>Funções ativas</span><strong id="dashAtivas">0</strong></div>
+            <div class="dashboard-metric"><span>Canais</span><strong id="dashCanais">0</strong></div>
+            <div class="dashboard-metric"><span>Cargos</span><strong id="dashCargos">0</strong></div>
+          </div>
+        </div>
+        <div class="dashboard-panel">
+          <h3>📈 Status do Bot</h3>
+          <div class="dashboard-status-list">
+            <div class="dashboard-status-item"><strong id="dashBotStatus">● Online</strong><span id="dashServidorStatus">Servidor selecionado</span></div>
+            <div class="dashboard-status-item"><strong>● Painel ativo</strong><span>Dados atualizados ao selecionar o servidor</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="funcoesBox" class="oculto">
+      <h2 class="tituloFuncoes">Funções</h2>
+      <div class="linha"><button class="primario" id="ativarTodasFuncoes">Ativar todas as funções</button></div>
+      <p id="msgTodasFuncoes" class="msg"></p>
+      <div id="listaFuncoes"></div>
+    </div>
+
+    <div id="candidaturasBox" class="card oculto">
+      <div class="linha"><button id="candVoltar" class="sec">← Voltar</button></div>
+      <h2>Candidaturas</h2>
+      <input id="candBusca" type="search" placeholder="Pesquisar por nome, Discord ou Roblox">
+      <select id="candStatus">
+        <option value="todos">Todas</option>
+        <option value="pendente">Pendentes</option>
+        <option value="aprovada">Aprovadas</option>
+        <option value="recusada">Recusadas</option>
+      </select>
+      <div id="candLista"></div>
+      <div id="candDetalhe" class="oculto"></div>
+      <p class="msg" id="candMsg"></p>
+    </div>
+
+    <div id="configBox" class="card oculto">
+      <div class="linha"><button id="configVoltar" class="sec">← Voltar</button></div>
+      <h2 id="configTitulo">Configurar</h2>
+      <div id="configCampos"></div>
+      <div class="linha"><button id="configSalvar" class="primario">Salvar</button><button id="configTeste" class="sec">Enviar teste</button></div>
+      <p id="configMsg" class="msg"></p>
+    </div>
+
+    <div id="avisosBox" class="card oculto">
+      <h2>Enviar aviso</h2>
+      <label for="avisoCanal">Canal</label>
+      <select id="avisoCanal"></select>
+      <label for="avisoTexto">Texto (até 1500 caracteres)</label>
+      <textarea id="avisoTexto" maxlength="1500"></textarea>
+      <div class="linha"><button id="btnAviso" class="primario">Enviar aviso</button></div>
+      <p id="msgAviso" class="msg"></p>
+    </div>
+  </section>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+let servidorAtual = null;
+let funcoesCache = [];
+let canaisCache = [];
+let rolesCache = [];
+let servidoresCache = [];
+
+async function api(url, opts = {}) {
+  const r = await fetch(url, { ...opts, credentials: 'same-origin', headers: { 'Content-Type': 'application/json' } });
+  const dados = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(dados.error || 'Erro inesperado.');
+  return dados;
+}
+function msg(el, texto, erro) { el.textContent = texto; el.className = 'msg' + (erro ? ' erro' : ''); }
+function meServidorPorId(id) { return servidoresCache.find(s => s.id === id) || null; }
+function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+
+async function iniciar() {
+  try {
+    const me = await api('/api/me');
+    $('entrada').classList.add('oculto');
+    $('acesso').classList.add('oculto');
+    $('oferece').classList.add('oculto');
+    $('sobre').classList.add('oculto');
+    $('painel').classList.remove('oculto');
+    $('btnSair').style.visibility = 'visible';
+    $('drwNome').textContent = me.user.nome;
+    $('drwPapel').textContent = me.servidores.length ? 'Administrador' : 'Sem servidor administrado';
+    if (me.user.avatar) { const img = $('drwAvatar'); img.src = me.user.avatar; img.classList.remove('oculto'); }
+    $('drwServidorNome').textContent = 'Nenhum servidor';
+    $('drwServidorStatus').textContent = 'Selecione um servidor';
+    $('drwServidorIcon').classList.add('oculto');
+    servidoresCache = me.servidores || [];
+    const sel = $('servidor');
+    sel.innerHTML = '<option value="">Escolha um servidor</option>' +
+      servidoresCache.map(s => `<option value="${esc(s.id)}" data-bot="${s.botPresente}">${esc(s.nome)}${s.botPresente ? '' : ' (bot fora)'}</option>`).join('');
+    if (!me.servidores.length) msg($('msgServidor'), 'Você não é administrador de nenhum servidor.', true);
+    $('statusBot').textContent = me.botOnline ? 'Bot online.' : 'Bot offline no momento.';
+  } catch (e) {
+    $('entrada').classList.remove('oculto');
+  }
+}
+
+function atualizarCardServidor(id) {
+  const sv = servidoresCache.find(x => x.id === id);
+  const img = $('drwServidorIcon');
+  $('drwServidorNome').textContent = sv ? sv.nome : 'Nenhum servidor';
+  $('drwServidorStatus').textContent = sv ? (sv.botPresente ? 'Bot no servidor' : 'Bot fora deste servidor') : 'Selecione um servidor';
+  if (sv && sv.icon) {
+    img.src = `https://cdn.discordapp.com/icons/${sv.id}/${sv.icon}.png?size=64`;
+    img.classList.remove('oculto');
+  } else {
+    img.removeAttribute('src');
+    img.classList.add('oculto');
+  }
+}
+
+$('servidor').addEventListener('change', async e => {
+  const id = e.target.value;
+  servidorAtual = id || null;
+  $('tituloServidor').textContent = e.target.selectedOptions[0]?.textContent.trim() || 'Nenhum servidor';
+  atualizarCardServidor(id);
+  verificarPermissaoCandidaturas(id);
+  ['dashboardBox', 'funcoesBox', 'avisosBox', 'candidaturasBox'].forEach(x => $(x).classList.add('oculto'));
+  msg($('msgServidor'), '');
+  if (!id) return;
+  const opt = e.target.selectedOptions[0];
+  if (opt.dataset.bot !== 'true') {
+    msg($('msgServidor'), 'O bot ainda não está neste servidor. Convide primeiro.', true);
+    return;
+  }
+  try {
+    const [f, c, r] = await Promise.all([
+      api(`/api/guilds/${id}/funcoes`),
+      api(`/api/guilds/${id}/canais`),
+      api(`/api/guilds/${id}/cargos`),
+    ]);
+    funcoesCache = f.funcoes;
+    canaisCache = c.canais;
+    rolesCache = r.cargos;
+    renderFuncoes();
+    atualizarDashboard();
+    $('dashboardBox').classList.remove('oculto');
+    preencherCanaisAviso();
+    aplicarVisao();
+  } catch (err) {
+    msg($('msgServidor'), err.message, true);
+  }
+});
+
+function opcoesCanais(atual) {
+  return '<option value="">Nenhum</option>' + canaisCache.map(c =>
+    `<option value="${esc(c.id)}" ${c.id === atual ? 'selected' : ''}>#${esc(c.nome)}</option>`).join('');
+}
+
+function opcoesCargos(atual) {
+  return '<option value="">Nenhum</option>' + rolesCache.map(r =>
+    `<option value="${esc(r.id)}" ${r.id === atual ? 'selected' : ''}>@${esc(r.nome)}</option>`).join('');
+}
+
+async function lerFotoSelecionada() {
+  const input = document.getElementById('fotoArquivo');
+  if (!input || !input.files || !input.files[0]) return '';
+  const arq = input.files[0];
+  if (arq.size > 2 * 1024 * 1024) throw new Error('A foto passa de 2 MB.');
+  return new Promise((resolve, reject) => {
+    const leitor = new FileReader();
+    leitor.onload = () => resolve(leitor.result);
+    leitor.onerror = () => reject(new Error('Não consegui ler a foto.'));
+    leitor.readAsDataURL(arq);
+  });
+}
+
+function lerCamposDe(root) {
+  const campos = {};
+  root.querySelectorAll('[data-campo]').forEach(el => { campos[el.dataset.campo] = el.value; });
+  root.querySelectorAll('[data-grupo]').forEach(g => {
+    campos[g.dataset.grupo] = [...g.querySelectorAll('input:checked')].map(i => i.value);
+  });
+  return campos;
+}
+
+function camposHtml(f) {
+  const simNao = v => `<option value="sim" ${v ? 'selected' : ''}>Sim</option><option value="nao" ${!v ? 'selected' : ''}>Não</option>`;
+  const campos = [];
+  if (f.chave === 'boasvindas') {
+    campos.push(`<label>Canal de boas-vindas</label><select data-campo="canalId">${opcoesCanais(f.campos.canalId)}</select>`);
+    campos.push(`<label>Mensagem ({membro} vira a menção)</label><textarea data-campo="mensagem" maxlength="500">${esc(f.campos.mensagem || '')}</textarea>`);
+    campos.push(`<label>Enviar como cartão (imagem)</label><select data-campo="embed">${simNao(f.campos.embed)}</select>`);
+    campos.push(`<label>Cor da moldura</label><input data-campo="corMoldura" type="color" value="${esc(f.campos.corMoldura || '#5b4bff')}" style="height:48px;padding:4px">`);
+    campos.push(`<label>Foto da metade de cima (escolha da galeria, PNG ou JPG até 2 MB)</label><input id="fotoArquivo" type="file" accept="image/png,image/jpeg" style="color:#fff">${f.campos.fotoArquivo ? '<p class="nota">Já existe uma foto salva. Escolha outra para trocar.</p>' : ''}`);
+    campos.push(`<label>Título do cartão</label><input data-campo="tituloCartao" type="text" maxlength="256" value="${esc(f.campos.tituloCartao || '')}" placeholder="👋 Bem-vindo(a)!">`);
+    campos.push(`<label>Texto abaixo do subtítulo</label><input data-campo="textoCartao" type="text" maxlength="120" value="${esc(f.campos.textoCartao || '')}" placeholder="Aproveite ao máximo nosso servidor!">`);
+    campos.push(`<label>Subtítulo do cartão</label><input data-campo="subtituloCartao" type="text" maxlength="80" value="${esc(f.campos.subtituloCartao || '')}" placeholder="Que bom ter você aqui!">`);
+    campos.push(`<label>Rodapé do cartão</label><input data-campo="rodapeCartao" type="text" maxlength="80" value="${esc(f.campos.rodapeCartao || '')}" placeholder="Bem-vindo à linhagem">`);
+    campos.push(`<label>Canal do anúncio de entrada (outro canal, opcional)</label><select data-campo="canalAnuncioId">${opcoesCanais(f.campos.canalAnuncioId)}</select>`);
+    campos.push(`<label>Texto do anúncio ({membro} vira a menção)</label><input data-campo="textoAnuncio" type="text" maxlength="500" value="${esc(f.campos.textoAnuncio || '')}" placeholder="Boas-vindas ao NVB, seja bem-vindo(a), {membro}!">`);
+    campos.push(`<label>Cargo automático ao entrar</label><select data-campo="cargoId">${opcoesCargos(f.campos.cargoId)}</select>`);
+    campos.push(`<label>Enviar mensagem privada (DM)</label><select data-campo="dm">${simNao(f.campos.dm)}</select>`);
+    campos.push(`<label>Mensagem privada ({membro} vira o nome)</label><textarea data-campo="mensagemDm" maxlength="500">${esc(f.campos.mensagemDm || '')}</textarea>`);
+  }
+  if (f.chave === 'autocargo') {
+    campos.push(`<div id="acArea"><p class="nota">Carregando painéis...</p></div>`);
+  }
+  if (f.chave === 'aniversario') {
+    campos.push(`<label>Canal onde a mensagem será postada</label><select data-campo="canalId">${opcoesCanais(f.campos.canalId)}</select>`);
+    campos.push(`<label>Horário da postagem (horário de Brasília)</label><input data-campo="horaPostagem" type="time" value="${esc(f.campos.horaPostagem || '00:00')}">`);
+    campos.push(`<label>Mensagem ({membro} vira o nome do aniversariante)</label><textarea data-campo="mensagem" maxlength="300">${esc(f.campos.mensagem || '🎉 Hoje é aniversário de {membro}! Parabéns!')}</textarea>`);
+    campos.push(`<h3 style="margin-top:18px">Aniversários cadastrados</h3><div id="anivLista"><p class="nota">Carregando...</p></div>`);
+  }
+  if (f.chave === 'saida') {
+    campos.push(`<label>Canal de saída</label><select data-campo="canalId">${opcoesCanais(f.campos.canalId)}</select>`);
+    campos.push(`<label>Formato da mensagem</label><select data-campo="formato"><option value="mensagem" ${f.campos.formato !== 'embed' ? 'selected' : ''}>💬 Mensagem normal</option><option value="embed" ${f.campos.formato === 'embed' ? 'selected' : ''}>📦 Embed</option></select>`);
+    campos.push(`<label>Título do embed (só no formato embed)</label><input data-campo="tituloEmbed" type="text" maxlength="100" value="${esc(f.campos.tituloEmbed || '🚪 Membro saiu')}">`);
+    campos.push(`<label>Mensagem (variáveis: {user} {username} {displayName} {server} {memberCount} {userId} {date} {time})</label><textarea data-campo="mensagem" maxlength="500">${esc(f.campos.mensagem || '👋 Membro saiu\n\nO membro {user} deixou o servidor.\n\n👥 Membros restantes: {memberCount}')}</textarea>`);
+    campos.push(`<label>Canal de logs (opcional)</label><select data-campo="logsCanalId">${opcoesCanais(f.campos.logsCanalId)}</select>`);
+  }
+  if (f.chave === 'moderacao') {
+    campos.push(`<label>Canal de logs da moderação</label><select data-campo="logsCanalId">${opcoesCanais(f.campos.logsCanalId)}</select>`);
+    const marcados = Array.isArray(f.campos.cargosIds) ? f.campos.cargosIds : [];
+    campos.push(`<label>Cargos autorizados (administradores também podem)</label><div class="checks" data-grupo="cargosIds">${rolesCache.map(r => `<label class="check"><input type="checkbox" value="${esc(r.id)}" ${marcados.includes(r.id) ? 'checked' : ''}> @${esc(r.nome)}</label>`).join('')}</div>`);
+    campos.push(`<p class="nota">Comandos: /mod avisar, silenciar, expulsar, banir, desbanir, limpar, bloquear e desbloquear. Advertências e ações ficam registradas.</p>`);
+  }
+  if (f.chave === 'games') {
+    const c = f.campos || {};
+    const pronto = !!c.categoriaId;
+    for (const [campo, valor] of [['categoriaId', c.categoriaId], ['canalXadrezId', c.canalXadrezId], ['canalDamaId', c.canalDamaId], ['canalCacaId', c.canalCacaId], ['canalMatematicaId', c.canalMatematicaId], ['canalResultadosId', c.canalResultadosId]]) {
+      campos.push(`<input type="hidden" data-campo="${campo}" value="${esc(valor || '')}">`);
+    }
+    campos.push(`<p class="nota">${pronto ? '✅ Categoria 🎮・GAMES e canais criados.' : 'Ainda não criados.'}</p>`);
+    campos.push(`<div class="linha"><button class="primario" id="gamesPreparar">Criar categoria e canais automaticamente</button></div>`);
+    campos.push(`<p class="nota">Comandos: /matematica no canal ➗・matematica, /cacapalavras no canal 🔎・caca-palavras, /ranking em qualquer canal. Os resultados saem em 🏆・resultado-games.</p>`);
+    campos.push(`<p class="nota">Para as respostas digitadas no chat funcionarem, o Render precisa da variável MESSAGE_CONTENT = 1 e a permissão Message Content ligada no portal do Discord.</p>`);
+  }
+  if (f.chave === 'recrutamento') {
+    campos.push(`<label>Canal das fichas (aparecem com os botões Aprovar e Recusar)</label><select data-campo="canalId">${opcoesCanais(f.campos.canalId)}</select>`);
+    campos.push(`<label>Canal de aprovações (resultado de cada decisão)</label><select data-campo="canalAprovacoesId">${opcoesCanais(f.campos.canalAprovacoesId)}</select>`);
+    campos.push(`<label>Cargo automático ao aprovar</label><select data-campo="cargoAutomaticoId">${opcoesCargos(f.campos.cargoAutomaticoId)}</select>`);
+    campos.push(`<label>Prefixo do apelido (ex: NVB_)</label><input data-campo="prefixo" type="text" maxlength="10" value="${esc(f.campos.prefixo ?? 'NVB_')}">`);
+    const marcados = Array.isArray(f.campos.cargosAvaliamIds) ? f.campos.cargosAvaliamIds : [];
+    campos.push(`<label>Cargos que podem ver e avaliar (administradores também podem)</label><div class="checks" data-grupo="cargosAvaliamIds">${rolesCache.map(r => `<label class="check"><input type="checkbox" value="${esc(r.id)}" ${marcados.includes(r.id) ? 'checked' : ''}> @${esc(r.nome)}</label>`).join('')}</div>`);
+    campos.push(`<label>Link de convite permanente do servidor</label><input data-campo="conviteLink" type="text" maxlength="200" value="${esc(f.campos.conviteLink || '')}" placeholder="https://discord.gg/...">`);
+    campos.push(`<label>Mensagem de aprovação ({membro} vira o nome)</label><textarea data-campo="mensagemAprovacao" maxlength="500">${esc(f.campos.mensagemAprovacao || '')}</textarea>`);
+    campos.push(`<label>Mensagem de recusa ({membro} vira o nome)</label><textarea data-campo="mensagemRecusa" maxlength="500">${esc(f.campos.mensagemRecusa || '')}</textarea>`);
+  }
+  if (f.chave === 'avisos') {
+    campos.push(`<label>Canal padrão de avisos</label><select data-campo="canalId">${opcoesCanais(f.campos.canalId)}</select>`);
+  }
+  return campos.join('');
+}
+
+function atualizarDashboard() {
+  const total = funcoesCache.length;
+  const ativas = funcoesCache.filter(f => f.ativa).length;
+  const ticket = funcoesCache.find(f => f.chave === 'ticket');
+  const moderacao = funcoesCache.find(f => f.chave === 'moderacao');
+  const avisos = funcoesCache.find(f => f.chave === 'avisos');
+  $('dashFuncoes').textContent = total;
+  $('dashAtivas').textContent = ativas;
+  $('dashCanais').textContent = canaisCache.length;
+  $('dashCargos').textContent = rolesCache.length;
+  $('dashTicket').textContent = ticket ? (ticket.ativa ? 'Ativa' : 'Off') : '—';
+  $('dashModeracao').textContent = moderacao ? (moderacao.ativa ? 'Ativa' : 'Off') : '—';
+  $('dashAvisos').textContent = avisos ? (avisos.ativa ? 'Ativa' : 'Off') : '—';
+  const online = $('statusBot').textContent.includes('online');
+  $('dashboardStatus').textContent = online ? '● Online' : '● Offline';
+  $('dashboardStatus').classList.toggle('offline', !online);
+  $('dashBotStatus').textContent = online ? '● Online' : '● Offline';
+  $('dashBotStatus').style.color = online ? '#22c55e' : '#f87171';
+  $('dashServidorStatus').textContent = $('tituloServidor').textContent || 'Servidor selecionado';
+}
+
+async function ativarTodasFuncoes() {
+  const alvos = funcoesCache.filter(f => f.implementada && !f.ativa);
+  if (!alvos.length) return msg($('msgTodasFuncoes'), 'Todas as funções disponíveis já estão ativas.', false);
+  if (!confirm(`Ativar ${alvos.length} função(ões)?`)) return;
+  let ok = 0;
+  const falhas = [];
+  for (const f of alvos) {
+    try {
+      await gravarFuncao(f.chave, true, f.campos || {});
+      ok++;
+    } catch (err) {
+      falhas.push(`${f.nome}: ${err.message}`);
+    }
+  }
+  renderFuncoes();
+  atualizarDashboard();
+  msg($('msgTodasFuncoes'), `${ok} função(ões) ativada(s).` + (falhas.length ? ' Não consegui ativar: ' + falhas.join(' ') : ''), falhas.length > 0);
+}
+
+function renderFuncoes() {
+  $('listaFuncoes').innerHTML = funcoesCache.map(f => {
+    const nota = f.implementada ? '' : '<p class="nota">Ainda sem comportamento no bot. Pode configurar, mas não ativa.</p>';
+    return `
+      <div class="funcao" data-chave="${esc(f.chave)}">
+        <div class="linha">
+          <strong>${esc(f.nome)}</strong>
+          <span>${f.ativa ? '🟢 Ativa' : '🔴 Desligada'}</span>
+        </div>
+        ${nota}
+        <div class="linha">
+          <button class="primario" data-acao="configurar">Configurar</button>
+          <button data-acao="alternar" ${f.implementada ? '' : 'disabled'}>${f.ativa ? 'Desligar' : 'Ativar'}</button>
+        </div>
+        <p class="msg" data-msg></p>
+      </div>`;
+  }).join('');
+}
+
+async function gravarFuncao(chave, ativa, campos) {
+  const r = await api(`/api/guilds/${servidorAtual}/funcoes/${chave}`, {
+    method: 'PUT',
+    body: JSON.stringify({ ativa, campos }),
+  });
+  const f = funcoesCache.find(x => x.chave === chave);
+  f.ativa = r.configuracao.ativa;
+  f.campos = r.configuracao.campos;
+  return f;
+}
+
+let funcaoEditando = null;
+
+let acPaineis = [];
+let acAtual = null;
+
+async function acRecarregarLista() {
+  const r = await api(`/api/guilds/${servidorAtual}/autocargos`);
+  acPaineis = r.paineis || [];
+}
+
+async function acCarregar() {
+  const box = $('acArea');
+  if (!box || !servidorAtual) return;
+  try {
+    await acRecarregarLista();
+    acListar();
+  } catch (err) {
+    box.innerHTML = `<p class="nota">${esc(err.message)}</p>`;
+  }
+}
+
+function acListar() {
+  const box = $('acArea');
+  box.innerHTML = `
+    <h3>📋 Painéis criados</h3>
+    <button class="primario" id="acNovo">+ Criar painel</button>
+    ${acPaineis.length ? acPaineis.map(p => `
+      <div class="cand" style="cursor:default;display:block">
+        <strong>${esc(p.nome)}</strong>
+        <div class="sub">${p.ativo ? '🟢 Ativo' : '⚪ Inativo'} · ${p.tipo === 'multipla' ? 'Seleção múltipla' : 'Seleção única'} · ${p.mensagemId ? 'Publicado' : 'Não publicado'}</div>
+        <div class="linha">
+          <button class="sec" data-ac-editar="${esc(p.id)}">Editar</button>
+          <button class="primario" data-ac-publicar="${esc(p.id)}">${p.mensagemId ? 'Atualizar no Discord' : 'Publicar no Discord'}</button>
+        </div>
+      </div>`).join('') : '<p class="nota">Nenhum painel ainda.</p>'}`;
+  $('acNovo').addEventListener('click', () => acAbrir(null));
+  box.querySelectorAll('[data-ac-editar]').forEach(b => b.addEventListener('click', () => acAbrir(b.dataset.acEditar)));
+  box.querySelectorAll('[data-ac-publicar]').forEach(b => b.addEventListener('click', () => acPublicar(b.dataset.acPublicar)));
+}
+
+function acAbrir(pid) {
+  const p = pid ? acPaineis.find(x => x.id === pid) : null;
+  acAtual = p ? JSON.parse(JSON.stringify(p)) : {
+    id: '', nome: '', canalId: '', titulo: '🎭 Escolha seus cargos',
+    descricao: 'Selecione abaixo os cargos que deseja receber.', tipo: 'unica', ativo: true, opcoes: [],
+  };
+  acFormulario();
+}
+
+function acFormulario() {
+  const p = acAtual;
+  acEditIdx = null;
+  $('acArea').innerHTML = `
+    <button class="sec" id="acVoltar">← Voltar à lista</button>
+    <h3>⚙️ Configuração do painel</h3>
+    <label>Nome interno</label>
+    <input data-ac="nome" maxlength="60" value="${esc(p.nome)}">
+    <label>Canal onde será publicado</label>
+    <select data-ac="canalId">${opcoesCanais(p.canalId)}</select>
+    <label>Título</label>
+    <input data-ac="titulo" maxlength="100" value="${esc(p.titulo)}">
+    <label>Descrição</label>
+    <textarea data-ac="descricao" maxlength="400">${esc(p.descricao)}</textarea>
+    <label>Tipo de seleção</label>
+    <select data-ac="tipo">
+      <option value="unica" ${p.tipo !== 'multipla' ? 'selected' : ''}>🔘 Seleção única</option>
+      <option value="multipla" ${p.tipo === 'multipla' ? 'selected' : ''}>☑️ Seleção múltipla</option>
+    </select>
+    <label class="check"><input type="checkbox" data-ac="ativo" ${p.ativo ? 'checked' : ''}> Painel ativo 🟢</label>
+    <h3>🏷️ Opções e cargos</h3>
+    <div id="acOpcoes"></div>
+    <div class="linha"><button class="sec" id="acAtivarTodas">Ativar todas as opções</button></div>
+    <button class="sec" id="acAddOpcao">+ Adicionar opção</button>
+    <div class="linha"><button class="primario" id="acSalvar">Salvar painel</button></div>
+    <div class="linha">
+      <button class="primario" id="acPublicarBtn" ${p.id ? '' : 'disabled'}>${p.mensagemId ? 'Atualizar no Discord' : 'Publicar no Discord'}</button>
+      <button class="sec" id="acExcluir" ${p.id ? '' : 'disabled'}>Excluir painel</button>
+    </div>
+    <p class="msg" id="acMsg"></p>`;
+  acRenderOpcoes();
+  $('acVoltar').addEventListener('click', acCarregar);
+  $('acAtivarTodas').addEventListener('click', () => {
+    acColetar();
+    acAtual.opcoes.forEach(o => { o.ativa = true; });
+    acRenderOpcoes();
+    msg($('acMsg'), 'Todas as opções marcadas como ativas. Clique em Salvar painel para gravar.', false);
+  });
+  $('acAddOpcao').addEventListener('click', () => {
+    acColetar();
+    acAtual.opcoes.push({ id: '', nome: '', emoji: '', cargoId: '', ativa: true });
+    acEditIdx = acAtual.opcoes.length - 1;
+    acRenderOpcoes();
+  });
+  $('acSalvar').addEventListener('click', acSalvar);
+  $('acPublicarBtn').addEventListener('click', async () => { if (await acSalvar()) acPublicar(acAtual.id); });
+  $('acExcluir').addEventListener('click', acExcluir);
+}
+
+let acEditIdx = null;
+
+function acRenderOpcoes() {
+  const box = $('acOpcoes');
+  box.innerHTML = acAtual.opcoes.length ? acAtual.opcoes.map((o, i) => {
+    if (i === acEditIdx) {
+      return `
+      <div class="cand" style="cursor:default;display:block" data-idx="${i}">
+        <div class="linha">
+          <input data-op="nome" maxlength="80" placeholder="Nome da opção" value="${esc(o.nome)}">
+          <input data-op="emoji" maxlength="8" placeholder="Emoji" style="max-width:90px" value="${esc(o.emoji || '')}">
+        </div>
+        <select data-op="cargoId">${opcoesCargos(o.cargoId)}</select>
+        <label class="check"><input type="checkbox" data-op="ativa" ${o.ativa ? 'checked' : ''}> Opção ativa 🟢</label>
+        <div class="linha">
+          <button class="primario" data-salvar-op="1">Salvar opção</button>
+          <button class="sec" data-del="1">🗑️ Excluir</button>
+        </div>
+      </div>`;
+    }
+    const cargo = rolesCache.find(r => r.id === o.cargoId);
+    return `
+      <div class="cand" style="cursor:default;display:block" data-idx="${i}">
+        <strong>${esc(o.emoji || '')} ${esc(o.nome)}</strong>
+        <div class="sub">Cargo: ${esc(cargo ? '@' + cargo.nome : 'não escolhido')} · ${o.ativa ? '🟢 Ativa' : '⚪ Inativa'}</div>
+        <div class="linha">
+          <button class="sec" data-editar-op="1">Editar</button>
+          <button class="sec" data-del="1">🗑️ Excluir</button>
+        </div>
+      </div>`;
+  }).join('') : '<p class="nota">Nenhuma opção ainda. Clique em "+ Adicionar opção".</p>';
+
+  box.querySelectorAll('[data-idx]').forEach(card => {
+    const i = Number(card.dataset.idx);
+    const ed = card.querySelector('[data-editar-op]');
+    if (ed) ed.addEventListener('click', () => { acColetar(); acEditIdx = i; acRenderOpcoes(); });
+    const sv = card.querySelector('[data-salvar-op]');
+    if (sv) sv.addEventListener('click', () => { acColetar(); acEditIdx = null; acRenderOpcoes(); });
+    card.querySelector('[data-del]').addEventListener('click', () => {
+      acColetar();
+      acAtual.opcoes.splice(i, 1);
+      acEditIdx = null;
+      acRenderOpcoes();
+    });
+  });
+}
+
+function acMover(i, d) {
+  acColetar();
+  const j = i + d;
+  if (j < 0 || j >= acAtual.opcoes.length) return;
+  [acAtual.opcoes[i], acAtual.opcoes[j]] = [acAtual.opcoes[j], acAtual.opcoes[i]];
+  acRenderOpcoes();
+}
+
+// Copia o que está na tela para o objeto de trabalho antes de redesenhar
+function acColetar() {
+  if (!$('acArea').querySelector('[data-ac="nome"]')) return;
+  const v = k => $('acArea').querySelector(`[data-ac="${k}"]`);
+  acAtual.nome = v('nome').value;
+  acAtual.canalId = v('canalId').value;
+  acAtual.titulo = v('titulo').value;
+  acAtual.descricao = v('descricao').value;
+  acAtual.tipo = v('tipo').value;
+  acAtual.ativo = v('ativo').checked;
+  const card = acEditIdx !== null ? $('acOpcoes').querySelector(`[data-idx="${acEditIdx}"]`) : null;
+  if (card && acAtual.opcoes[acEditIdx]) {
+    acAtual.opcoes[acEditIdx] = {
+      ...acAtual.opcoes[acEditIdx],
+      nome: card.querySelector('[data-op="nome"]').value,
+      emoji: card.querySelector('[data-op="emoji"]').value,
+      cargoId: card.querySelector('[data-op="cargoId"]').value,
+      ativa: card.querySelector('[data-op="ativa"]').checked,
+    };
+  }
+}
+
+async function acSalvar() {
+  acColetar();
+  const corpo = {
+    id: acAtual.id, nome: acAtual.nome, canalId: acAtual.canalId, titulo: acAtual.titulo,
+    descricao: acAtual.descricao, tipo: acAtual.tipo, ativo: acAtual.ativo, opcoes: acAtual.opcoes,
+  };
+  try {
+    const r = await api(`/api/guilds/${servidorAtual}/autocargos`, { method: 'POST', body: JSON.stringify(corpo) });
+    acAtual.id = r.painel.id;
+    acAtual.opcoes = r.painel.opcoes;
+    $('acPublicarBtn').disabled = false;
+    $('acExcluir').disabled = false;
+    await acRecarregarLista();
+    const av = r.avisos?.length ? ' Atenção: ' + r.avisos.join(' ') : '';
+    msg($('acMsg'), 'Painel salvo.' + av, false);
+    return true;
+  } catch (err) {
+    msg($('acMsg'), err.message, true);
+    return false;
+  }
+}
+
+async function acPublicar(pid) {
+  try {
+    const r = await api(`/api/guilds/${servidorAtual}/autocargos/${pid}/publicar`, { method: 'POST' });
+    await acRecarregarLista();
+    msg($('configMsg'), r.mensagem, false);
+    if (acAtual && acAtual.id === pid) acAbrir(pid); else acListar();
+  } catch (err) {
+    msg($('configMsg'), err.message, true);
+  }
+}
+
+async function acExcluir() {
+  if (!acAtual?.id) return;
+  if (!confirm('Excluir este painel? A mensagem dele no canal também será apagada.')) return;
+  try {
+    await api(`/api/guilds/${servidorAtual}/autocargos/${acAtual.id}`, { method: 'DELETE' });
+    msg($('configMsg'), 'Painel excluído.', false);
+    acCarregar();
+  } catch (err) {
+    msg($('acMsg'), err.message, true);
+  }
+}
+
+async function prepararGamesPainel() {
+  try {
+    const r = await api(`/api/guilds/${servidorAtual}/games/preparar`, { method: 'POST' });
+    const f = await api(`/api/guilds/${servidorAtual}/funcoes`);
+    funcoesCache = f.funcoes;
+    await abrirConfiguracao('games');
+    msg($('configMsg'), r.criados.length ? 'Canais criados: ' + r.criados.join(', ') : 'Todos os canais já existiam.', false);
+  } catch (err) {
+    msg($('configMsg'), err.message, true);
+  }
+}
+
+document.addEventListener('click', e => {
+  if (e.target && e.target.id === 'gamesPreparar') prepararGamesPainel();
+});
+
+async function carregarAniversarios() {
+  const box = document.getElementById('anivLista');
+  if (!box || !servidorAtual) return;
+  try {
+    const r = await api(`/api/guilds/${servidorAtual}/aniversarios`);
+    const lista = r.aniversarios || [];
+    box.innerHTML = lista.length
+      ? lista.map(a => `
+        <div class="cand" style="cursor:default">
+          <div><strong>${esc(a.nome)}</strong><span class="sub">${String(a.dia).padStart(2, '0')}/${String(a.mes).padStart(2, '0')}</span></div>
+          <button class="sec" data-apagar="${esc(a.userId)}">Apagar</button>
+        </div>`).join('')
+      : '<p class="nota">Nenhum aniversário cadastrado ainda. Os membros registram com o comando /aniversario.</p>';
+    box.querySelectorAll('[data-apagar]').forEach(b => b.addEventListener('click', async () => {
+      if (!confirm('Apagar este cadastro de aniversário?')) return;
+      try {
+        await api(`/api/guilds/${servidorAtual}/aniversarios/${b.dataset.apagar}`, { method: 'DELETE' });
+        carregarAniversarios();
+      } catch (err) { msg($('configMsg'), err.message, true); }
+    }));
+  } catch (err) {
+    box.innerHTML = `<p class="nota">${esc(err.message)}</p>`;
+  }
+}
+
+async function abrirConfiguracao(chave) {
+  const f = funcoesCache.find(x => x.chave === chave);
+  if (!f) return;
+  funcaoEditando = chave;
+  $('configTitulo').textContent = f.nome;
+  msg($('configMsg'), '');
+  $('configTeste').classList.toggle('oculto', chave === 'ticket');
+  $('configSalvar').classList.toggle('oculto', chave === 'ticket');
+
+  if (chave === 'ticket') {
+    visaoAtual = 'config';
+    aplicarVisao();
+    await renderGerenciadorTickets();
+  } else {
+    const corpo = camposHtml(f) || '<p class="nota">Esta função ainda não tem opções para configurar.</p>';
+    const aviso = f.implementada ? '' : '<p class="nota">Ainda sem comportamento no bot. A configuração fica salva, mas a função não ativa.</p>';
+    $('configCampos').innerHTML = corpo + aviso;
+    visaoAtual = 'config';
+    aplicarVisao();
+    if (chave === 'aniversario') carregarAniversarios();
+    if (chave === 'autocargo') acCarregar();
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function ticketFormularioHtml(ticket = {}) {
+  const marcados = Array.isArray(ticket.cargoEquipeId) ? ticket.cargoEquipeId : (ticket.cargoEquipeId ? [ticket.cargoEquipeId] : []);
+  return `
+    <div class="ticket-form" id="ticketForm" data-ticket-id="${esc(ticket.id || "")}">
+      <div class="ticket-topo">
+        <strong>${ticket.id ? '✏️ Editar ticket' : '➕ Novo ticket'}</strong>
+        <button type="button" data-ticket-acao="cancelar">Cancelar</button>
+      </div>
+      <label>Canal do painel de tickets</label>
+      <select data-ticket-campo="canalPainelId">${opcoesCanais(ticket.canalPainelId)}</select>
+      <label>ID da categoria dos tickets (opcional)</label>
+      <input data-ticket-campo="categoriaId" type="text" maxlength="20" value="${esc(ticket.categoriaId || '')}" placeholder="ID da categoria">
+      <label>Cargos da equipe</label>
+      <div class="checks" data-ticket-grupo="cargoEquipeId">${rolesCache.map(r => `<label class="check"><input type="checkbox" value="${esc(r.id)}" ${marcados.includes(r.id) ? 'checked' : ''}> @${esc(r.nome)}</label>`).join('')}</div>
+      <label>Título do painel</label>
+      <input data-ticket-campo="tituloPainel" type="text" maxlength="256" value="${esc(ticket.tituloPainel || '')}" placeholder="🎫 Atendimento">
+      <label>Texto do painel</label>
+      <textarea data-ticket-campo="textoPainel" maxlength="500">${esc(ticket.textoPainel || '')}</textarea>
+      <label>Opções do menu: uma por linha, no formato "Nome | descrição | texto de abertura"</label>
+      <textarea data-ticket-campo="opcoes" placeholder="Suporte | Atendimento geral | Descreva seu caso&#10;Denúncia | Relate um problema | Explique o ocorrido">${esc(ticket.opcoes || '')}</textarea>
+      <label>Texto do botão de abrir (quando não há menu)</label>
+      <input data-ticket-campo="textoBotao" type="text" maxlength="80" value="${esc(ticket.textoBotao || '')}" placeholder="🎫 Abrir ticket">
+      <label>Texto do botão de fechar</label>
+      <input data-ticket-campo="textoBotaoFechar" type="text" maxlength="80" value="${esc(ticket.textoBotaoFechar || '')}" placeholder="🔒 Fechar ticket">
+      <label>Mensagem ao abrir ticket ({membro} vira a menção)</label>
+      <textarea data-ticket-campo="mensagemAbertura" maxlength="500">${esc(ticket.mensagemAbertura || '')}</textarea>
+      <div class="linha">
+        <button type="button" class="primario" data-ticket-acao="salvar">💾 Salvar ticket</button>
+      </div>
+      <p class="msg" data-ticket-msg></p>
+    </div>`;
+}
+
+function lerCamposTicket() {
+  const campos = {};
+  document.querySelectorAll('#ticketForm [data-ticket-campo]').forEach(el => campos[el.dataset.ticketCampo] = el.value);
+  const grupo = document.querySelector('#ticketForm [data-ticket-grupo="cargoEquipeId"]');
+  campos.cargoEquipeId = grupo ? [...grupo.querySelectorAll('input:checked')].map(i => i.value) : [];
+  return campos;
+}
+
+async function renderGerenciadorTickets() {
+  const box = $('configCampos');
+  box.innerHTML = '<p class="nota">Carregando tickets...</p>';
+  try {
+    const dados = await api(`/api/guilds/${servidorAtual}/tickets`);
+    const tickets = dados.tickets || [];
+    box.innerHTML = `
+      <div class="linha">
+        <div><strong>🎫 Tickets configurados</strong><div class="nota">Crie vários tickets. Cada um fica salvo separadamente.</div></div>
+        <button class="primario" data-ticket-acao="novo">➕ Criar ticket</button>
+      </div>
+      <div class="tickets-lista">
+        ${tickets.length ? tickets.map((t, i) => `
+          <div class="ticket-item" data-ticket-id="${esc(t.id)}">
+            <strong>🎫 ${esc(t.tituloPainel || t.textoBotao || `Ticket ${i + 1}`)}</strong>
+            <small>Canal: ${esc(canaisCache.find(c => c.id === t.canalPainelId)?.nome || 'não encontrado')}</small>
+            <small>${parseInt(t.opcoes ? t.opcoes.split('\\n').filter(Boolean).length : 0, 10)} opção(ões) configurada(s)</small>
+            <div class="acoes">
+              <button data-ticket-acao="editar" data-ticket-id="${esc(t.id)}">✏️ Editar</button>
+              <button data-ticket-acao="excluir" data-ticket-id="${esc(t.id)}">🗑️ Excluir</button>
+            </div>
+          </div>`).join('') : '<p class="nota">Nenhum ticket configurado ainda. Clique em “Criar ticket”.</p>'}
+      </div>
+      <div id="ticketEditor"></div>`;
+    box.querySelectorAll('[data-ticket-acao]').forEach(btn => btn.addEventListener('click', ticketAcao));
+  } catch (e) {
+    box.innerHTML = `<p class="msg erro">${esc(e.message)}</p>`;
+  }
+}
+
+async function ticketAcao(e) {
+  const btn = e.currentTarget;
+  const acao = btn.dataset.ticketAcao;
+  if (acao === 'novo') {
+    const editor = $('ticketEditor');
+    editor.innerHTML = ticketFormularioHtml({});
+    bindTicketEditor();
+    return;
+  }
+  if (acao === 'editar') {
+    const dados = await api(`/api/guilds/${servidorAtual}/tickets`);
+    const ticket = (dados.tickets || []).find(t => t.id === btn.dataset.ticketId);
+    if (!ticket) return;
+    $('ticketEditor').innerHTML = ticketFormularioHtml(ticket);
+    bindTicketEditor();
+    return;
+  }
+  if (acao === 'excluir') {
+    if (!confirm('Excluir este ticket e o painel dele do Discord?')) return;
+    btn.disabled = true;
+    try {
+      await api(`/api/guilds/${servidorAtual}/tickets/${btn.dataset.ticketId}`, { method: 'DELETE' });
+      await renderGerenciadorTickets();
+      msg($('configMsg'), 'Ticket excluído.');
+    } catch (err) {
+      msg($('configMsg'), err.message, true);
+      btn.disabled = false;
+    }
+  }
+}
+
+function bindTicketEditor() {
+  document.querySelector('#ticketForm [data-ticket-acao="cancelar"]')?.addEventListener('click', () => {
+    $('ticketEditor').innerHTML = '';
+  });
+  document.querySelector('#ticketForm [data-ticket-acao="salvar"]')?.addEventListener('click', async e => {
+    const btn = e.currentTarget;
+    const form = $('ticketForm');
+    const id = form.closest('#ticketEditor')?.dataset.ticketId || form.dataset.ticketId;
+    const card = document.querySelector('.ticket-item[data-ticket-id="' + CSS.escape(id || '') + '"]');
+    const campos = lerCamposTicket();
+    btn.disabled = true;
+    try {
+      let r;
+      if (id) {
+        r = await api(`/api/guilds/${servidorAtual}/tickets/${id}`, { method: 'PUT', body: JSON.stringify({ campos }) });
+      } else {
+        r = await api(`/api/guilds/${servidorAtual}/tickets`, { method: 'POST', body: JSON.stringify({ campos }) });
+      }
+      await renderGerenciadorTickets();
+      msg($('configMsg'), id ? 'Ticket atualizado.' : 'Ticket criado.');
+    } catch (err) {
+      msg(form.querySelector('[data-ticket-msg]'), err.message, true);
+      btn.disabled = false;
+    }
+  });
+}
+
+function voltarFuncoes() {
+  visaoAtual = 'funcoes';
+  aplicarVisao();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+$('listaFuncoes').addEventListener('click', async e => {
+  const btn = e.target.closest('button[data-acao]');
+  if (!btn) return;
+  const chave = btn.closest('.funcao').dataset.chave;
+  if (btn.dataset.acao === 'configurar') { abrirConfiguracao(chave); return; }
+  const f = funcoesCache.find(x => x.chave === chave);
+  try {
+    await gravarFuncao(chave, !f.ativa, f.campos);
+    renderFuncoes();
+    msg(document.querySelector(`.funcao[data-chave="${chave}"] [data-msg]`), f.ativa ? 'Ativada.' : 'Desligada.');
+  } catch (err) {
+    msg(btn.closest('.funcao').querySelector('[data-msg]'), err.message, true);
+  }
+});
+
+$('configVoltar').addEventListener('click', voltarFuncoes);
+
+$('configTeste').addEventListener('click', async () => {
+  const btn = $('configTeste');
+  const campos = lerCamposDe($('configCampos'));
+  btn.disabled = true;
+  try {
+    const r = await api(`/api/guilds/${servidorAtual}/funcoes/${funcaoEditando}/teste`, {
+      method: 'POST',
+      body: JSON.stringify({ campos }),
+    });
+    msg($('configMsg'), r.mensagem || 'Teste enviado no canal escolhido.');
+  } catch (err) {
+    msg($('configMsg'), err.message, true);
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+$('ativarTodasFuncoes').addEventListener('click', ativarTodasFuncoes);
+
+$('configSalvar').addEventListener('click', async () => {
+  const f = funcoesCache.find(x => x.chave === funcaoEditando);
+  if (!f) return;
+  const campos = lerCamposDe($('configCampos'));
+  try {
+    campos.fotoDados = await lerFotoSelecionada();
+    await gravarFuncao(f.chave, f.ativa, campos);
+    renderFuncoes();
+    voltarFuncoes();
+    msg(document.querySelector(`.funcao[data-chave="${f.chave}"] [data-msg]`), 'Configuração salva.');
+  } catch (err) {
+    msg($('configMsg'), err.message, true);
+  }
+});
+
+function preencherCanaisAviso() {
+  $('avisoCanal').innerHTML = canaisCache.map(c => `<option value="${esc(c.id)}">#${esc(c.nome)}</option>`).join('');
+}
+
+$('btnAviso').addEventListener('click', async () => {
+  const btn = $('btnAviso');
+  btn.disabled = true;
+  try {
+    await api(`/api/guilds/${servidorAtual}/avisos`, {
+      method: 'POST',
+      body: JSON.stringify({ canalId: $('avisoCanal').value, texto: $('avisoTexto').value }),
+    });
+    $('avisoTexto').value = '';
+    msg($('msgAviso'), 'Aviso enviado.');
+  } catch (err) {
+    msg($('msgAviso'), err.message, true);
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+$('btnSair').addEventListener('click', async () => {
+  await api('/auth/logout', { method: 'POST' }).catch(() => {});
+  location.reload();
+});
+
+// Visões do painel: "painel" mostra tudo; "servidores" mostra só o cartão Servidor.
+let visaoAtual = 'painel';
+
+// Mostra só a parte escolhida no menu: painel (tudo), servidores ou funções.
+function aplicarVisao() {
+  [...$('painel').children].forEach(el => {
+    const base = !['dashboardBox', 'funcoesBox', 'avisosBox', 'configBox', 'candidaturasBox'].includes(el.id) || !!servidorAtual;
+    let mostrar = base;
+    if (visaoAtual === 'servidores') mostrar = el.id === 'cardServidor';
+    if (visaoAtual === 'funcoes') mostrar = el.id === 'funcoesBox' && !!servidorAtual;
+    if (visaoAtual === 'config') mostrar = el.id === 'configBox' && !!servidorAtual;
+    if (visaoAtual === 'candidaturas') mostrar = el.id === 'candidaturasBox' && !!servidorAtual;
+    el.classList.toggle('oculto', !mostrar);
+  });
+}
+function abrirMenu() { $('drawer').classList.add('aberto'); $('drawerFundo').classList.remove('oculto'); }
+function fecharMenu() { $('drawer').classList.remove('aberto'); $('drawerFundo').classList.add('oculto'); }
+$('btnMenu').addEventListener('click', abrirMenu);
+$('btnFechar').addEventListener('click', fecharMenu);
+$('drawerFundo').addEventListener('click', fecharMenu);
+$('drawer').addEventListener('click', e => {
+  const central = e.target.closest('button[data-central]');
+  if (central) {
+    fecharMenu();
+    if (central.dataset.central === 'sair') $('btnSair').click();
+    return;
+  }
+  if (e.target.closest('button[data-recurso]')) { fecharMenu(); return; }
+  const vis = e.target.closest('button[data-vis]');
+  if (!vis) return;
+  fecharMenu();
+  const v = vis.dataset.vis;
+  if (v === 'funcoes' && !servidorAtual) {
+    visaoAtual = 'servidores';
+    msg($('msgServidor'), 'Escolha um servidor para ver as funções.', true);
+  } else {
+    visaoAtual = v;
+  }
+  aplicarVisao();
+  if (v === 'candidaturas') carregarCandidaturas();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ---------- candidaturas ----------
+let permiteCandidaturas = false;
+async function verificarPermissaoCandidaturas(id) {
+  permiteCandidaturas = false;
+  if (!$('navCandidaturas')) return;
+  $('navCandidaturas').classList.add('oculto');
+  if (!id) return;
+  try {
+    const r = await api(`/api/guilds/${id}/recrutamento/permissao`);
+    permiteCandidaturas = !!r.ok;
+  } catch { permiteCandidaturas = false; }
+  $('navCandidaturas').classList.toggle('oculto', !permiteCandidaturas);
+}
+
+const ROTULO_STATUS = { pendente: 'Pendente', aprovada: 'Aprovada', recusada: 'Recusada' };
+
+async function carregarCandidaturas() {
+  if (!servidorAtual || !permiteCandidaturas) return;
+  $('candDetalhe').classList.add('oculto');
+  $('candLista').classList.remove('oculto');
+  msg($('candMsg'), '');
+  try {
+    const q = encodeURIComponent($('candBusca').value.trim());
+    const st = encodeURIComponent($('candStatus').value);
+    const r = await api(`/api/guilds/${servidorAtual}/recrutamento/candidaturas?q=${q}&status=${st}`);
+    const itens = r.candidaturas || [];
+    $('candLista').innerHTML = itens.length
+      ? itens.map(c => `
+        <div class="cand" data-cid="${esc(c.id)}">
+          <div><strong>${esc(c.usuario)}</strong><span class="sub">${esc(c.nome)} · ${esc(c.idade)} anos · Roblox: ${esc(c.roblox)}</span></div>
+          <span class="st st-${esc(c.status)}">${esc(ROTULO_STATUS[c.status] || c.status)}</span>
+        </div>`).join('')
+      : '<p class="nota">Nenhuma candidatura encontrada.</p>';
+    $('candLista').querySelectorAll('.cand').forEach(el => el.addEventListener('click', () => abrirCandidatura(el.dataset.cid)));
+  } catch (err) { msg($('candMsg'), err.message, true); }
+}
+
+async function abrirCandidatura(cid) {
+  try {
+    const r = await api(`/api/guilds/${servidorAtual}/recrutamento/candidaturas/${cid}`);
+    const c = r.candidatura;
+    const linhas = [
+      ['Nome', c.nome], ['Idade', c.idade], ['Experiência', c.experiencia],
+      ['Já participou de clã/comunidade', c.jaParticipou], ['Horário', c.horario],
+      ['Motivo', c.motivo], ['Nome no Discord', c.nomeDiscord], ['Roblox', c.roblox],
+      ['Enviada em', new Date(c.criadaEm).toLocaleString('pt-BR')],
+    ];
+    $('candDetalhe').innerHTML = `
+      <div class="linha"><button class="sec" data-cand-acao="voltar">← Voltar à lista</button></div>
+      <h3>${esc(c.usuario)}</h3>
+      ${linhas.map(([k, v]) => `<p class="campo"><strong>${esc(k)}</strong><br>${esc(v)}</p>`).join('')}
+      <p class="sub">Status: ${esc(ROTULO_STATUS[c.status] || c.status)}</p>
+      ${c.status === 'pendente' ? `<div class="linha"><button class="primario" data-cand-acao="aprovar">Aprovar</button><button class="sec" data-cand-acao="recusar">Recusar</button></div>` : ''}`;
+    $('candLista').classList.add('oculto');
+    $('candDetalhe').classList.remove('oculto');
+    $('candDetalhe').querySelectorAll('[data-cand-acao]').forEach(b => b.addEventListener('click', () => {
+      const a = b.dataset.candAcao;
+      if (a === 'voltar') return carregarCandidaturas();
+      decidirCandidatura(cid, a);
+    }));
+  } catch (err) { msg($('candMsg'), err.message, true); }
+}
+
+async function decidirCandidatura(cid, acao) {
+  const pergunta = acao === 'aprovar' ? 'Aprovar esta candidatura?' : 'Recusar esta candidatura?';
+  if (!confirm(pergunta)) return;
+  try {
+    const r = await api(`/api/guilds/${servidorAtual}/recrutamento/candidaturas/${cid}/decisao`, {
+      method: 'POST',
+      body: JSON.stringify({ acao }),
+    });
+    await abrirCandidatura(cid);
+    msg($('candMsg'), r.avisos?.length ? 'Decisão salva, com avisos: ' + r.avisos.join(' ') : 'Decisão salva.', false);
+  } catch (err) { msg($('candMsg'), err.message, true); }
+}
+
+$('candVoltar').addEventListener('click', () => { visaoAtual = 'painel'; aplicarVisao(); });
+$('candBusca').addEventListener('change', carregarCandidaturas);
+$('candStatus').addEventListener('change', carregarCandidaturas);
+
+iniciar();
+</script>
+</body>
+</html>
