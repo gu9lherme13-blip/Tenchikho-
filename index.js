@@ -45,6 +45,7 @@ const CAMPOS = {
     canalAnuncioId: 'id', textoAnuncio: 'texto',
   },
   avisos: { canalId: 'id' },
+    ticket: { canalPainelId: 'id', categoriaId: 'id', cargoEquipeId: 'ids', tituloPainel: 'titulo', textoPainel: 'texto', opcoes: 'enorme', textoBotao: 'curto', textoBotaoFechar: 'curto', mensagemAbertura: 'texto' },
   aniversario: { canalId: 'id', horaPostagem: 'curto', mensagem: 'texto' },
   saida: { canalId: 'id', formato: 'curto', mensagem: 'texto', tituloEmbed: 'curto', logsCanalId: 'id' },
   moderacao: { logsCanalId: 'id', cargosIds: 'ids' },
